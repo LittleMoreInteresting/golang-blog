@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>跟着官方文档学Golang on Go语言入门</title>
+    <link>http://blog.911015.com/getting-started/</link>
+    <description>Recent content in 跟着官方文档学Golang on Go语言入门</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="http://blog.911015.com/getting-started/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installation</title>
+      <link>http://blog.911015.com/getting-started/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/getting-started/installation/</guid>
+      <description>Installing Ace is easy. Just install the Hugo binary, create a new site and install the Ace theme.Installing Hugo In order to run this theme, you need to install Hugo on your system. This theme requires Hugo&amp;rsquo;s extended version to support SCSS compilation, so make please sure you install the extended version. For more detailed information and other methods of installation you can visit the Hugo installation guide.</description>
+    </item>
+    
+  </channel>
+</rss>
