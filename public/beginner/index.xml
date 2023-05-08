@@ -26,10 +26,10 @@ Copyexport PATH=$PATH:/usr/local/go/bin **注意**：对配置文件所做的�
     
     <item>
       <title>01-新手入门</title>
-      <link>http://blog.911015.com/beginner/01.html</link>
+      <link>http://blog.911015.com/beginner/02.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.911015.com/beginner/01.html</guid>
+      <guid>http://blog.911015.com/beginner/02.html</guid>
       <description>在本教程中，您将获得Go编程的简要介绍
 安装Go . 写一些简单的 &amp;ldquo;Hello, world&amp;rdquo; . 使用go命令运行代码. 使用Go程序包发现工具查找可以在自己的代码中使用的程序包. 调用外部模块的功能. 前期准备 一些编程经验。 这里的代码非常简单，但了解一些函数相关的知识会有所帮助。. 用于编辑代码的工具。** ** 任何文本编辑器都可以。大多数文本编辑器都很好地支持Go。最受欢迎的是VSCode（免费）、GoLand（付费）和Vim（免费）。 一个命令终端. Go在Linux和Mac上以及Windows中的PowerShell或cmd上使用任何终端都能很好地工作。 Hello World 按一下步骤写一段 “Hello World”代码
 1、打开一个命令提示符并cd到您的主目录。 Linux/Mac 系统执行 : cd Window系统执行： cd %HOMEPATH%

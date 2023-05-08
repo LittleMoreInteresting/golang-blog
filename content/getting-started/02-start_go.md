@@ -2,7 +2,7 @@
 title = "01-新手入门"
 description = ""
 weight = 1
-url = "/beginner/01.html"
+url = "/beginner/02.html"
 +++
 
 > 在本教程中，您将获得Go编程的简要介绍
