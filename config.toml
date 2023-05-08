@@ -8,7 +8,7 @@ pygmentsStyle = "monokailight"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir= false
 enableMissingTranslationPlaceholders = false
-
+sectionPagesMenu = 'main'
 # Enable Google Analytics by entering your tracking id
 googleAnalytics = ""
 
@@ -43,4 +43,17 @@ site_logo = "/img/site_logo.png"
   xhtml = false
 
 [outputs]
-home = [ "HTML"]
+home = ["HTML","JSON"]
+
+
+[menu]
+[[menu.shortcuts]]
+name = "<i class='fab fa-qq'></i> QQ"
+url = "/contact.html"
+weight = 1
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-github'></i>"
+url = "http://github.com/LittleMoreInteresting/golang-blog"
+weight = 2
+

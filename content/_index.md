@@ -8,7 +8,4 @@ weight = 1
 《Go语言入门》 整理了从零开始学习Go语言的相关基础知识；
 {{< /lead >}}
 
-
-## Contents
-{{< childpages >}}
-
+## [跟着Go用户手册入门Golang](/beginner/)
