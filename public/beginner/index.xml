@@ -41,7 +41,7 @@ package main import ( &amp;#34;fmt&amp;#34; ) func main() { fmt.Println(&amp;#34
     </item>
     
     <item>
-      <title>03-创建Go模块</title>
+      <title>03-创建Go项目</title>
       <link>http://blog.911015.com/beginner/03.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
