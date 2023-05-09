@@ -1,6 +1,6 @@
 
 +++
-title = "03-创建Go模块"
+title = "03-创建Go项目"
 description = ""
 weight = 3
 url = "/beginner/03.html"

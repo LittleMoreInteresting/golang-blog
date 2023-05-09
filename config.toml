@@ -43,7 +43,7 @@ site_logo = "/img/site_logo.png"
   xhtml = false
 
 [outputs]
-home = ["HTML","JSON"]
+home = ["HTML","RSS","JSON"]
 
 
 [menu]

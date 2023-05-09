@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go语言入门</title>
+    <link>http://blog.911015.com/</link>
+    <description>Recent content on Go语言入门</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="http://blog.911015.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>01-Golang安装与体验</title>
+      <link>http://blog.911015.com/beginner/01.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/beginner/01.html</guid>
+      <description> 下载并安装按照一下步骤快速进行。 有关安装的其他内容，您可能对以下内容感兴趣：
+Go多版本安装管理 &amp;ndash;如何安装多版本并卸载。 Go 源码安装 &amp;ndash; 如何下载源码并在自己的机器上编译安装Go。 下载地址在这里 go.dev/dl/ 各系统版本都有，下载一个与自己系统匹配的版本，可以选最新版本进行安装学习。
+安装Go 选择下面对应的计算机操作系统，然后按照其安装说明进行操作。
+Linux 删除/usr/local/Go文件夹（如果存在），删除以前的Go安装，然后将刚下载的存档提取到/usr/local中，在/usr/local/go: Copyrm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.20.4.linux-amd64.tar.gz （您可能需要以root用户身份或通过sudo运行该命令）。不要将归档文件解压缩到现有的/usr/local/go目录中。这会导致Go安装失败
+将/usr/local/go/bin添加到PATH环境变量中 您可以通过将以内容添加到$HOME/.profile或/etc/profile（全局安装）来完成此操作：
+Copyexport PATH=$PATH:/usr/local/go/bin **注意**：对配置文件所做的更改可能要等到下次登录计算机时才能应用。要立即应用更改，只需直接运行shell命令，或者使用`source $HOME/.profile` 等命令从概要文件中执行这些命令。3. 通过打开命令提示符并输入以下命令来验证是否已安装GoCopy$ go version 4. 确认该命令打印已安装的Go版本。Mac 打开下载的软件包文件，并按照提示安装Go 该软件包将Go安装到/usr/local/go。该包应该将/usr/local/go/bin目录放在PATH环境变量中。可能需要重新启动任何打开的终端会话才能使更改生效。
+通过打开命令提示符并键入以下命令来验证是否已安装Go go version
+确认该命令打印已安装的Go版本。 Window 1、打开您下载的MSI文件，并按照提示安装Go。 默认情况下，安装程序将安装Go到 Program Files或Program Files（x86）。您可以根据需要更改位置。安装后，您需要关闭并重新打开任何打开的命令提示符，以便在命令提示符下反映安装程序对环境所做的更改。
+2、验证您是否已安装Go；
+在Windows中，单击“开始”菜单。 在菜单的搜索框中，键入cmd，然后按Enter键。 在出现的“命令提示符”窗口中，键入以下命令： go version 确认该命令打印已安装的Go版本。 Reference Installing Go </description>
+    </item>
+    
+    <item>
+      <title>02-新手入门</title>
+      <link>http://blog.911015.com/beginner/02.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/beginner/02.html</guid>
+      <description>在本教程中，您将获得Go编程的简要介绍
+安装Go . 写一些简单的 &amp;ldquo;Hello, world&amp;rdquo; . 使用go命令运行代码. 使用Go程序包发现工具查找可以在自己的代码中使用的程序包. 调用外部模块的功能. 前期准备 一些编程经验。 这里的代码非常简单，但了解一些函数相关的知识会有所帮助。. 用于编辑代码的工具。** ** 任何文本编辑器都可以。大多数文本编辑器都很好地支持Go。最受欢迎的是VSCode（免费）、GoLand（付费）和Vim（免费）。 一个命令终端. Go在Linux和Mac上以及Windows中的PowerShell或cmd上使用任何终端都能很好地工作。 Hello World 按一下步骤写一段 “Hello World”代码
+1、打开一个命令提示符并cd到您的主目录。 Linux/Mac 系统执行 : cd Window系统执行： cd %HOMEPATH%
+2、为您的第一个Go源代码创建一个hello目录 可以使用一下命令：
+mkdir hello cd hello 3、为代码启用依赖管理
+当您的代码导入其他项目中的包（package）时，您可以通过自己的代码来管理这些模块的依赖关系。该模块由go.mod文件定义，通过该文件追踪提供包的这些模块。该go.mod文件与您的代码一起保存，包括在您的源代码存储库中。要通过创建go.mod文件为代码启用依赖管理，请运行go mod init+模块的名称 命令。该名称是模块的模块路径。在实际开发中，模块路径通常是保存源代码的存储仓库位置。例如，模块路径可能是github.com/mymodule。如果您计划发布您的模块供他人使用，则模块路径必须是Go工具可以下载您的模块的位置。对于本教程，只需使用example/hello。
+go mod init example/hello go: creating new go.mod: module example/hello 4、在编辑器中，创建一个文件hello.go，在其中编写代码。 5、将以下代码粘贴到hello.go文件中并保存该文件。
+package main import ( &amp;#34;fmt&amp;#34; ) func main() { fmt.Println(&amp;#34;Hello World（^-^）&amp;#34;) } 接下来看一下这段代码的内容：</description>
+    </item>
+    
+    <item>
+      <title>03-创建Go模块</title>
+      <link>http://blog.911015.com/beginner/03.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/beginner/03.html</guid>
+      <description>这是教程的第一部分，介绍了Go语言的一些基本功能。如果你刚开始使用Go语言，一定要看一下教程：Go入门，它介绍了Go命令、Go模块和非常简单的Go代码。 在本教程中，您将创建两个模块。第一种是用来被其他库或应用导入。第二个模块在程序中调用第一个模块的方法。 本教程包括七个小的部分：
+创建一个模块：编写一个小模块，其中包含可以从另一个模块调用的函数。 从另一个模块调用您的代码：导入并使用您的新模块。 返回并处理错误：添加简单的错误处理。 返回一个随机的问候语：处理切片（slices）中的数据（slices：Go的动态大小数组）。 为多个人返回问候语：将键/值对存储在映射（map）中。 添加测试：使用Go内置的单元测试功能来测试代码。 编译并安装应用程序：在本地编译并安装。 前期准备 一些编程经验。这里的代码非常简单，但了解函数、循环和数组会有所帮助。 用于编辑代码的工具。 一种命令终端。Go在Linux和Mac上以及Windows中的PowerShell或cmd上使用任何终端都能很好地工作。 开始创建模块 首先创建Go模块。我们通常会把一些包含同一类功能函数的包放在同一模块中，例如，您可以创建模块，模块的包具有进行财务分析的功能，以便其他编写财务应用程序的人可以使用您的代码。有关开发模块的更多信息，请参阅开发和发布模块.。 Go语言中 代码，包(package)，模块（module）之间的关系是:代码组成包，包组成模块。您开发的模块需要指定运行代码所需的依赖项，包括Go版本及其所需的其他模块。 当您在模块中添加或改进功能时，您将发布模块的新版本。编写调用这个模块的开发人员可以导入新版本模块，并在将其上线之前使用新版本进行测试。
+打开命令行，cd到home目录（或其他存放代码的目录） 新建目录 greetings 用来存放Go代码 使用 go mod init 命令初始化一个module 执行 go mod init 命令；本例中我们用 example.com/greetings；如果您发布模块，这必须是Go工具可以下载模块的路径，那就是本模块代码仓库的路径（例如：github.com/example）；
+go mod init example.com/greetings # go: creating new go.mod: module example.com/greetings go mod init 命令创建一个go.mod文件来跟踪代码的依赖关系。到目前为止，该文件只包括模块的名称和代码支持的Go版本。但当你添加依赖项时，go.mod文件会列出你的代码所依赖的版本。这可以保持构建的可复制性，并让你直接控制要使用的模块版本。
+在编辑器中新建 greetings.go 文件 在greetings.go文件中写入一下代码并保存 package greetings import &amp;#34;fmt&amp;#34; // Hello returns a greeting for the named person. func Hello(name string) string { // Return a greeting that embeds the name in a message.</description>
+    </item>
+    
+    <item>
+      <title>与我联系</title>
+      <link>http://blog.911015.com/contact.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/contact.html</guid>
+      <description> Email： create98715@duck.com QQ： 3336449889 </description>
+    </item>
+    
+  </channel>
+</rss>
