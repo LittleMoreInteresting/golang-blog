@@ -1,7 +1,7 @@
 baseURL = 'http://blog.911015.com/'
 languageCode = 'en-us'
 title = 'Go语言入门'
-theme = "ace-documentation"
+theme = "ace"
 pygmentsCodeFences = true
 pygmentsStyle = "monokailight"
 
