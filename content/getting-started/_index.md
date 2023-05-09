@@ -1,5 +1,5 @@
 +++
-title = "跟着Go用户手册入门Golang"
+title = "跟着用户手册学Golang"
 description = "Go编程语言是一个开源项目，旨在提高程序员的工作效率。"
 weight = 1
 url = "/beginner/"
