@@ -1,7 +1,7 @@
 +++
-title = "01-新手入门"
+title = "02-新手入门"
 description = ""
-weight = 1
+weight = 2
 url = "/beginner/02.html"
 +++
 

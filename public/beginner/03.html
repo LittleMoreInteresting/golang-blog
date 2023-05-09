@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="canonical" href="http://blog.911015.com/beginner/03.html">
+
+    <title>
+        
+        03-创建Go模块 | Go语言入门
+        
+    </title>
+
+    
+    <link href="http://blog.911015.com/css/fontawesome.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="http://blog.911015.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                    <img src="/img/site_logo.png" />
+                
+                Go语言入门
+            </a>
+        </div>
+        
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+              <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact.html" target="_blank">
+                                  <i class='fab fa-qq'></i> QQ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="http://github.com/LittleMoreInteresting/golang-blog" target="_blank">
+                                  <i class='fab fa-github'></i>
+                                </a>
+                            </li>
+              </ul>
+            </div>
+    </div>
+</nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/beginner/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/beginner/"><h6>跟着Go用户手册入门Golang</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/beginner/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/01.html" class="nav-link p-0">
+                    01-Golang安装与体验
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/02.html" class="nav-link p-0">
+                    02-新手入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/03.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/beginner/03.html" class="nav-link p-0">
+                    03-创建Go模块
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#前期准备">前期准备</a></li>
+        <li><a href="#开始创建模块">开始创建模块</a></li>
+        <li><a href="#调用模块">调用模块</a></li>
+        <li><a href="#返回并处理错误">返回并处理错误</a></li>
+        <li><a href="#随机返回问候语">随机返回问候语</a></li>
+        <li><a href="#为多人回复问候">为多人回复问候</a></li>
+        <li><a href="#添加测试">添加测试</a></li>
+        <li><a href="#编译并安装应用">编译并安装应用</a></li>
+        <li><a href="#heading"></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+</div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">03-创建Go模块</h1>
+    <div class="d-flex align-items-center">
+        
+    </div>
+</div>
+
+<hr>
+
+
+<p>这是教程的第一部分，介绍了Go语言的一些基本功能。如果你刚开始使用Go语言，一定要看一下教程：Go入门，它介绍了Go命令、Go模块和非常简单的Go代码。
+在本教程中，您将创建两个模块。第一种是用来被其他库或应用导入。第二个模块在程序中调用第一个模块的方法。
+本教程包括七个小的部分：</p>
+<ol>
+<li>创建一个模块：编写一个小模块，其中包含可以从另一个模块调用的函数。</li>
+<li>从另一个模块调用您的代码：导入并使用您的新模块。</li>
+<li>返回并处理错误：添加简单的错误处理。</li>
+<li>返回一个随机的问候语：处理切片（slices）中的数据（slices：Go的动态大小数组）。</li>
+<li>为多个人返回问候语：将键/值对存储在映射（map）中。</li>
+<li>添加测试：使用Go内置的单元测试功能来测试代码。</li>
+<li>编译并安装应用程序：在本地编译并安装。</li>
+</ol>
+<h3 id="前期准备">前期准备</h3>
+<ul>
+<li>一些编程经验。这里的代码非常简单，但了解函数、循环和数组会有所帮助。</li>
+<li>用于编辑代码的工具。</li>
+<li>一种命令终端。Go在Linux和Mac上以及Windows中的PowerShell或cmd上使用任何终端都能很好地工作。</li>
+</ul>
+<h3 id="开始创建模块">开始创建模块</h3>
+<p>首先创建Go模块。我们通常会把一些包含同一类功能函数的包放在同一模块中，例如，您可以创建模块，模块的包具有进行财务分析的功能，以便其他编写财务应用程序的人可以使用您的代码。有关开发模块的更多信息，请参阅<a href="https://go.dev/doc/modules/developing">开发和发布模块</a>.。
+Go语言中 代码，包(package)，模块（module）之间的关系是:代码组成包，包组成模块。您开发的模块需要指定运行代码所需的依赖项，包括Go版本及其所需的其他模块。
+当您在模块中添加或改进功能时，您将发布模块的新版本。编写调用这个模块的开发人员可以导入新版本模块，并在将其上线之前使用新版本进行测试。</p>
+<ol>
+<li>打开命令行，cd到home目录（或其他存放代码的目录）</li>
+<li>新建目录 greetings 用来存放Go代码</li>
+<li>使用 <a href="https://go.dev/ref/mod#go-mod-init">go mod init</a> 命令初始化一个module</li>
+</ol>
+<p>执行 go mod init <module path> 命令；本例中我们用  example.com/greetings；如果您发布模块，这必须是Go工具可以下载模块的路径，那就是本模块代码仓库的路径（例如：github.com/example）；</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go mod init example.com/greetings
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># go: creating new go.mod: module example.com/greetings</span>
+</span></span></code></pre></div><p>go mod init 命令创建一个go.mod文件来跟踪代码的依赖关系。到目前为止，该文件只包括模块的名称和代码支持的Go版本。但当你添加依赖项时，go.mod文件会列出你的代码所依赖的版本。这可以保持构建的可复制性，并让你直接控制要使用的模块版本。</p>
+<ol start="4">
+<li>在编辑器中新建 greetings.go 文件</li>
+<li>在greetings.go文件中写入一下代码并保存</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">greetings</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Hello returns a greeting for the named person.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#75af00">name</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Return a greeting that embeds the name in a message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">message</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Hi, %v. Welcome!&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">name</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#75af00">message</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>这是您的模块的第一个代码。它会向任何要求调用者返回问候语。下一步我们将调用此函数。
+代码解读：</p>
+<ul>
+<li>声明greetings包存放相关的功能方法</li>
+<li>实现Hello功能来返回问候语</li>
+</ul>
+<p>此函数接受字符串类型的name参数。该函数返回一个字符串。在Go中，名称以大写字母开头的函数可以由不在同一个包中的函数调用。这在Go中被称为导出名称。
+<img src="/img/03/function-syntax.png" alt=""></p>
+<ul>
+<li>声明一个用于保存问候语的message变量</li>
+</ul>
+<p>在Go中，:= 运算符是在一行中声明和初始化变量的快捷方式（Go使用右侧的值来确定变量的类型）。完整格式可以这样写：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">message</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">message</span> <span style="color:#111">=</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Hi, %v. Welcome!&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">name</span><span style="color:#111">)</span>
+</span></span></code></pre></div><ul>
+<li>使用fmt包的Sprintf函数可以创建一条问候消息。第一个参数是一个格式字符串，Sprintf将name参数的值替换%v。插入name参数的值将完成问候语</li>
+<li>将格式化的问候语文本返回给调用者</li>
+</ul>
+<p>在下一步中，您将从另一个模块调用此函数。</p>
+<h3 id="调用模块">调用模块</h3>
+<p>在上一节中，您创建了一个greetings模块。在本节中，您将编写代码来调用刚刚编写的模块中的Hello函数。您将编写可执行的代码，并调用问候语模块中的代码。</p>
+<ol>
+<li>创建一个hello目录编写调用代码</li>
+</ol>
+<p>创建此目录后，您应该在层次结构的同一级别同时拥有hello和greetings目录，如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&lt;home&gt;/
+</span></span><span style="display:flex;"><span> <span style="color:#111">|</span>-- greetings/
+</span></span><span style="display:flex;"><span> <span style="color:#111">|</span>-- hello/
+</span></span></code></pre></div><ol start="2">
+<li>为即将编写的代码启用依赖项跟踪。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go mod init example.com/hello
+</span></span></code></pre></div><ol start="3">
+<li>在文本编辑器的hello目录中，创建hello.go文件。</li>
+<li>编写代码调用Hello函数，打印返回值。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;example.com/greetings&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get a greeting message and print it.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">message</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">greetings</span><span style="color:#111">.</span><span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Gladys&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">message</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>代码解读：</p>
+<ul>
+<li>声明一个主程序包(main)。在Go中，作为应用程序执行的代码必须在主包中。</li>
+<li>导入两个包：example.com/greetings和fmt包。这使您的代码可以访问这些包中的函数。导入example.com/greetings（包含在您之前创建的模块中的包）可以访问Hello函数。您还可以导入fmt，它具有处理输入和输出文本的功能（例如将文本打印到控制台）。</li>
+<li>通过调用greetings包的Hello 方法来获得返回值。</li>
+</ul>
+<ol start="5">
+<li>编辑example.com/hello模块以使用本地example.com/hellos</li>
+</ol>
+<p>在生产环境，Go工具可以从远程代码仓库中下载得到example.com/helles模块。目前，由于您尚未发布该模块，您需要调整example.com/hello模块的依赖关系，以便它可以在本地找到example.com/hellos代码。
+用go mod edit命令编辑example.com/hello模块，将go工具从其模块路径（模块不在的地方）重定向到本地目录（模块所在的地方）。
+a、在hello目录中的命令提示符下，运行以下命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go mod edit -replace example.com/greetings<span style="color:#f92672">=</span>../greetings
+</span></span></code></pre></div><p>该命令指定将依赖example.com/greetings应替换为/greetings。运行该命令后，hello目录中的go.mod文件应包含一个replace指令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">module</span> <span style="color:#75af00">example</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">hello</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#ae81ff">1.16</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">replace</span> <span style="color:#75af00">example</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">greetings</span> <span style="color:#111">=&gt;</span> <span style="color:#111">..</span><span style="color:#f92672">/</span><span style="color:#75af00">greetings</span>
+</span></span></code></pre></div><p>b、在hello目录中的命令提示符下，运行go mod tidy 命令来同步example.com/hello模块的依赖项，添加代码所需但尚未在模块中加载的依赖项。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go mod tidy
+</span></span><span style="display:flex;"><span>go: found example.com/greetings in example.com/greetings v0.0.0-00010101000000-000000000000
+</span></span></code></pre></div><p>命令完成后，example.com/hello模块的go.mod文件应该如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">module</span> <span style="color:#75af00">example</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">hello</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#ae81ff">1.16</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">replace</span> <span style="color:#75af00">example</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">greetings</span> <span style="color:#111">=&gt;</span> <span style="color:#111">..</span><span style="color:#f92672">/</span><span style="color:#75af00">greetings</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">require</span> <span style="color:#75af00">example</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">greetings</span> <span style="color:#75af00">v0</span><span style="color:#ae81ff">.0.0</span><span style="color:#f92672">-</span><span style="color:#ae81ff">00010101000000</span><span style="color:#f92672">-</span><span style="color:#ae81ff">000000000000</span>
+</span></span></code></pre></div><p>该命令在greetings目录中找到了本地代码，然后添加了一个require指令，指定example.com/hello需要example.com/greetings。hello.go中导入greetings包时创建了此依赖项。
+模块路径后面的数字是一个伪版本号,是自动生成的代替版本号的数字（模块实际还没有）。
+要引用已发布的模块，go.mod文件通常会省略replace指令，并使用末尾带有标记版本号的require指令。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">require</span> <span style="color:#75af00">example</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">greetings</span> <span style="color:#75af00">v1</span><span style="color:#ae81ff">.1.0</span>
+</span></span></code></pre></div><ol start="6">
+<li>在hello目录中的命令提示符下，运行代码以确认它是否工作</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go run .
+</span></span><span style="display:flex;"><span>Hi, Gladys. Welcome!
+</span></span></code></pre></div><p>恭喜！您已经编写了两个功能模块。在下节内容是错误处理。</p>
+<h3 id="返回并处理错误">返回并处理错误</h3>
+<p>处理错误是健壮代码的一个基本特征。在本节中，您将添加一些代码，从greetings 模块返回一个错误，然后在调用者中进行处理。</p>
+<ol>
+<li>在 greetings/greetings.go 中添加代码:</li>
+</ol>
+<p>如果你不知道该向谁打招呼，那么回电是没有意义的。如果name参数为空，则向调用方返回一个错误。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">greetings</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;errors&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Hello returns a greeting for the named person.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#75af00">name</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If no name was given, return an error with a message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">if</span> <span style="color:#75af00">name</span> <span style="color:#f92672">==</span> <span style="color:#d88200">&#34;&#34;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">return</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">errors</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#d88200">&#34;empty name&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If a name was received, return a value that embeds the name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// in a greeting message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">message</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Hi, %v. Welcome!&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">name</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#75af00">message</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>代码解析：</p>
+<ul>
+<li>更改函数，使其返回两个值：一个string和一个error。调用者通过第二个返回值判断是否发生错误 (任何Go函数都可以返回多个值。有关更多信息，请参阅 <a href="https://go.dev/doc/effective_go.html#multiple-returns">Effective Go</a>.)</li>
+<li>导入Go标准库error包，使用 errors.New 函数。</li>
+<li>添加if语句判断无效请求（name为空），如果请求无效则返回error。errors.New 函数返回一个错误，其中包含错误消息。</li>
+<li>在成功返回中添加nil（表示没有错误）作为第二个返回值。这样，调用者就可以判断函数执行成功了。</li>
+</ul>
+<ol start="2">
+<li>在hello/hello.go文件中，处理hello函数返回的error以及非error值</li>
+</ol>
+<p>将以下代码添加到hello.go。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;example.com/greetings&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Set properties of the predefined Logger, including
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// the log entry prefix and a flag to disable printing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// the time, source file, and line number.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">SetPrefix</span><span style="color:#111">(</span><span style="color:#d88200">&#34;greetings: &#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">SetFlags</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Request a greeting message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">message</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">greetings</span><span style="color:#111">.</span><span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#d88200">&#34;&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If an error was returned, print it to the console and
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// exit the program.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Fatal</span><span style="color:#111">(</span><span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If no error was returned, print the returned message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// to the console.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">message</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>代码解析：</p>
+<ul>
+<li>将日志包配置为在其日志消息的开头打印命令名（“greetings：”），不带时间戳或源文件信息。</li>
+<li>将两个Hello返回值（包括错误）分配给变量。</li>
+<li>将Hello参数从Gladys的名称更改为空字符串，这样您就可以测试错误处理代码。判断 error 不等于 - nil，在这种情况下继续下去是没有意义。</li>
+<li>使用标准库的log包中的函数来输出错误信息。如果出现错误，则使用日志包的Fatal函数打印错误并停止程序。</li>
+</ul>
+<ol start="3">
+<li>在hello目录的命令行中，运行hello.go以确认代码是否有效</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go run .
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># greetings: empty name</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># exit status 1</span>
+</span></span></code></pre></div><p>这是Go中常见的错误处理：将错误作为值返回，以便调用方可以检查它。</p>
+<h3 id="随机返回问候语">随机返回问候语</h3>
+<p>在本节中，您将更改代码，使其不再每次返回一个问候语，而是返回几个预定义的问候语消息中的一个。
+为此，您将使用Go切片(slice)。切片就像一个数组，只是它的大小随着添加和删除项目而动态变化。切片是Go语言最有用的类型之一。
+添加一个slice 存放三条问候消息，然后让代码随机返回其中一条消息。</p>
+<ol>
+<li>在问候语/问候语.go中，更改代码，如下</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">greetings</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;errors&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;math/rand&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Hello returns a greeting for the named person.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#75af00">name</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If no name was given, return an error with a message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">if</span> <span style="color:#75af00">name</span> <span style="color:#f92672">==</span> <span style="color:#d88200">&#34;&#34;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">return</span> <span style="color:#75af00">name</span><span style="color:#111">,</span> <span style="color:#75af00">errors</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#d88200">&#34;empty name&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Create a message using a random format.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">message</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#75af00">randomFormat</span><span style="color:#111">(),</span> <span style="color:#75af00">name</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#75af00">message</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// init sets initial values for variables used in the function.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">init</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rand</span><span style="color:#111">.</span><span style="color:#75af00">Seed</span><span style="color:#111">(</span><span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Now</span><span style="color:#111">().</span><span style="color:#75af00">UnixNano</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// randomFormat returns one of a set of greeting messages. The returned
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// message is selected at random.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">randomFormat</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// A slice of message formats.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">formats</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">string</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#d88200">&#34;Hi, %v. Welcome!&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#d88200">&#34;Great to see you, %v!&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#d88200">&#34;Hail, %v! Well met!&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Return a randomly selected message format by specifying
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// a random index for the slice of formats.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">return</span> <span style="color:#75af00">formats</span><span style="color:#111">[</span><span style="color:#75af00">rand</span><span style="color:#111">.</span><span style="color:#75af00">Intn</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">formats</span><span style="color:#111">))]</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>代码解析：</p>
+<ul>
+<li>添加一个randomFormat函数，该函数可为问候语返回随机选择的格式。请注意，randomFormat以小写字母开头，使其只能由自己包中的代码访问（换句话说，它不导出）。</li>
+<li>在randomFormat中，用三种消息格式声明一个formats切片。在声明切片时，可以省略括号中的大小，如下所示：[]string。这告诉Go，片下面的数组大小可以动态更改。</li>
+<li>使用math/rand包生成一个随机数，用于从切片(slice)中选择项目。</li>
+<li>添加一个init函数，用当前时间为rand包设定种子。Go在初始化全局变量后，在程序启动时自动执行init函数。</li>
+<li>在Hello中，调用randomFormat函数来获取要返回的消息的格式，然后将格式和名称值一起使用来创建消息。</li>
+<li>像以前一样返回消息（或错误）。</li>
+</ul>
+<ol start="2">
+<li>在hello/hello.go中，更改代码，如下所示。</li>
+</ol>
+<p>只将Gladys的名字（或者其他名字，如果您愿意的话）作为参数添加到Hello.go中的Hello函数调用中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;example.com/greetings&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Set properties of the predefined Logger, including
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// the log entry prefix and a flag to disable printing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// the time, source file, and line number.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">SetPrefix</span><span style="color:#111">(</span><span style="color:#d88200">&#34;greetings: &#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">SetFlags</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Request a greeting message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">message</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">greetings</span><span style="color:#111">.</span><span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Gladys&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If an error was returned, print it to the console and
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// exit the program.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Fatal</span><span style="color:#111">(</span><span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If no error was returned, print the returned message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// to the console.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">message</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><ol start="3">
+<li>在hello目录的命令行中，运行hello.go以确认代码是否有效。多次运行它，注意问候语变化。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go run .
+</span></span><span style="display:flex;"><span>Great to see you, Gladys!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ go run .
+</span></span><span style="display:flex;"><span>Hi, Gladys. Welcome!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ go run .
+</span></span><span style="display:flex;"><span>Hail, Gladys! Well met!
+</span></span></code></pre></div><h3 id="为多人回复问候">为多人回复问候</h3>
+<p>在您将对模块代码进行的最后一次更改中，您将添加对在一个请求中获得多人问候的支持。换句话说，您将处理多值输入，然后将该输入中的值与多值输出配对。要做到这一点，您需要将一组名称传递给一个函数，该函数可以为每个名称返回一个问候语。
+但有一个问题。将Hello函数的参数从单个名称更改为一组名称将更改函数的签名。如果您已经发布了example.com/greetings模块，并且用户已经编写了调用Hello的代码，那么这种更改将破坏他们的程序。
+在这种情况下，更好的选择是用不同的名称编写一个新函数。新功能将采用多个参数。这保留了旧功能以实现向后兼容性。</p>
+<ol>
+<li>在greetings/greetings.go中，更改代如下所示。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">greetings</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;errors&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;math/rand&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Hello returns a greeting for the named person.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#75af00">name</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If no name was given, return an error with a message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">if</span> <span style="color:#75af00">name</span> <span style="color:#f92672">==</span> <span style="color:#d88200">&#34;&#34;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">return</span> <span style="color:#75af00">name</span><span style="color:#111">,</span> <span style="color:#75af00">errors</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#d88200">&#34;empty name&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Create a message using a random format.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">message</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#75af00">randomFormat</span><span style="color:#111">(),</span> <span style="color:#75af00">name</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#75af00">message</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Hellos returns a map that associates each of the named people
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// with a greeting message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Hellos</span><span style="color:#111">(</span><span style="color:#75af00">names</span> <span style="color:#111">[]</span><span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">string</span><span style="color:#111">]</span><span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// A map to associate names with messages.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">messages</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">string</span><span style="color:#111">]</span><span style="color:#00a8c8">string</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Loop through the received slice of names, calling
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// the Hello function to get a message for each name.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">for</span> <span style="color:#75af00">_</span><span style="color:#111">,</span> <span style="color:#75af00">name</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">names</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">message</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#75af00">name</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">err</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// In the map, associate the retrieved message with
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// the name.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75af00">messages</span><span style="color:#111">[</span><span style="color:#75af00">name</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#75af00">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#75af00">messages</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Init sets initial values for variables used in the function.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">init</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rand</span><span style="color:#111">.</span><span style="color:#75af00">Seed</span><span style="color:#111">(</span><span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Now</span><span style="color:#111">().</span><span style="color:#75af00">UnixNano</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// randomFormat returns one of a set of greeting messages. The returned
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// message is selected at random.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">randomFormat</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// A slice of message formats.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">formats</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">string</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#d88200">&#34;Hi, %v. Welcome!&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#d88200">&#34;Great to see you, %v!&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#d88200">&#34;Hail, %v! Well met!&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Return one of the message formats selected at random.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">return</span> <span style="color:#75af00">formats</span><span style="color:#111">[</span><span style="color:#75af00">rand</span><span style="color:#111">.</span><span style="color:#75af00">Intn</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">formats</span><span style="color:#111">))]</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>代码解析:</p>
+<ul>
+<li>添加一个Hellos函数，该函数的参数是名称slice，而不是一个单独的名称。此外，您还可以将其返回类型从字符串更改为map，以便返回名称与问候语的映射。</li>
+<li>让新的Hellos函数调用现有的Hello函数。这有助于减少重复，同时保留两个功能。</li>
+<li>创建一个map 变量messages，将每个接收到的名称（作为key）与生成的消息（作为Value）关联起来。Go中可以使用以下语法初始化映射：make（map[key-type]value-type）。您可以使用Hellos函数将此映射返回给调用者。</li>
+<li>循环查看函数接收到的names，检查每个name是否都有非空值，然后将消息与每个名称关联起来。在这个for循环中，range返回两个值：循环中当前项的索引和项值的副本。索引值用不到，用Go blank标识符（下划线）来忽略它。</li>
+</ul>
+<ol start="2">
+<li>在hello/hello.go调用代码中，传入names 切片，然后打印返回的name/message映射的内容。</li>
+</ol>
+<p>在hello.go中，更改代码，如下所示。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;example.com/greetings&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Set properties of the predefined Logger, including
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// the log entry prefix and a flag to disable printing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// the time, source file, and line number.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">SetPrefix</span><span style="color:#111">(</span><span style="color:#d88200">&#34;greetings: &#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">SetFlags</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// A slice of names.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">names</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">string</span><span style="color:#111">{</span><span style="color:#d88200">&#34;Gladys&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;Samantha&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;Darrin&#34;</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Request greeting messages for the names.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">messages</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">greetings</span><span style="color:#111">.</span><span style="color:#75af00">Hellos</span><span style="color:#111">(</span><span style="color:#75af00">names</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Fatal</span><span style="color:#111">(</span><span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If no error was returned, print the returned map of
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// messages to the console.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">messages</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>代码解析:</p>
+<ul>
+<li>创建一个names 切片，包含三个name。</li>
+<li>将names变量作为参数传递给Hellos函数。</li>
+</ul>
+<ol start="3">
+<li>在命令行中，切换到包含hello/hello.go的目录，然后使用go run确认代码是否有效。</li>
+</ol>
+<p>输出应该是将name与message关联起来的map，如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go run .
+</span></span><span style="display:flex;"><span>map<span style="color:#f92672">[</span>Darrin:Hail, Darrin! Well met! Gladys:Hi, Gladys. Welcome! Samantha:Hail, Samantha! Well met!<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>本主题介绍了用于表示名称/值对的映射。它还引入了通过为模块中的新功能或更改的功能实现新功能来保持向后兼容性的想法。</p>
+<h3 id="添加测试">添加测试</h3>
+<p>现在您已经将代码放到了一个固定的位置，添加一个测试。在开发过程中测试代码可能会暴露出在您进行更改时出现的错误。在本章节中，您将为 Hello 函数添加一个测试。
+Go 内置的对单元测试的支持使得在进行测试时更容易。具体来说，使用命名约定、Go 的 testing 包和 Go test 命令，您可以快速编写和执行测试。</p>
+<ol>
+<li>在 greetings 目录中，创建一个名为 greetings_test.go 的文件。</li>
+</ol>
+<p>以_test.go 结尾的文件名告诉 go test 命令此文件包含测试函数。</p>
+<ol start="2">
+<li>在 greeting_test.go 中，添加以下代码并保存文件。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">greetings</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d88200">&#34;regexp&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// TestHelloName calls greetings.Hello with a name, checking
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// for a valid return value.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">TestHelloName</span><span style="color:#111">(</span><span style="color:#75af00">t</span> <span style="color:#f92672">*</span><span style="color:#75af00">testing</span><span style="color:#111">.</span><span style="color:#75af00">T</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">name</span> <span style="color:#f92672">:=</span> <span style="color:#d88200">&#34;Gladys&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">want</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">regexp</span><span style="color:#111">.</span><span style="color:#75af00">MustCompile</span><span style="color:#111">(</span><span style="color:#d88200">`\b`</span><span style="color:#f92672">+</span><span style="color:#75af00">name</span><span style="color:#f92672">+</span><span style="color:#d88200">`\b`</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">msg</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Gladys&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">if</span> <span style="color:#111">!</span><span style="color:#75af00">want</span><span style="color:#111">.</span><span style="color:#75af00">MatchString</span><span style="color:#111">(</span><span style="color:#75af00">msg</span><span style="color:#111">)</span> <span style="color:#f92672">||</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">t</span><span style="color:#111">.</span><span style="color:#75af00">Fatalf</span><span style="color:#111">(</span><span style="color:#d88200">`Hello(&#34;Gladys&#34;) = %q, %v, want match for %#q, nil`</span><span style="color:#111">,</span> <span style="color:#75af00">msg</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">,</span> <span style="color:#75af00">want</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// TestHelloEmpty calls greetings.Hello with an empty string,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// checking for an error.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">TestHelloEmpty</span><span style="color:#111">(</span><span style="color:#75af00">t</span> <span style="color:#f92672">*</span><span style="color:#75af00">testing</span><span style="color:#111">.</span><span style="color:#75af00">T</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">msg</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#d88200">&#34;&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">if</span> <span style="color:#75af00">msg</span> <span style="color:#f92672">!=</span> <span style="color:#d88200">&#34;&#34;</span> <span style="color:#f92672">||</span> <span style="color:#75af00">err</span> <span style="color:#f92672">==</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">t</span><span style="color:#111">.</span><span style="color:#75af00">Fatalf</span><span style="color:#111">(</span><span style="color:#d88200">`Hello(&#34;&#34;) = %q, %v, want &#34;&#34;, error`</span><span style="color:#111">,</span> <span style="color:#75af00">msg</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>代码解析:</p>
+<ul>
+<li>在与您正在测试的代码相同的包中实现测试函数。</li>
+<li>创建两个测试函数来测试 greetings.Hello 函数。测试函数名称的形式为 TestName，其中 Name 表示特定测试的内容。此外，测试函数将指向测试包的 testing.T 类型的指针作为参数。您可以使用此参数的方法从测试中进行报告和日志记录。</li>
+<li>执行两次测试
+<ul>
+<li>TestHelloName 调用 Hello 函数，传递一个名称值，该函数应该能够使用该名称值返回有效的响应消息。如果调用返回错误或意外响应消息（其中不包括您传入的名称），则使用 t 参数的 Fatalf 方法将消息打印到控制台并结束执行。</li>
+<li>TestHelloEmpty 使用一个空字符串调用 Hello 函数。此测试旨在确认您的错误处理是否有效。如果调用返回非空字符串或没有错误，则使用 t 参数的 Fatalf 方法将消息打印到控制台并结束执行。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>在问候目录的命令行中，运行 go test 命令来执行测试。
+go test 命令在测试文件（名称以\test.go 结尾）中执行测试函数（名称以 test 开头）。您可以添加-v 标志来获得详细的输出，其中列出了所有测试及其结果。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go <span style="color:#111">test</span>
+</span></span><span style="display:flex;"><span>PASS
+</span></span><span style="display:flex;"><span>ok example.com/greetings 0.364s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ go <span style="color:#111">test</span> -v
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span> RUN TestHelloName
+</span></span><span style="display:flex;"><span>--- PASS: TestHelloName <span style="color:#f92672">(</span>0.00s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span> RUN TestHelloEmpty
+</span></span><span style="display:flex;"><span>--- PASS: TestHelloEmpty <span style="color:#f92672">(</span>0.00s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PASS
+</span></span><span style="display:flex;"><span>ok example.com/greetings 0.372s
+</span></span></code></pre></div><ol start="4">
+<li>打断 greetings.Hello 函数用于查看未通过的测试。
+TestHelloName 测试函数检查您指定为 Hello 函数参数的名称的返回值。要查看失败的测试结果，请更改 greetings.Hello 函数，使其不再包含名称。
+在 greetings/greetings.go 中，粘贴以下代码来代替 Hello 函数。请注意，高亮显示的行会更改函数返回的值，就好像名称参数被意外删除了一样。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Hello returns a greeting for the named person.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Hello</span><span style="color:#111">(</span><span style="color:#75af00">name</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// If no name was given, return an error with a message.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">if</span> <span style="color:#75af00">name</span> <span style="color:#f92672">==</span> <span style="color:#d88200">&#34;&#34;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">return</span> <span style="color:#75af00">name</span><span style="color:#111">,</span> <span style="color:#75af00">errors</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#d88200">&#34;empty name&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a message using a random format.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// message := fmt.Sprintf(randomFormat(), name)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">message</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprint</span><span style="color:#111">(</span><span style="color:#75af00">randomFormat</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">return</span> <span style="color:#75af00">message</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><ol start="5">
+<li>在 greetings 目录的命令行中，运行 go test 来执行测试。
+这一次，在没有-v 标志的情况下运行 go test。输出将只包括失败测试的结果，当您有很多测试时，这可能很有用。TestHelloName 测试应该失败—— TestHelloEmpty 仍然通过。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go <span style="color:#111">test</span>
+</span></span><span style="display:flex;"><span>--- FAIL: TestHelloName <span style="color:#f92672">(</span>0.00s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>greetings_test.go:15: Hello<span style="color:#f92672">(</span><span style="color:#d88200">&#34;Gladys&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;Hail, %v! Well met!&#34;</span>, &lt;nil&gt;, want match <span style="color:#00a8c8">for</span> <span style="color:#d88200">`</span><span style="color:#8045ff">\b</span>Gladys<span style="color:#8045ff">\b</span><span style="color:#d88200">`</span>, nil
+</span></span><span style="display:flex;"><span>FAIL
+</span></span><span style="display:flex;"><span><span style="color:#111">exit</span> status <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>FAIL example.com/greetings 0.182s
+</span></span></code></pre></div><h3 id="编译并安装应用">编译并安装应用</h3>
+<p>在最后一个主题中，您将学习几个新的 go 命令。虽然 go run 命令是在频繁更改时编译和运行程序的有用快捷方式，但它不会生成二进制可执行文件。</p>
+<p>本主题介绍了用于构建代码的两个附加命令:</p>
+<ul>
+<li>go-build 命令编译包及其依赖项，但不安装结果。</li>
+<li>go install 命令编译并安装程序包。</li>
+</ul>
+<ol>
+<li>在 hello 目录的命令行中，运行 go build 命令将代码编译为可执行文件。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go build
+</span></span></code></pre></div><ol start="2">
+<li>在 hello 目录中的命令行中，运行新的 hello 可执行文件以确认代码是否有效。
+请注意，您的结果可能会有所不同，这取决于您在测试后是否更改了 greetings.go 代码。</li>
+</ol>
+<ul>
+<li>Linux or Mac:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ ./hello
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>map<span style="color:#f92672">[</span>Darrin:Great to see you, Darrin! Gladys:Hail, Gladys! Well met! Samantha:Hail, Samantha! Well met!<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li>On Windows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ hello.exe
+</span></span><span style="display:flex;"><span>map<span style="color:#f92672">[</span>Darrin:Great to see you, Darrin! Gladys:Hail, Gladys! Well met! Samantha:Hail, Samantha! Well met!<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>您已将应用程序编译为可执行文件，以便运行它。但要当前运行它，您的提示需要位于可执行文件的目录中，或者指定可执行文件路径。
+接下来，您将安装可执行文件，这样您就可以在不指定其路径的情况下运行它。</p>
+<ol start="3">
+<li>查找 Go 安装路径，Go 命令将在其中安装当前软件包。
+您可以通过运行 go list 命令来发现安装路径，如以下示例所示：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go list -f <span style="color:#d88200">&#39;{{.Target}}&#39;</span>
+</span></span></code></pre></div><p>例如，命令的输出可能会说/home/gopher/bin/hello，这意味着二进制文件被安装到/home/gopaher/bin。在下一步中，您将需要此安装目录。</p>
+<ol start="4">
+<li>将 Go 安装目录添加到系统的 shell 路径
+这样，您就可以运行程序的可执行文件，而无需指定可执行文件的位置。</li>
+</ol>
+<p>在 Linux 或 Mac 上，运行以下命令:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ <span style="color:#111">export</span> <span style="color:#111">PATH</span><span style="color:#f92672">=</span><span style="color:#111">$PATH</span>:/path/to/your/install/directory
+</span></span></code></pre></div><p>在 Windows, 运行以下命令:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ <span style="color:#111">set</span> <span style="color:#111">PATH</span><span style="color:#f92672">=</span>%PATH%<span style="color:#111">;</span>C:<span style="color:#8045ff">\p</span>ath<span style="color:#8045ff">\t</span>o<span style="color:#8045ff">\y</span>our<span style="color:#8045ff">\i</span>nstall<span style="color:#8045ff">\d</span>irectory
+</span></span></code></pre></div><p>另一种选择是，如果您的 shell 路径中已经有一个类似$HOME/bin 的目录，并且您想在那里安装 Go 程序，则可以使用 Go-env 命令设置 GOBIN 变量来更改安装目标：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ go env -w <span style="color:#111">GOBIN</span><span style="color:#f92672">=</span>/path/to/your/bin
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># or</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ go env -w <span style="color:#111">GOBIN</span><span style="color:#f92672">=</span>C:<span style="color:#8045ff">\p</span>ath<span style="color:#8045ff">\t</span>o<span style="color:#8045ff">\y</span>our<span style="color:#8045ff">\b</span>in
+</span></span></code></pre></div><ol start="5">
+<li>更新完 shell 路径后，运行 go install 命令来编译和安装包。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ go install
+</span></span></code></pre></div><ol start="6">
+<li>只需输入应用程序的名称即可运行应用程序。为了让这变得有趣，打开一个新的命令提示符，并在其他目录中运行 hello 可执行文件名。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ hello
+</span></span><span style="display:flex;"><span>map<span style="color:#f92672">[</span>Darrin:Hail, Darrin! Well met! Gladys:Great to see you, Gladys! Samantha:Hail, Samantha! Well met!<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h3 id="heading"></h3>
+
+
+    
+
+
+                    
+                    <div class="row"><div class="position-relative mx-auto col-lg-9">
+                          <div class="bg-primary overflow-hidden p-3 mt-5 shadow">
+
+    <h4 class="text-white text-center">Read more</h4>
+
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/beginner/02.html" title="02-新手入门"><i class="fas fa-chevron-left p-1"></i>02-新手入门</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/beginner/01.html" title="01-Golang安装与体验">01-Golang安装与体验<i class="fas fa-chevron-right p-1"></i></a>
+    </div>
+</div>
+
+
+                        </div></div> 
+
+                </div>
+
+            </div> 
+
+        </div> 
+<script src="http://blog.911015.com/lib/jquery.min.js"></script> 
+<script src="http://blog.911015.com/lib/popper.min.js"></script> 
+
+<script src="http://blog.911015.com/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/blog.911015.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c998faac34ae24828c9c973cc2b76a0d";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

@@ -25,7 +25,7 @@ Copyexport PATH=$PATH:/usr/local/go/bin **注意**：对配置文件所做的�
     </item>
     
     <item>
-      <title>01-新手入门</title>
+      <title>02-新手入门</title>
       <link>http://blog.911015.com/beginner/02.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -38,6 +38,19 @@ mkdir hello cd hello 3、为代码启用依赖管理
 当您的代码导入其他项目中的包（package）时，您可以通过自己的代码来管理这些模块的依赖关系。该模块由go.mod文件定义，通过该文件追踪提供包的这些模块。该go.mod文件与您的代码一起保存，包括在您的源代码存储库中。要通过创建go.mod文件为代码启用依赖管理，请运行go mod init+模块的名称 命令。该名称是模块的模块路径。在实际开发中，模块路径通常是保存源代码的存储仓库位置。例如，模块路径可能是github.com/mymodule。如果您计划发布您的模块供他人使用，则模块路径必须是Go工具可以下载您的模块的位置。对于本教程，只需使用example/hello。
 go mod init example/hello go: creating new go.mod: module example/hello 4、在编辑器中，创建一个文件hello.go，在其中编写代码。 5、将以下代码粘贴到hello.go文件中并保存该文件。
 package main import ( &amp;#34;fmt&amp;#34; ) func main() { fmt.Println(&amp;#34;Hello World（^-^）&amp;#34;) } 接下来看一下这段代码的内容：</description>
+    </item>
+    
+    <item>
+      <title>03-创建Go模块</title>
+      <link>http://blog.911015.com/beginner/03.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/beginner/03.html</guid>
+      <description>这是教程的第一部分，介绍了Go语言的一些基本功能。如果你刚开始使用Go语言，一定要看一下教程：Go入门，它介绍了Go命令、Go模块和非常简单的Go代码。 在本教程中，您将创建两个模块。第一种是用来被其他库或应用导入。第二个模块在程序中调用第一个模块的方法。 本教程包括七个小的部分：
+创建一个模块：编写一个小模块，其中包含可以从另一个模块调用的函数。 从另一个模块调用您的代码：导入并使用您的新模块。 返回并处理错误：添加简单的错误处理。 返回一个随机的问候语：处理切片（slices）中的数据（slices：Go的动态大小数组）。 为多个人返回问候语：将键/值对存储在映射（map）中。 添加测试：使用Go内置的单元测试功能来测试代码。 编译并安装应用程序：在本地编译并安装。 前期准备 一些编程经验。这里的代码非常简单，但了解函数、循环和数组会有所帮助。 用于编辑代码的工具。 一种命令终端。Go在Linux和Mac上以及Windows中的PowerShell或cmd上使用任何终端都能很好地工作。 开始创建模块 首先创建Go模块。我们通常会把一些包含同一类功能函数的包放在同一模块中，例如，您可以创建模块，模块的包具有进行财务分析的功能，以便其他编写财务应用程序的人可以使用您的代码。有关开发模块的更多信息，请参阅开发和发布模块.。 Go语言中 代码，包(package)，模块（module）之间的关系是:代码组成包，包组成模块。您开发的模块需要指定运行代码所需的依赖项，包括Go版本及其所需的其他模块。 当您在模块中添加或改进功能时，您将发布模块的新版本。编写调用这个模块的开发人员可以导入新版本模块，并在将其上线之前使用新版本进行测试。
+打开命令行，cd到home目录（或其他存放代码的目录） 新建目录 greetings 用来存放Go代码 使用 go mod init 命令初始化一个module 执行 go mod init 命令；本例中我们用 example.com/greetings；如果您发布模块，这必须是Go工具可以下载模块的路径，那就是本模块代码仓库的路径（例如：github.com/example）；
+go mod init example.com/greetings # go: creating new go.mod: module example.com/greetings go mod init 命令创建一个go.mod文件来跟踪代码的依赖关系。到目前为止，该文件只包括模块的名称和代码支持的Go版本。但当你添加依赖项时，go.mod文件会列出你的代码所依赖的版本。这可以保持构建的可复制性，并让你直接控制要使用的模块版本。
+在编辑器中新建 greetings.go 文件 在greetings.go文件中写入一下代码并保存 package greetings import &amp;#34;fmt&amp;#34; // Hello returns a greeting for the named person. func Hello(name string) string { // Return a greeting that embeds the name in a message.</description>
     </item>
     
   </channel>
