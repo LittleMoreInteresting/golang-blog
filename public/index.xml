@@ -25,6 +25,21 @@ Copyexport PATH=$PATH:/usr/local/go/bin **注意**：对配置文件所做的�
     </item>
     
     <item>
+      <title>基础篇（一）：包、变量和方法</title>
+      <link>http://blog.911015.com/tour/01.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/tour/01.html</guid>
+      <description>包（ package） 每个Go项目都是由程序包组成的。 程序在main包中运行。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; ) func main() { fmt.Println(&amp;#34;My favorite number is&amp;#34;, rand.Intn(10)) } 此程序使用导入的“fmt”和“math/rand”包。 按照惯例，包名称为导入路径的最后一个元素。例如，“math/rand”包含以rand为包名的文件。
+import 此代码将导入分组到一个带括号的的import语句中。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main() { fmt.Printf(&amp;#34;Now you have %g problems.\n&amp;#34;, math.Sqrt(7)) } 您还可以编写多个import语句，如：
+import &amp;#34;fmt&amp;#34; import &amp;#34;math&amp;#34; 但是，建议使用带括号的import语句。
+导出名称 在 Go 中，如果名称以大写字母开头，则会导出该名称。例如，Pizza，Pi 是是从math包中导出的名称。 pizza并且pi不要以大写字母开头，因此它们不会被导出。 导入包时，您只能引用其导出的名称。任何“未导出”的名称都无法从包外部访问。 运行代码。请注意错误消息。 要修复错误，请重命名math.pi为math.Pi并重试。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main() { fmt.Println(math.pi) } 函数/方法 (Functions) Functions 函数可以接受零个或多个参数。 在本例中，add接收两个int类型的参数。</description>
+    </item>
+    
+    <item>
       <title>02-新手入门</title>
       <link>http://blog.911015.com/beginner/02.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -54,12 +69,30 @@ go mod init example.com/greetings # go: creating new go.mod: module example.com/
     </item>
     
     <item>
+      <title>04-入门多模块工作区</title>
+      <link>http://blog.911015.com/beginner/04.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/beginner/04.html</guid>
+      <description>本教程介绍了 Go 中多模块工作区的基础知识。使用多模块工作区，您可以告诉 Go 命令您正在同时在多个模块中编写代码，并轻松地在这些模块中构建和运行代码。 在本教程中，您将在共享的多模块工作区中创建两个模块，对这些模块进行更改，并在构建中查看这些更改的结果。
+前期准备 安装 Go 1.18 或更高版本。 一个编辑代码的工具。 一个命令终端。 本教程需要** go1.18** 或更高版本。使用go.dev/dl中的链接确保您已在 Go 1.18 或更高版本中安装了 Go 。
+创建一个模块 首先，为您要编写的代码创建一个模块。 一、打开命令提示符并切换到您的主目录。
+# Linux 或 Mac： $ cd # Windows： C:\&amp;gt; cd %HOMEPATH% 本教程的其余部分将显示 $ 作为提示符。您使用的命令也适用于 Windows。
+二、在命令提示符下，创建workspace目录。
+$ mkdir workspace $ cd workspace 三、初始化模块
+本示例将创建一个依赖 golang.org/x/example 模块的hello 模块。
+1、创建 hello 模块：
+$ mkdir hello $ cd hello $ go mod init example.com/hello go: creating new go.mod: module example.</description>
+    </item>
+    
+    <item>
       <title>与我联系</title>
       <link>http://blog.911015.com/contact.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://blog.911015.com/contact.html</guid>
-      <description> Email： create98715@duck.com QQ： 3336449889 </description>
+      <description>Email：create98715@duck.comQQ：3336449889关注公众号
+关注公众号</description>
     </item>
     
   </channel>

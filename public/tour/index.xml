@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go 编程语言之旅 on Go语言入门</title>
+    <link>http://blog.911015.com/tour/</link>
+    <description>Recent content in Go 编程语言之旅 on Go语言入门</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="http://blog.911015.com/tour/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基础篇（一）：包、变量和方法</title>
+      <link>http://blog.911015.com/tour/01.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/tour/01.html</guid>
+      <description>包（ package） 每个Go项目都是由程序包组成的。 程序在main包中运行。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; ) func main() { fmt.Println(&amp;#34;My favorite number is&amp;#34;, rand.Intn(10)) } 此程序使用导入的“fmt”和“math/rand”包。 按照惯例，包名称为导入路径的最后一个元素。例如，“math/rand”包含以rand为包名的文件。
+import 此代码将导入分组到一个带括号的的import语句中。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main() { fmt.Printf(&amp;#34;Now you have %g problems.\n&amp;#34;, math.Sqrt(7)) } 您还可以编写多个import语句，如：
+import &amp;#34;fmt&amp;#34; import &amp;#34;math&amp;#34; 但是，建议使用带括号的import语句。
+导出名称 在 Go 中，如果名称以大写字母开头，则会导出该名称。例如，Pizza，Pi 是是从math包中导出的名称。 pizza并且pi不要以大写字母开头，因此它们不会被导出。 导入包时，您只能引用其导出的名称。任何“未导出”的名称都无法从包外部访问。 运行代码。请注意错误消息。 要修复错误，请重命名math.pi为math.Pi并重试。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main() { fmt.Println(math.pi) } 函数/方法 (Functions) Functions 函数可以接受零个或多个参数。 在本例中，add接收两个int类型的参数。</description>
+    </item>
+    
+  </channel>
+</rss>

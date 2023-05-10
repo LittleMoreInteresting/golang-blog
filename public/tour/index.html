@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <meta name="description" content="联系方式">
+    <meta name="description" content="欢迎来到Go 编程语言之旅。">
     
-    <link rel="canonical" href="http://blog.911015.com/contact.html">
+    <link rel="alternate" type="application/rss+xml" href="http://blog.911015.com/tour/index.xml" title="Go语言入门" />
+    <link rel="canonical" href="http://blog.911015.com/tour/">
 
     <title>
         
-        与我联系 | Go语言入门
+        Go 编程语言之旅 | Go语言入门
         
     </title>
 
@@ -58,6 +59,9 @@
               </ul>
             </div>
     </div>
+    <div class="feed-icons">
+        <a  href="http://blog.911015.com/tour/index.xml"><img class="w-75" src="/img/feed-icon.svg" alt="RSS feed" /></a>
+    </div>
     </nav>
 <div class="container-fluid">
             <div class="row">
@@ -83,7 +87,7 @@
         
 
          <ul class="navbar-nav flex-column pt-3">
-    <li data-nav-id="/beginner/" class="nav-item my-1 haschildren
+    <li data-nav-id="/beginner/" class="nav-item my-1 parent haschildren
         ">
         
         
@@ -122,7 +126,7 @@
                   </a>
                 
         </li>
-    <li data-nav-id="/tour/" class="nav-item my-1 haschildren
+    <li data-nav-id="/tour/" class="nav-item my-1 active haschildren
         ">
         
         
@@ -148,7 +152,14 @@
 
 </div>
                 <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
-	<nav id="TableOfContents"></nav>
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础篇">基础篇</a></li>
+    <li><a href="#方法和接口">方法和接口</a></li>
+    <li><a href="#泛型">泛型</a></li>
+    <li><a href="#并发">并发</a></li>
+  </ul>
+</nav>
 			<div class="card shadow mt-3 " style="width: 10rem; ">
 				<a href="/contact.html" target="_blank">
 				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
@@ -178,7 +189,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">与我联系</h1>
+    <h1 class="js-title">Go 编程语言之旅</h1>
     <div class="d-flex align-items-center">
         
             <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
@@ -189,56 +200,134 @@
 <hr>
 
 
-<div class="row py-3 mb-5">
-	<div class="col-md-4">
-		<div class="card flex-row border-0">
-			<div class="mt-3">
-				<span class="fas fa-envelope fa-2x text-primary"></span>
-			</div>
-			<div class="card-body pl-2">
-				<h5 class="card-title">
-					Email：
-				</h5>
-				<p class="card-text text-muted">
-					create98715@duck.com
-				</p>
-			</div>
-		</div>
-    </div>
-    <div class="col-md-4">
-		<div class="card flex-row border-0">
-			<div class="mt-3">
-				<span class="fab fa-qq fa-2x text-primary"></span>
-			</div>
-			<div class="card-body pl-2">
-				<h5 class="card-title">
-					QQ：
-				</h5>
-				<p class="card-text text-muted">
-					3336449889
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row py-3 mb-5">
-    <div class="col-md-4">
-        <div class="card shadow " style="width: 18rem; ">
-          <img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 18rem" class="card-img-top" alt="wx">
-          <div class="card-body">
-            <p class="card-text">关注公众号</p>
-          </div>
+<h1 id="欢迎来到go-编程语言之旅">欢迎来到Go 编程语言之旅。</h1>
+<p>欢迎来到 Go 之旅
+
+
+
+<ul class="docs-children list-unstyled">
+			<li class="h2 py-1">
+				<a href="/tour/01.html"> 基础篇（一）：包、变量和方法 </a>
+			</li>
+		
+
+	
+</ul>
+
+
+
+</p>
+<h2 id="基础篇">基础篇</h2>
+<p><p class="lead">
+    学习语言的所有基础知识。 声明变量、调用函数以及学习下一课之前需要了解的所有内容。
+</p>
+
+
+
+<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-info rounded" style="border-width:4px !important;">
+    <div class="wrap border border-left-0 rounded">
+        
+        <div class="card-header border-0 bg-white pl-3 text-info">
+            <h3>包、变量和函数。</h3>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow " style="width: 18rem; ">
-          <img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 18rem" class="card-img-top" alt="wx">
-          <div class="card-body">
-            <p class="card-text">关注公众号</p>
-          </div>
+        
+        <div class="card-body pt-1">
+            了解任何 Go 程序的基本组件。
         </div>
     </div>
 </div>
+
+
+
+<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-info rounded" style="border-width:4px !important;">
+    <div class="wrap border border-left-0 rounded">
+        
+        <div class="card-header border-0 bg-white pl-3 text-info">
+            <h3>流程控制语句：for、if、else、switch 和 defer</h3>
+        </div>
+        
+        <div class="card-body pt-1">
+            了解如何使用条件、循环、开关和延迟来控制代码流。
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-info rounded" style="border-width:4px !important;">
+    <div class="wrap border border-left-0 rounded">
+        
+        <div class="card-header border-0 bg-white pl-3 text-info">
+            <h3>更多类型：结构、切片和映射。</h3>
+        </div>
+        
+        <div class="card-body pt-1">
+            了解如何根据现有类型定义类型：本课程涵盖结构、数组、切片和映射。
+        </div>
+    </div>
+</div>
+</p>
+<h2 id="方法和接口">方法和接口</h2>
+<p><p class="lead">
+    了解如何定义类型的方法、如何声明接口以及如何将所有内容组合在一起。
+</p>
+
+
+
+<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-info rounded" style="border-width:4px !important;">
+    <div class="wrap border border-left-0 rounded">
+        
+        <div class="card-header border-0 bg-white pl-3 text-info">
+            <h3>方法和接口</h3>
+        </div>
+        
+        <div class="card-body pt-1">
+            本课涵盖方法和接口、定义对象及其行为的结构。
+        </div>
+    </div>
+</div>
+</p>
+<h2 id="泛型">泛型</h2>
+<p><p class="lead">
+    了解如何在 Go 函数和结构中使用类型参数。
+</p>
+
+
+
+<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-info rounded" style="border-width:4px !important;">
+    <div class="wrap border border-left-0 rounded">
+        
+        <div class="card-header border-0 bg-white pl-3 text-info">
+            <h3>泛型</h3>
+        </div>
+        
+        <div class="card-body pt-1">
+            Go 支持使用类型参数的泛型编程。本课展示了一些在代码中使用泛型的示例。
+        </div>
+    </div>
+</div>
+</p>
+<h2 id="并发">并发</h2>
+<p class="lead">
+    Go 提供并发功能作为核心语言的一部分。该模块介绍了 goroutines 和通道，以及如何使用它们来实现不同的并发模式。
+</p>
+
+
+
+<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-info rounded" style="border-width:4px !important;">
+    <div class="wrap border border-left-0 rounded">
+        
+        <div class="card-header border-0 bg-white pl-3 text-info">
+            <h3>并发</h3>
+        </div>
+        
+        <div class="card-body pt-1">
+            Go 提供并发结构作为核心语言的一部分。本课将介绍它们并给出一些有关如何使用它们的示例。
+        </div>
+    </div>
+</div>
+
+
 
     
 
@@ -249,7 +338,8 @@
 
     <h4 class="text-white text-center">Read more</h4>
 
-    <div class="d-flex justify-content-center"><a class="p-1 ml-3 d-inline-block text-white text-right" href="/beginner/" title="跟着用户手册学Golang">跟着用户手册学Golang<i class="fas fa-chevron-right p-1"></i></a>
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/beginner/04.html" title="04-入门多模块工作区"><i class="fas fa-chevron-left p-1"></i>04-入门多模块工作区</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/tour/01.html" title="基础篇（一）：包、变量和方法">基础篇（一）：包、变量和方法<i class="fas fa-chevron-right p-1"></i></a>
     </div>
 </div>
 

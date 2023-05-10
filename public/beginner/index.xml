@@ -53,5 +53,22 @@ go mod init example.com/greetings # go: creating new go.mod: module example.com/
 在编辑器中新建 greetings.go 文件 在greetings.go文件中写入一下代码并保存 package greetings import &amp;#34;fmt&amp;#34; // Hello returns a greeting for the named person. func Hello(name string) string { // Return a greeting that embeds the name in a message.</description>
     </item>
     
+    <item>
+      <title>04-入门多模块工作区</title>
+      <link>http://blog.911015.com/beginner/04.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/beginner/04.html</guid>
+      <description>本教程介绍了 Go 中多模块工作区的基础知识。使用多模块工作区，您可以告诉 Go 命令您正在同时在多个模块中编写代码，并轻松地在这些模块中构建和运行代码。 在本教程中，您将在共享的多模块工作区中创建两个模块，对这些模块进行更改，并在构建中查看这些更改的结果。
+前期准备 安装 Go 1.18 或更高版本。 一个编辑代码的工具。 一个命令终端。 本教程需要** go1.18** 或更高版本。使用go.dev/dl中的链接确保您已在 Go 1.18 或更高版本中安装了 Go 。
+创建一个模块 首先，为您要编写的代码创建一个模块。 一、打开命令提示符并切换到您的主目录。
+# Linux 或 Mac： $ cd # Windows： C:\&amp;gt; cd %HOMEPATH% 本教程的其余部分将显示 $ 作为提示符。您使用的命令也适用于 Windows。
+二、在命令提示符下，创建workspace目录。
+$ mkdir workspace $ cd workspace 三、初始化模块
+本示例将创建一个依赖 golang.org/x/example 模块的hello 模块。
+1、创建 hello 模块：
+$ mkdir hello $ cd hello $ go mod init example.com/hello go: creating new go.mod: module example.</description>
+    </item>
+    
   </channel>
 </rss>
