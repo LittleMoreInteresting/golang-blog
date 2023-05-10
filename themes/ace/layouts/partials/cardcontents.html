@@ -1,10 +1,8 @@
-<div class="docs-toc">
-	{{ .TableOfContents }}
-
+<div class="row py-3 mb-5">
 	{{- if .Site.Params.cards}}
 		{{- with .Site.Params.cards}}
 			{{- range sort . "Weight"}}
-			<div class="card shadow mt-3 " style="width: 10rem; ">
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
 				<a href="{{.url}}" target="_blank">
 				<img src="{{.img}}" style="height: 10rem" class="card-img-top" alt="wx">
 				</a>

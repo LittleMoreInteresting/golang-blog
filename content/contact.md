@@ -40,18 +40,18 @@ headless = true
 </div>
 <div class="row py-3 mb-5">
     <div class="col-md-4">
-        <div class="card" style="width: 18rem; ">
-          <img src="/img/site_logo.png" style="height: 18rem" class="card-img-top" alt="wx">
+        <div class="card shadow " style="width: 18rem; ">
+          <img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 18rem" class="card-img-top" alt="wx">
           <div class="card-body">
-            <p class="card-text"></p>
+            <p class="card-text">关注公众号</p>
           </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card" style="width: 18rem; ">
-          <img src="/img/site_logo.png" style="height: 18rem" class="card-img-top" alt="wx">
+        <div class="card shadow " style="width: 18rem; ">
+          <img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 18rem" class="card-img-top" alt="wx">
           <div class="card-body">
-            <p class="card-text">  </p>
+            <p class="card-text">关注公众号</p>
           </div>
         </div>
     </div>
