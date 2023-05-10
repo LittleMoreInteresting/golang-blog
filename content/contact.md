@@ -21,8 +21,8 @@ headless = true
 				</p>
 			</div>
 		</div>
-	</div>
-<div class="col-md-4">
+    </div>
+    <div class="col-md-4">
 		<div class="card flex-row border-0">
 			<div class="mt-3">
 				<span class="fab fa-qq fa-2x text-primary"></span>
@@ -37,4 +37,22 @@ headless = true
 			</div>
 		</div>
 	</div>
+</div>
+<div class="row py-3 mb-5">
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem; ">
+          <img src="/img/site_logo.png" style="height: 18rem" class="card-img-top" alt="wx">
+          <div class="card-body">
+            <p class="card-text"></p>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem; ">
+          <img src="/img/site_logo.png" style="height: 18rem" class="card-img-top" alt="wx">
+          <div class="card-body">
+            <p class="card-text">  </p>
+          </div>
+        </div>
+    </div>
 </div>

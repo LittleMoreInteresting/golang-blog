@@ -18,6 +18,7 @@ disableSearch = false # default is false
 disableReadmoreNav = false # set true to hide prev/next navigation, default is false
 highlightClientSide = false # set true to use highlight.pack.js instead of the default hugo chroma highlighter
 menushortcutsnewtab = true # set true to open shortcuts links to a new tab/window
+enableFavorites = true
 site_logo = "/img/site_logo.png"
 [markup]
 [markup.goldmark]
@@ -54,6 +55,18 @@ weight = 1
 
 [[menu.shortcuts]]
 name = "<i class='fab fa-github'></i>"
+url = "http://github.com/LittleMoreInteresting/golang-blog"
+weight = 2
+
+[[params.cards]]
+name = "<i class='far fa-hand-point-right'></i>关注公众号<i class='far fa-hand-point-left'></i>"
+img = "/img/qrcode_for_gh_3982836909ff_258.jpg"
+url = "/contact.html"
+weight = 1
+
+[[params.cards]]
+name = "<i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i>"
+img = "/img/site_logo.png"
 url = "http://github.com/LittleMoreInteresting/golang-blog"
 weight = 2
 
