@@ -12,7 +12,9 @@ url = "/beginner/"
 
 > Golang官方文档地址为：[go.dev/doc](https://go.dev/doc/) ；文档开始简单介绍了Golang 的语言特性：简洁、高效、天然并发、快速编译、垃圾回收、反射，新类型系统等等。接下来分按入门，进阶、高级划分了大模块让初学者能够寻寻渐进的深入学习理解Golang；接下来我们将根据 `Getting Started`部分一步一步入门Golang。
 
- 本章节内容为[官方文档](https://go.dev/doc/)内容翻译；部分内容和代码为个人补充；[Copyright](https://go.dev/copyright)
+>本章节内容为[官方文档](https://go.dev/doc/)内容翻译；部分内容和代码为个人补充；[Copyright](https://go.dev/copyright)
+
+> 如果内容有误请 [<i class='far fa-hand-point-right'></i>与我联系](/contact.html) 
 {{< /panel >}}
 
 {{< table style="table-striped" >}}
