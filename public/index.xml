@@ -117,8 +117,8 @@ $ mkdir hello $ cd hello $ go mod init example.com/hello go: creating new go.mod
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://blog.911015.com/contact.html</guid>
-      <description>Email： create98715@duck.com QQ： 3336449889 关注公众号
-关注公众号</description>
+      <description>Email： create98715@duck.com QQ： 3336449889 关注公众号领取Go学习资料
+关注公众号领取Go学习资料</description>
     </item>
     
   </channel>
