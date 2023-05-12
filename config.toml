@@ -19,6 +19,7 @@ disableReadmoreNav = false # set true to hide prev/next navigation, default is f
 highlightClientSide = false # set true to use highlight.pack.js instead of the default hugo chroma highlighter
 menushortcutsnewtab = true # set true to open shortcuts links to a new tab/window
 enableFavorites = true
+site_icp = "鲁ICP备17023316号-1"
 site_logo = "/img/site_logo.png"
 [markup]
 [markup.goldmark]

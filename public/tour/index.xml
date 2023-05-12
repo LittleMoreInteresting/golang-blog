@@ -21,5 +21,31 @@ import &amp;#34;fmt&amp;#34; import &amp;#34;math&amp;#34; 但是，建议使用
 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main() { fmt.Println(math.pi) } 函数/方法 (Functions) Functions 函数可以接受零个或多个参数。 在本例中，add接收两个int类型的参数。</description>
     </item>
     
+    <item>
+      <title>基础篇（二）：Go语言流程控制</title>
+      <link>http://blog.911015.com/tour/02.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/tour/02.html</guid>
+      <description>For Go只有一个循环结构，即for循环。
+package main import &amp;#34;fmt&amp;#34; func main() { sum := 0 for i := 0; i &amp;lt; 10; i++ { sum += i } fmt.Println(sum) } 基本的for循环有三个用分号分隔的部分：
+初始化语句：在第一次迭代之前执行 条件表达式：在每次迭代之前求值 后置语句：在每次循环结束时执行 初始化语句通常是一个简短的变量声明，在那里声明的变量只在for语句的范围内可见。 一旦条件表达式的计算结果为false，循环将停止迭代。 注意：与C、Java或JavaScript等其他语言不同，for语句的三个组件周围没有括号，并且必须要有大括号{}。 初始化语句和后置语句是可选的。如下：
+package main import &amp;#34;fmt&amp;#34; func main() { sum := 1 for ; sum &amp;lt; 1000; { sum += sum } fmt.Println(sum) } 更进一步，还可以去掉分号：类似C语言中的的while那样，在Go中是用for实现的。如下：
+package main import &amp;#34;fmt&amp;#34; func main() { sum := 1 for sum &amp;lt; 1000 { sum += sum } fmt.</description>
+    </item>
+    
+    <item>
+      <title>基础篇（三）：更多类型: struct, slices, 和 map</title>
+      <link>http://blog.911015.com/tour/03.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/tour/03.html</guid>
+      <description>指针 Go提供了指针类型。指针保存的是一个值的内存地址。 类型*T是指向T值的指针。它的零值为nil。
+var p *int &amp;amp;运算符生成指向其操作数的指针。
+i := 42 p = &amp;amp;i *运算符表示指针的基本值。
+fmt.Println(*p) // read i through the pointer p *p = 21 // set i through the pointer p 与C不同，Go没有指针运算。
+package main import &amp;#34;fmt&amp;#34; func main() { i, j := 42, 2701 p := &amp;amp;i // point to i fmt.Println(*p) // read i through the pointer *p = 21 // set i through the pointer fmt.Println(i) // see the new value of i p = &amp;amp;j // point to j *p = *p / 37 // divide j through the pointer fmt.</description>
+    </item>
+    
   </channel>
 </rss>

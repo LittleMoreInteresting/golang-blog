@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="基础篇（二）：Go语言流程控制">
+    
+    <link rel="canonical" href="http://blog.911015.com/tour/02.html">
+
+    <title>
+        
+        基础篇（二）：Go语言流程控制 | Go语言入门
+        
+    </title>
+
+    
+    <link href="http://blog.911015.com/css/fontawesome.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="http://blog.911015.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                    <img src="/img/site_logo.png" />
+                
+                Go语言入门
+            </a>
+        </div>
+        
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+              <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact.html" target="_blank">
+                                  <i class='fab fa-qq'></i> QQ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/LittleMoreInteresting/beginner-example" target="_blank">
+                                  <i class='fab fa-github'></i>
+                                </a>
+                            </li>
+              </ul>
+            </div>
+    </div>
+    </nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+          <div class="js-favorite-links mt-3 d-none">
+  <span class=""><i class="mr-1 fas fa-star"></i>Favorites</span>
+  <ul class="js-favorite-links-list navbar-nav flex-column mt-2">
+  </ul>
+  <hr class="w-100 mb-2">
+</div>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/beginner/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/beginner/"><h6>跟着用户手册学Golang</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/beginner/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/01.html" class="nav-link p-0">
+                    01-Golang安装与体验
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/02.html" class="nav-link p-0">
+                    02-新手入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/03.html" class="nav-link p-0">
+                    03-创建Go项目
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/04.html" class="nav-link p-0">
+                    04-入门多模块工作区
+                  </a>
+                
+        </li>
+    <li data-nav-id="/tour/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/tour/"><h6>Go 编程语言之旅</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/tour/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/01.html" class="nav-link p-0">
+                    基础篇（一）：包、变量和方法
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/02.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/tour/02.html" class="nav-link p-0">
+                    基础篇（二）：Go语言流程控制
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/03.html" class="nav-link p-0">
+                    基础篇（三）：更多类型: struct, slices, 和 map
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#for">For</a></li>
+    <li><a href="#if">If</a>
+      <ul>
+        <li><a href="#if-and-else">If and else</a></li>
+        <li><a href="#练习循环和函数">练习：循环和函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#switch">Switch</a>
+      <ul>
+        <li><a href="#执行顺序">执行顺序</a></li>
+      </ul>
+    </li>
+    <li><a href="#无条件switch">无条件Switch</a></li>
+    <li><a href="#defer">Defer</a></li>
+  </ul>
+</nav>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center"> <i class='far fa-hand-point-right'></i>关注公众号<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center"> <i class='far fa-hand-point-right'></i>天喵超市优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">基础篇（二）：Go语言流程控制</h1>
+    <div class="d-flex align-items-center">
+        
+            <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
+        
+    </div>
+</div>
+
+<hr>
+
+
+<h2 id="for">For</h2>
+<p>Go只有一个循环结构，即for循环。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#75af00">i</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">10</span><span style="color:#111">;</span> <span style="color:#75af00">i</span><span style="color:#f92672">++</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">sum</span> <span style="color:#f92672">+=</span> <span style="color:#75af00">i</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">sum</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>基本的for循环有三个用分号分隔的部分：</p>
+<ul>
+<li>初始化语句：在第一次迭代之前执行</li>
+<li>条件表达式：在每次迭代之前求值</li>
+<li>后置语句：在每次循环结束时执行</li>
+</ul>
+<p>初始化语句通常是一个简短的变量声明，在那里声明的变量只在for语句的范围内可见。
+一旦条件表达式的计算结果为false，循环将停止迭代。
+注意：与C、Java或JavaScript等其他语言不同，for语句的三个组件周围没有括号，并且必须要有大括号{}。
+初始化语句和后置语句是可选的。如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#111">;</span> <span style="color:#75af00">sum</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">1000</span><span style="color:#111">;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">sum</span> <span style="color:#f92672">+=</span> <span style="color:#75af00">sum</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">sum</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>更进一步，还可以去掉分号：类似C语言中的的while那样，在Go中是用for实现的。如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">sum</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">1000</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">sum</span> <span style="color:#f92672">+=</span> <span style="color:#75af00">sum</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">sum</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>如果省略循环条件，它将永远循环，因此一个死循环就可以这样写：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Do something forever
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="if">If</h2>
+<p>Go的if语句类似于它的for循环；表达式不需要用括号（）括起来，但必须要有大括号｛｝。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">sqrt</span><span style="color:#111">(</span><span style="color:#75af00">x</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">x</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#75af00">sqrt</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#75af00">x</span><span style="color:#111">)</span> <span style="color:#f92672">+</span> <span style="color:#d88200">&#34;i&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprint</span><span style="color:#111">(</span><span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">sqrt</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">),</span> <span style="color:#75af00">sqrt</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>与for一样，if语句可以在条件之前以执行一个短语句。语句声明的变量只能在if结束之前使用。如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">pow</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">n</span><span style="color:#111">,</span> <span style="color:#75af00">lim</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Pow</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">n</span><span style="color:#111">);</span> <span style="color:#75af00">v</span> <span style="color:#111">&lt;</span> <span style="color:#75af00">lim</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#75af00">v</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">lim</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">pow</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">pow</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>（请尝试在最后一个return(line 12)语句中使用v。）</p>
+<h3 id="if-and-else">If and else</h3>
+<p>在if短语句中声明的变量在任何else块中都可用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">pow</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">n</span><span style="color:#111">,</span> <span style="color:#75af00">lim</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Pow</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">n</span><span style="color:#111">);</span> <span style="color:#75af00">v</span> <span style="color:#111">&lt;</span> <span style="color:#75af00">lim</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#75af00">v</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;%g &gt;= %g\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#75af00">lim</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// can&#39;t use v here, though
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">lim</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">pow</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">pow</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>（在main中对fmt.Println的调用之前，会先对两个pow调用求值。）</p>
+<h3 id="练习循环和函数">练习：循环和函数</h3>
+<p>为了练习函数和方法，让我们实现一个平方根函数：
+给定一个数字x，找到z²最接近x的数字z。
+计算机通常使用循环计算x的平方根。从一些可能的z开始，我们可以根据z²与x的接近程度来调整z，从而产生更好的结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span>z -= (z*z - x) / (2*z)
+</span></span></code></pre></div><p>重复这种调整会使结果变得越来越好，直到我们得出尽可能接近实际平方根的答案
+在函数Sqrt中实现这一功能。z的一个不错的起始值是1，无论输入是什么。首先，重复计算10次，并在计算过程中打印每个z。看看你离x（1，2，3，…）的各种值的答案有多近，以及猜测改进的速度有多快。
+提示：要声明和初始化浮点值，请定义为浮点类型或使用类型转换转换：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">z</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">z</span> <span style="color:#f92672">:=</span> <span style="color:#111">float64</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span></code></pre></div><p>接下来，一旦值停止更改（或仅更改很小的量），就将循环条件更改为停止。看看这是多于还是少于10次迭代。尝试对z进行其他初始猜测，如x或x/2。您的函数的结果与标准库中的math.Sqrt有多接近？
+（注意：如果你对算法的细节感兴趣，上面的z²−x是z²离它需要的位置（x）有多远，除以2z是z²的导数，通过z²的变化速度来衡量我们调整z的程度。这种通用方法被称为牛顿方法。它适用于许多函数，但特别适用于平方根。）
+<em>以下代码仅供参考</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">x</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">z</span> <span style="color:#111">=</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">old</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">(</span><span style="color:#75af00">old</span><span style="color:#f92672">-</span><span style="color:#75af00">z</span><span style="color:#111">)</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0.000001</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">old</span> <span style="color:#111">=</span> <span style="color:#75af00">z</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">z</span> <span style="color:#f92672">-=</span> <span style="color:#111">(</span><span style="color:#75af00">z</span><span style="color:#f92672">*</span><span style="color:#75af00">z</span> <span style="color:#f92672">-</span> <span style="color:#75af00">x</span><span style="color:#111">)</span> <span style="color:#f92672">/</span> <span style="color:#111">(</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#75af00">z</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">z</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">),</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">),</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="switch">Switch</h2>
+<p>switch语句是编写if-else的一种更简短的方法。它执行第一个满足条件的分支。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;runtime&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Print</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Go runs on &#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">switch</span> <span style="color:#75af00">os</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">runtime</span><span style="color:#111">.</span><span style="color:#75af00">GOOS</span><span style="color:#111">;</span> <span style="color:#75af00">os</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#d88200">&#34;darwin&#34;</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;OS X.&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#d88200">&#34;linux&#34;</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Linux.&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">default</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// freebsd, openbsd,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// plan9, windows...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;%s.\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">os</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>Go的switch结构与C、C++、Java、JavaScript和PHP中的开关类似，只是Go只运行第一个符合条件的分支，而不是随后的所有案例。实际上，在Go中在每个分支最后都加了break语句。另一个重要的区别是Go的switch的分支条件不一定是常数，所涉及的值也不需要是整数。</p>
+<h3 id="执行顺序">执行顺序</h3>
+<p>switch 分支是从上到下进行判断的，当某一个分支成功时停止向下执行。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">switch</span> <span style="color:#75af00">i</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">case</span> <span style="color:#ae81ff">0</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">case</span> <span style="color:#75af00">f</span><span style="color:#111">():</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 如果i = 0 f函数是不执行的
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;When&#39;s Saturday?&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">today</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Now</span><span style="color:#111">().</span><span style="color:#75af00">Weekday</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">switch</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Saturday</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">today</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Today.&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">today</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Tomorrow.&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">today</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;In two days.&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">default</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Too far away.&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="无条件switch">无条件Switch</h2>
+<p>无条件Switch等同于 Switch true。这种构造可以用来编写长if-then-else链。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">t</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Now</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">switch</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">t</span><span style="color:#111">.</span><span style="color:#75af00">Hour</span><span style="color:#111">()</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">12</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Good morning!&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">t</span><span style="color:#111">.</span><span style="color:#75af00">Hour</span><span style="color:#111">()</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">17</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Good afternoon.&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">default</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Good evening.&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="defer">Defer</h2>
+<p>defer语句将一个函数的执行延迟到锁住函数返回时。延迟调用的参数会立即求值，但在周围的函数返回之前不会执行函数调用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">defer</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;world&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;hello&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>defer的函数调用被推送到堆栈中。当函数返回时，其defer调用将按后进先出的顺序执行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;counting&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#75af00">i</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">10</span><span style="color:#111">;</span> <span style="color:#75af00">i</span><span style="color:#f92672">++</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">defer</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;done&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div>
+
+    
+
+
+                    
+                    <div class="row"><div class="position-relative mx-auto col-lg-9">
+                          <div class="bg-primary overflow-hidden p-3 mt-5 shadow">
+
+    <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
+
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/tour/01.html" title="基础篇（一）：包、变量和方法"><i class="fas fa-chevron-left p-1"></i>基础篇（一）：包、变量和方法</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/tour/03.html" title="基础篇（三）：更多类型: struct, slices, 和 map">基础篇（三）：更多类型: struct, slices, 和 map<i class="fas fa-chevron-right p-1"></i></a>
+    </div>
+</div>
+
+
+                        </div></div> 
+
+                </div>
+            </div> 
+            <div class="d-lg-none "><div class="row py-3 mb-5">
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center"> <i class='far fa-hand-point-right'></i>关注公众号<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center"> <i class='far fa-hand-point-right'></i>天喵超市优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+        </div> 
+        
+        <div class="row">
+            <div  class="col-12 text-muted text-sm-center"><h6>©2017-2023 鲁ICP备17023316号-1 Powered by Hugo</h6></div>
+        </div>
+        
+<script src="http://blog.911015.com/lib/jquery.min.js"></script> 
+<script src="http://blog.911015.com/lib/popper.min.js"></script> 
+
+<script src="http://blog.911015.com/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/blog.911015.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c998faac34ae24828c9c973cc2b76a0d";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

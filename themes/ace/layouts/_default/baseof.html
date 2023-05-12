@@ -37,6 +37,11 @@
                 {{- partial "cardcontents.html" . -}}
             </div>
         </div> <!-- /end of container -->
+        {{ with .Site.Params.site_icp }}
+        <div class="row">
+            <div  class="col-12 text-muted text-sm-center"><h6>©2017-2023 {{ . }} Powered by Hugo</h6></div>
+        </div>
+        {{ end }}
 
         {{- partial "footer.html" . -}}
 
