@@ -60,7 +60,7 @@ url = "https://github.com/LittleMoreInteresting/beginner-example"
 weight = 2
 
 [[params.cards]]
-name = "<i class='far fa-hand-point-right'></i>关注公众号<i class='far fa-hand-point-left'></i>"
+name = "<i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料"
 img = "/img/qrcode_for_gh_3982836909ff_258.jpg"
 url = "/contact.html"
 weight = 1
@@ -72,7 +72,7 @@ url = "https://u.jd.com/8uQM1lK"
 weight = 2
 
 [[params.cards]]
-name = "<i class='far fa-hand-point-right'></i>天喵超市优惠攻略<i class='far fa-hand-point-left'></i>"
+name = "<i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i>"
 img = "/img/tb.jpg"
 url = "https://m.tb.cn/h.UvSpPDX"
 weight = 2
