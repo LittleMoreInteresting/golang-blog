@@ -70,5 +70,18 @@ func Index[T comparable](s []T, x T) int 这个声明意味着s是任何类型T�
 package main import &amp;#34;fmt&amp;#34; // Index returns the index of x in s, or -1 if not found. func Index[T comparable](s []T, x T) int { for i, v := range s { // v and x are type T, which has the comparable // constraint, so we can use == here. if v == x { return i } } return -1 } func main() { // Index works on a slice of ints si := []int{10, 20, 15, -10} fmt.</description>
     </item>
     
+    <item>
+      <title>6、并发</title>
+      <link>http://blog.911015.com/tour/06.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/tour/06.html</guid>
+      <description>Go提供的并发功能是核心语言的一部分。
+Goroutines goroutine是一个由Go运行时管理的轻量级线程。
+go f(x, y, z) 开始运行新的goroutine f(x, y, z) f、x、y和z的求值发生在当前goroutine中，f的执行发生在新goroutine。 Goroutines在相同的地址空间中运行，因此对共享内存的访问必须同步。sync包提供了有用的并发原语，尽管Go中并不需要它们，因为还有其他基元。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) func say(s string) { for i := 0; i &amp;lt; 5; i++ { time.Sleep(100 * time.Millisecond) fmt.Println(s) } } func main() { go say(&amp;#34;world&amp;#34;) say(&amp;#34;hello&amp;#34;) } Channels Channel是一种类型化的管道，通过它可以使用通道操作符&amp;lt;-发送和接收值。
+ch &amp;lt;- v // Send v to channel ch. v := &amp;lt;-ch // Receive from ch, and // assign value to v. 数据沿箭头方向流动。 与map和slice一样， channel必须在使用前初始化：</description>
+    </item>
+    
   </channel>
 </rss>

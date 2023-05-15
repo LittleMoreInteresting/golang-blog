@@ -6,7 +6,7 @@ url = "/tour/"
 +++
 
 # 欢迎来到Go 编程语言之旅。
-欢迎来到 Go 之旅
+欢迎来到 Go 之旅;官方地址：[A Tour of Go](https://go.dev/tour/list)
 {{< childpages >}}
 ## 基础篇
 {{< lead  >}}
