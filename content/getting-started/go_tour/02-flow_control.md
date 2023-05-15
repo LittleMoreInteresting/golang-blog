@@ -1,5 +1,5 @@
 +++
-title = "基础篇（二）：Go语言流程控制"
+title = "2、基础篇（二）：Go语言流程控制"
 description = "基础篇（二）：Go语言流程控制"
 weight = 2
 url = "/tour/02.html"

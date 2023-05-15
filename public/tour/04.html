@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="方法与接口;Go没有类。但是，您可以在类型上定义方法。">
+    
+    <link rel="canonical" href="http://blog.911015.com/tour/04.html">
+
+    <title>
+        
+        4、方法与接口 | Go语言入门
+        
+    </title>
+
+    
+    <link href="http://blog.911015.com/css/fontawesome.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="http://blog.911015.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                    <img src="/img/site_logo.png" />
+                
+                Go语言入门
+            </a>
+        </div>
+        
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+              <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact.html" target="_blank">
+                                  <i class='fab fa-qq'></i> QQ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/LittleMoreInteresting/beginner-example" target="_blank">
+                                  <i class='fab fa-github'></i>
+                                </a>
+                            </li>
+              </ul>
+            </div>
+    </div>
+    </nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+          <div class="js-favorite-links mt-3 d-none">
+  <span class=""><i class="mr-1 fas fa-star"></i>Favorites</span>
+  <ul class="js-favorite-links-list navbar-nav flex-column mt-2">
+  </ul>
+  <hr class="w-100 mb-2">
+</div>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/beginner/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/beginner/"><h6>跟着用户手册学Golang</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/beginner/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/01.html" class="nav-link p-0">
+                    01-Golang安装与体验
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/02.html" class="nav-link p-0">
+                    02-新手入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/03.html" class="nav-link p-0">
+                    03-创建Go项目
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/04.html" class="nav-link p-0">
+                    04-入门多模块工作区
+                  </a>
+                
+        </li>
+    <li data-nav-id="/tour/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/tour/"><h6>Go 编程语言之旅</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/tour/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/01.html" class="nav-link p-0">
+                    1、基础篇（一）：包、变量和方法
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/02.html" class="nav-link p-0">
+                    2、基础篇（二）：Go语言流程控制
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/03.html" class="nav-link p-0">
+                    3、基础篇（三）：更多类型: struct, slices, 和 map
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/04.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/tour/04.html" class="nav-link p-0">
+                    4、方法与接口
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/05.html" class="nav-link p-0">
+                    5、泛型
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#methods">Methods</a>
+      <ul>
+        <li><a href="#指针接收器">指针接收器</a></li>
+        <li><a href="#指针和函数">指针和函数</a></li>
+        <li><a href="#方法和指针间接寻址">方法和指针间接寻址</a></li>
+        <li><a href="#选择值或指针接收器">选择值或指针接收器</a></li>
+      </ul>
+    </li>
+    <li><a href="#interfaces">Interfaces</a>
+      <ul>
+        <li><a href="#接口是隐式实现的">接口是隐式实现的</a></li>
+        <li><a href="#接口值">接口值</a></li>
+        <li><a href="#基本值为nil的接口值">基本值为nil的接口值</a></li>
+        <li><a href="#空接口">空接口</a></li>
+        <li><a href="#类型断言">类型断言</a></li>
+        <li><a href="#类型转换">类型转换</a></li>
+        <li><a href="#stringer-接口">Stringer 接口</a></li>
+        <li><a href="#练习stringer">练习：Stringer</a></li>
+        <li><a href="#errors-接口">Errors 接口</a></li>
+        <li><a href="#练习error">练习：error</a></li>
+        <li><a href="#reader-接口">Reader 接口</a></li>
+        <li><a href="#练习reader">练习：Reader</a></li>
+        <li><a href="#练习rot13reader">练习：rot13Reader</a></li>
+        <li><a href="#images">Images</a></li>
+        <li><a href="#练习image">练习：image</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">4、方法与接口</h1>
+    <div class="d-flex align-items-center">
+        
+            <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
+        
+    </div>
+</div>
+
+<hr>
+
+
+<h2 id="methods">Methods</h2>
+<p>Go没有类。但是，您可以在类型上定义方法。
+方法是一个具有特殊接收器参数的函数。
+接收器出现在自己的参数列表中，位于func关键字和方法名称之间。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Vertex</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">X</span><span style="color:#111">,</span> <span style="color:#75af00">Y</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#75af00">Abs</span><span style="color:#111">()</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">+</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>在这个例子中，Abs方法有一个名为v的Vertex类型的接收器。
+请记住：方法只是一个带有接收器参数的函数。下面的Abs是作为一个普通函数编写的，函数本身没有变化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Vertex</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">X</span><span style="color:#111">,</span> <span style="color:#75af00">Y</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Abs</span><span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">+</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">Abs</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>您也可以在非结构类型上声明一个方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">MyFloat</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">f</span> <span style="color:#75af00">MyFloat</span><span style="color:#111">)</span> <span style="color:#75af00">Abs</span><span style="color:#111">()</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">f</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#111">float64</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#75af00">f</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#111">float64</span><span style="color:#111">(</span><span style="color:#75af00">f</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">f</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">MyFloat</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt2</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">f</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>在这个例子中，我们看到一个带有Abs方法的数字类型MyFloat。只能声明具有接收器的方法，该接收器的类型与该方法在同一个包中定义。不能使用类型在另一个包（包括int等内置类型）中定义的接收器来声明方法。</p>
+<h3 id="指针接收器">指针接收器</h3>
+<p>可以使用指针接收器声明方法。这意味着接收器类型具有某些类型T的指针<em>T。（此外，T本身不能是</em>int之类的指针。）
+例如，此处的“Scale”方法是在“*顶点”上定义的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Vertex</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">X</span><span style="color:#111">,</span> <span style="color:#75af00">Y</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#75af00">Abs</span><span style="color:#111">()</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">+</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#f92672">*</span><span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#75af00">f</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>带有指针接收器的方法可以修改接收器指向的值（就像Scale在这里所做的那样）。由于方法通常需要修改其接收器，因此指针接收器比值接收器更常见。
+尝试从第16行Scale函数的声明中删除*，并观察程序的行为是如何变化的。
+对于值接收器，“Scale”方法对原始“Vertex ”值的副本进行操作。（这与任何其他函数参数的行为相同。）Scale方法必须有一个指针接收器才能更改主函数中声明的Vertex值。</p>
+<h3 id="指针和函数">指针和函数</h3>
+<p>在这里，我们看到Abs和Scale方法被重写为函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Vertex</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">X</span><span style="color:#111">,</span> <span style="color:#75af00">Y</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Abs</span><span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">+</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#f92672">*</span><span style="color:#75af00">Vertex</span><span style="color:#111">,</span> <span style="color:#75af00">f</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">Abs</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>再次尝试从第16行删除*。你能看到为什么行为会改变吗？为了编译示例，您还需要更改哪些内容？</p>
+<h3 id="方法和指针间接寻址">方法和指针间接寻址</h3>
+<p>比较前两个程序，您可能会注意到带有指针参数的函数必须使用指针：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">ScaleFunc</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#ae81ff">5</span><span style="color:#111">)</span>  <span style="color:#75715e">// Compile error!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">ScaleFunc</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#ae81ff">5</span><span style="color:#111">)</span> <span style="color:#75715e">// OK
+</span></span></span></code></pre></div><p>而具有指针接收器的方法在被调用时采用值或指针作为接收器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#ae81ff">5</span><span style="color:#111">)</span>  <span style="color:#75715e">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">v</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">p</span><span style="color:#111">.</span><span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">)</span> <span style="color:#75715e">// OK
+</span></span></span></code></pre></div><p>对于v.Scale（5）语句，即使v是一个值而不是指针，也会自动调用带有指针接收器的方法。也就是说，为了方便起见，Go将语句v.Scale（5）解释为（&amp;v）.Scale（5），因为Scale方法有一个指针接收器。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Vertex</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">X</span><span style="color:#111">,</span> <span style="color:#75af00">Y</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#f92672">*</span><span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#75af00">f</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">ScaleFunc</span><span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#f92672">*</span><span style="color:#75af00">Vertex</span><span style="color:#111">,</span> <span style="color:#75af00">f</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">ScaleFunc</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">4</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">p</span><span style="color:#111">.</span><span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">ScaleFunc</span><span style="color:#111">(</span><span style="color:#75af00">p</span><span style="color:#111">,</span> <span style="color:#ae81ff">8</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#75af00">p</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>反过来，采用值参数的函数必须采用该特定类型的值：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">AbsFunc</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">))</span>  <span style="color:#75715e">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">AbsFunc</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#75af00">v</span><span style="color:#111">))</span> <span style="color:#75715e">// Compile error!
+</span></span></span></code></pre></div><p>而具有值接收器的方法在被调用时可以采用值或指针作为接收器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span> <span style="color:#75715e">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">v</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">p</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span> <span style="color:#75715e">// OK
+</span></span></span></code></pre></div><p>在这种情况下，方法调用p.Abs（）被解释为（*p）.Abs（）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Vertex</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">X</span><span style="color:#111">,</span> <span style="color:#75af00">Y</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#75af00">Abs</span><span style="color:#111">()</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">+</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">AbsFunc</span><span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">+</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">AbsFunc</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">4</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">p</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">AbsFunc</span><span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#75af00">p</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="选择值或指针接收器">选择值或指针接收器</h3>
+<p>使用指针接收器有两个原因。第一个是使该方法可以修改其接收器指向的值。第二个是在方法调用时避免复制。如果接收器是一个大型结构体，这可能会更高效。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Vertex</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">X</span><span style="color:#111">,</span> <span style="color:#75af00">Y</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#f92672">*</span><span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#75af00">f</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span> <span style="color:#f92672">*</span> <span style="color:#75af00">f</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#f92672">*</span><span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#75af00">Abs</span><span style="color:#111">()</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">+</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Before scaling: %+v, Abs: %v\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Scale</span><span style="color:#111">(</span><span style="color:#ae81ff">5</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;After scaling: %+v, Abs: %v\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>在本例中，Scale和Abs都是接收器类型为*Vertex的方法，尽管Abs方法不需要修改其接收器。
+通常，给定类型上的所有方法都应该具有值或指针接收器，但不能同时具有这两者。</p>
+<h2 id="interfaces">Interfaces</h2>
+<p>接口类型被定义为一组方法签名。
+接口类型的值可以包含实现这些方法的任何值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Abser</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Abs</span><span style="color:#111">()</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">a</span> <span style="color:#75af00">Abser</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">f</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">MyFloat</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt2</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Vertex</span><span style="color:#111">{</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">a</span> <span style="color:#111">=</span> <span style="color:#75af00">f</span>  <span style="color:#75715e">// a MyFloat implements Abser
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">a</span> <span style="color:#111">=</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">v</span> <span style="color:#75715e">// a *Vertex implements Abser
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// In the following line, v is a Vertex (not *Vertex)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// and does NOT implement Abser.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">a</span> <span style="color:#111">=</span> <span style="color:#75af00">v</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">a</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">MyFloat</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">f</span> <span style="color:#75af00">MyFloat</span><span style="color:#111">)</span> <span style="color:#75af00">Abs</span><span style="color:#111">()</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">f</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#111">float64</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#75af00">f</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#111">float64</span><span style="color:#111">(</span><span style="color:#75af00">f</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Vertex</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">X</span><span style="color:#111">,</span> <span style="color:#75af00">Y</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#f92672">*</span><span style="color:#75af00">Vertex</span><span style="color:#111">)</span> <span style="color:#75af00">Abs</span><span style="color:#111">()</span> <span style="color:#00a8c8">float64</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">X</span> <span style="color:#f92672">+</span> <span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#f92672">*</span><span style="color:#75af00">v</span><span style="color:#111">.</span><span style="color:#75af00">Y</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>注意：第22行的示例代码中有一个错误。Vertex（值类型）不实现Abser，因为Abs方法仅在*Vertex（指针类型）上定义。</p>
+<h3 id="接口是隐式实现的">接口是隐式实现的</h3>
+<p>类型通过实现其方法来实现接口。没有明确的意向声明，也没有“implements”关键字。隐式接口将接口的定义与其实现解耦，然后接口可以在没有预先安排的情况下出现在任何包中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">I</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">T</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">S</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This method means type T implements the interface I,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// but we don&#39;t need to explicitly declare that it does so.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">t</span> <span style="color:#75af00">T</span><span style="color:#111">)</span> <span style="color:#75af00">M</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">t</span><span style="color:#111">.</span><span style="color:#75af00">S</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">i</span> <span style="color:#75af00">I</span> <span style="color:#111">=</span> <span style="color:#75af00">T</span><span style="color:#111">{</span><span style="color:#d88200">&#34;hello&#34;</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span><span style="color:#111">.</span><span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="接口值">接口值</h3>
+<p>接口值可以被认为是一个值和一个具体类型的元组 (value, type)
+接口值包含特定基础具体类型的值。对接口值调用方法会在其基础类型上执行相同名称的方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">I</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">T</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">S</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">t</span> <span style="color:#f92672">*</span><span style="color:#75af00">T</span><span style="color:#111">)</span> <span style="color:#75af00">M</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">t</span><span style="color:#111">.</span><span style="color:#75af00">S</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">F</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">f</span> <span style="color:#75af00">F</span><span style="color:#111">)</span> <span style="color:#75af00">M</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">f</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">i</span> <span style="color:#75af00">I</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span> <span style="color:#111">=</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">T</span><span style="color:#111">{</span><span style="color:#d88200">&#34;Hello&#34;</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span><span style="color:#111">.</span><span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span> <span style="color:#111">=</span> <span style="color:#75af00">F</span><span style="color:#111">(</span><span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Pi</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span><span style="color:#111">.</span><span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#75af00">I</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;(%v, %T)\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="基本值为nil的接口值">基本值为nil的接口值</h3>
+<p>如果接口内部的具体值为nil，那么将使用nil接收器调用该方法。在某些语言中，这会触发null指针异常，但在Go中，通常会编写一些方法来优雅地处理使用nil接收器调用的情况（如本例中的方法M）</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">I</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">T</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">S</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">t</span> <span style="color:#f92672">*</span><span style="color:#75af00">T</span><span style="color:#111">)</span> <span style="color:#75af00">M</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">t</span> <span style="color:#f92672">==</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;&lt;nil&gt;&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">t</span><span style="color:#111">.</span><span style="color:#75af00">S</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">i</span> <span style="color:#75af00">I</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">t</span> <span style="color:#f92672">*</span><span style="color:#75af00">T</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span> <span style="color:#111">=</span> <span style="color:#75af00">t</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span><span style="color:#111">.</span><span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span> <span style="color:#111">=</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">T</span><span style="color:#111">{</span><span style="color:#d88200">&#34;hello&#34;</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span><span style="color:#111">.</span><span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#75af00">I</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;(%v, %T)\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>请注意，持有nil具体值的接口值本身就是非nil。</p>
+<p>Nil接口值
+nil接口值既不包含值，也不包含具体类型。在nil接口上调用方法是一个运行时错误，因为接口元组中没有指示要调用哪个具体方法的类型。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">I</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">i</span> <span style="color:#75af00">I</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span><span style="color:#111">.</span><span style="color:#75af00">M</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#75af00">I</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;(%v, %T)\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="空接口">空接口</h3>
+<p>指定零方法的接口类型称为空接口：interface{}
+空接口可以包含任何类型的值。（每个类型至少实现零个方法。）
+空接口在程序处理未知类型值的时候使用。例如，fmt.Print接受任意数量的接口｛｝类型的参数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">i</span> <span style="color:#00a8c8">interface</span><span style="color:#111">{}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span> <span style="color:#111">=</span> <span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">i</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">describe</span><span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#00a8c8">interface</span><span style="color:#111">{})</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;(%v, %T)\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="类型断言">类型断言</h3>
+<p>类型断言提供了访问接口值的底层具体值的方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">t</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">i</span><span style="color:#111">.(</span><span style="color:#75af00">T</span><span style="color:#111">)</span>
+</span></span></code></pre></div><p>该语句断言接口值i包含具体类型T，并将底层T值分配给变量t。如果不是T类型，那么这个语句将引发panic。
+为了测试接口值是否包含特定类型，类型断言可以返回两个值：基础值和报告断言是否成功的布尔值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">t</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">i</span><span style="color:#111">.(</span><span style="color:#75af00">T</span><span style="color:#111">)</span>
+</span></span></code></pre></div><p>如果是T类型，那么t被赋值值，ok将为true
+如果不是，ok将为false，t将是类型T的零值，并且不会发生panic。
+注意这个语法和从map的语法之间的相似性。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">i</span> <span style="color:#00a8c8">interface</span><span style="color:#111">{}</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">i</span><span style="color:#111">.(</span><span style="color:#00a8c8">string</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">s</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">s</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">i</span><span style="color:#111">.(</span><span style="color:#00a8c8">string</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">s</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">f</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">i</span><span style="color:#111">.(</span><span style="color:#00a8c8">float64</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">f</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">f</span> <span style="color:#111">=</span> <span style="color:#75af00">i</span><span style="color:#111">.(</span><span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#75715e">// panic
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">f</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="类型转换">类型转换</h3>
+<p>类型转换是一种允许多个类型断言串联的构造。
+类型转换类似于常规switch语句，但类型转换中的case指定类型（而不是值），并将这些值与给定接口值所持有的值的类型进行比较。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">switch</span> <span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">i</span><span style="color:#111">.(</span><span style="color:#00a8c8">type</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">case</span> <span style="color:#75af00">T</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// here v has type T
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">case</span> <span style="color:#75af00">S</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// here v has type S
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">default</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// no match; here v has the same type as i
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>类型转换中的声明与类型断言i具有相同的语法 i.(T)，但特定类型T被关键字 type 所取代。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">do</span><span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#00a8c8">interface</span><span style="color:#111">{})</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">switch</span> <span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">i</span><span style="color:#111">.(</span><span style="color:#00a8c8">type</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#00a8c8">int</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Twice %v is %v\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#00a8c8">string</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;%q is %v bytes long\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">v</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">default</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;I don&#39;t know about type %T!\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">do</span><span style="color:#111">(</span><span style="color:#ae81ff">21</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">do</span><span style="color:#111">(</span><span style="color:#d88200">&#34;hello&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">do</span><span style="color:#111">(</span><span style="color:#00a8c8">true</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>此switch语句测试接口值i是否持有T或S类型的值。在T和S的每种情况下，变量v将分别为T或S型，并持有i持有的值。默认情况下（不匹配），变量v与i具有相同的接口类型和值。</p>
+<h3 id="stringer-接口">Stringer 接口</h3>
+<p>fmt包定义的Stringer是最普遍的接口之一。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Stringer</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">String</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>Stringer是一种可以将自己描述为字符串的类型。fmt包（以及许多其他包）查找此接口以打印值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Person</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Name</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Age</span>  <span style="color:#00a8c8">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">p</span> <span style="color:#75af00">Person</span><span style="color:#111">)</span> <span style="color:#75af00">String</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;%v (%v years)&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">p</span><span style="color:#111">.</span><span style="color:#75af00">Name</span><span style="color:#111">,</span> <span style="color:#75af00">p</span><span style="color:#111">.</span><span style="color:#75af00">Age</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">a</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Person</span><span style="color:#111">{</span><span style="color:#d88200">&#34;Arthur Dent&#34;</span><span style="color:#111">,</span> <span style="color:#ae81ff">42</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">z</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Person</span><span style="color:#111">{</span><span style="color:#d88200">&#34;Zaphod Beeblebrox&#34;</span><span style="color:#111">,</span> <span style="color:#ae81ff">9001</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">a</span><span style="color:#111">,</span> <span style="color:#75af00">z</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="练习stringer">练习：Stringer</h3>
+<p>使IPAddr类型实现fmt.Stringer，以将地址打印为点四元组。例如，IPAddr｛1，2，3，4｝应打印为“1.2.3.4”。
+<em>代码仅供参考</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">IPAddr</span> <span style="color:#111">[</span><span style="color:#ae81ff">4</span><span style="color:#111">]</span><span style="color:#00a8c8">byte</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// TODO: Add a &#34;String() string&#34; method to IPAddr.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">ip</span> <span style="color:#75af00">IPAddr</span><span style="color:#111">)</span> <span style="color:#75af00">String</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;%d.%d.%d.%d&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">ip</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">],</span> <span style="color:#75af00">ip</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">],</span> <span style="color:#75af00">ip</span><span style="color:#111">[</span><span style="color:#ae81ff">2</span><span style="color:#111">],</span> <span style="color:#75af00">ip</span><span style="color:#111">[</span><span style="color:#ae81ff">3</span><span style="color:#111">])</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">hosts</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">string</span><span style="color:#111">]</span><span style="color:#75af00">IPAddr</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#d88200">&#34;loopback&#34;</span><span style="color:#111">:</span>  <span style="color:#111">{</span><span style="color:#ae81ff">127</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">},</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#d88200">&#34;googleDNS&#34;</span><span style="color:#111">:</span> <span style="color:#111">{</span><span style="color:#ae81ff">8</span><span style="color:#111">,</span> <span style="color:#ae81ff">8</span><span style="color:#111">,</span> <span style="color:#ae81ff">8</span><span style="color:#111">,</span> <span style="color:#ae81ff">8</span><span style="color:#111">},</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">name</span><span style="color:#111">,</span> <span style="color:#75af00">ip</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">hosts</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;%v: %v\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">name</span><span style="color:#111">,</span> <span style="color:#75af00">ip</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="errors-接口">Errors 接口</h3>
+<p>Go程序用错误值表示错误状态。错误类型是一个类似于fmt.Stringer的内置接口。：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#00a8c8">error</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">Error</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>（与fmt.Stringer一样，fmt包在打印值时会查找error接口。）
+函数通常返回一个错误值，调用代码应该通过测试错误是否等于零来处理错误。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">strconv</span><span style="color:#111">.</span><span style="color:#75af00">Atoi</span><span style="color:#111">(</span><span style="color:#d88200">&#34;42&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;couldn&#39;t convert number: %v\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Converted integer:&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span></code></pre></div><p>nil 表示成功；非 nil 表示失败。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">MyError</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">When</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Time</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">What</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">e</span> <span style="color:#f92672">*</span><span style="color:#75af00">MyError</span><span style="color:#111">)</span> <span style="color:#75af00">Error</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;at %v, %s&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">When</span><span style="color:#111">,</span> <span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">What</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">run</span><span style="color:#111">()</span> <span style="color:#00a8c8">error</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">MyError</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Now</span><span style="color:#111">(),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#d88200">&#34;it didn&#39;t work&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">run</span><span style="color:#111">();</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="练习error">练习：error</h3>
+<p>复制前面练习中的Sqrt函数，并对其进行修改以返回错误值。当给定负数时，Sqrt应该返回一个非零错误值，因为它不支持复数。创建新类型</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">ErrNegativeSqrt</span> <span style="color:#00a8c8">float64</span>
+</span></span></code></pre></div><p>实现error 接口</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">e</span> <span style="color:#75af00">ErrNegativeSqrt</span><span style="color:#111">)</span> <span style="color:#75af00">Error</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span>
+</span></span></code></pre></div><p>使得ErrNegativeSqrt（-2）.Error（）返回&quot;cannot Sqrt negative number: -2&quot;.。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">ErrNegativeSqrt</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">e</span> <span style="color:#75af00">ErrNegativeSqrt</span><span style="color:#111">)</span> <span style="color:#75af00">Error</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprintf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;cannot Sqrt negative number: %v&#34;</span><span style="color:#111">,</span> <span style="color:#111">float64</span><span style="color:#111">(</span><span style="color:#75af00">e</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#75af00">x</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">float64</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">x</span> <span style="color:#111">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">ErrNegativeSqrt</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">z</span> <span style="color:#111">=</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">old</span> <span style="color:#00a8c8">float64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">math</span><span style="color:#111">.</span><span style="color:#75af00">Abs</span><span style="color:#111">(</span><span style="color:#75af00">old</span><span style="color:#f92672">-</span><span style="color:#75af00">z</span><span style="color:#111">)</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0.000001</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">old</span> <span style="color:#111">=</span> <span style="color:#75af00">z</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">z</span> <span style="color:#f92672">-=</span> <span style="color:#111">(</span><span style="color:#75af00">z</span><span style="color:#f92672">*</span><span style="color:#75af00">z</span> <span style="color:#f92672">-</span> <span style="color:#75af00">x</span><span style="color:#111">)</span> <span style="color:#f92672">/</span> <span style="color:#111">(</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#75af00">z</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">z</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">Sqrt</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="reader-接口">Reader 接口</h3>
+<p>io包指定io.Reader接口，该接口表示数据流的读取端。Go标准库包含该接口的许多实现，包括文件、网络连接、压缩器、密码等。io.Reader接口有一个Read方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">T</span><span style="color:#111">)</span> <span style="color:#75af00">Read</span><span style="color:#111">(</span><span style="color:#75af00">b</span> <span style="color:#111">[]</span><span style="color:#00a8c8">byte</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#75af00">n</span> <span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span>
+</span></span></code></pre></div><p>Read用数据填充给定的字节片，并返回填充的字节数和错误值。当流结束时，它返回一个io.EOF错误。
+示例代码创建一个strings.Reader，并一次消耗其输出的8个字节。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;io&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;strings&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">r</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">strings</span><span style="color:#111">.</span><span style="color:#75af00">NewReader</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Hello, Reader!&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">b</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">([]</span><span style="color:#00a8c8">byte</span><span style="color:#111">,</span> <span style="color:#ae81ff">8</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">n</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">r</span><span style="color:#111">.</span><span style="color:#75af00">Read</span><span style="color:#111">(</span><span style="color:#75af00">b</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;n = %v err = %v b = %v\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">n</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">,</span> <span style="color:#75af00">b</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;b[:n] = %q\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">b</span><span style="color:#111">[:</span><span style="color:#75af00">n</span><span style="color:#111">])</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">==</span> <span style="color:#75af00">io</span><span style="color:#111">.</span><span style="color:#75af00">EOF</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">break</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="练习reader">练习：Reader</h3>
+<p>实现一个Reader类型，该类型发出ASCII字符“a”的无限流。
+<em>参考</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;golang.org/x/tour/reader&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">MyReader</span> <span style="color:#00a8c8">struct</span><span style="color:#111">{}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// TODO: Add a Read([]byte) (int, error) method to MyReader.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">mr</span> <span style="color:#75af00">MyReader</span><span style="color:#111">)</span> <span style="color:#75af00">Read</span><span style="color:#111">(</span><span style="color:#75af00">b</span> <span style="color:#111">[]</span><span style="color:#00a8c8">byte</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">b</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">b</span><span style="color:#111">[</span><span style="color:#75af00">i</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#d88200">&#39;A&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">b</span><span style="color:#111">),</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">reader</span><span style="color:#111">.</span><span style="color:#75af00">Validate</span><span style="color:#111">(</span><span style="color:#75af00">MyReader</span><span style="color:#111">{})</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="练习rot13reader">练习：rot13Reader</h3>
+<p>一种常见的模式是一个io.Reader，它包装另一个io.Leader，以某种方式修改流。例如，gzip.NewReader函数接受一个io.Reader（压缩数据流），并返回一个*gzip.Reader，该函数还实现了io.Readers（解压缩数据流）。实现一个rot13Reader，它实现io.Reader并从io.Readers读取，通过将rot13替换密码应用于所有字母字符来修改流。rot13Reader类型是为您提供的。通过实现它的Read方法，使它成为一个io.Reader。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;io&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;strings&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">rot13Reader</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">r</span> <span style="color:#75af00">io</span><span style="color:#111">.</span><span style="color:#75af00">Reader</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">rr</span> <span style="color:#f92672">*</span><span style="color:#75af00">rot13Reader</span><span style="color:#111">)</span> <span style="color:#75af00">Read</span><span style="color:#111">(</span><span style="color:#75af00">p</span> <span style="color:#111">[]</span><span style="color:#00a8c8">byte</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#75af00">n</span> <span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">b</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">([]</span><span style="color:#00a8c8">byte</span><span style="color:#111">,</span> <span style="color:#ae81ff">1024</span><span style="color:#111">,</span> <span style="color:#ae81ff">2048</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">read</span><span style="color:#111">,</span> <span style="color:#75af00">err1</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">rr</span><span style="color:#111">.</span><span style="color:#75af00">r</span><span style="color:#111">.</span><span style="color:#75af00">Read</span><span style="color:#111">(</span><span style="color:#75af00">b</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">if</span> <span style="color:#75af00">err1</span> <span style="color:#f92672">==</span> <span style="color:#75af00">io</span><span style="color:#111">.</span><span style="color:#75af00">EOF</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">break</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">b2</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">b</span><span style="color:#111">[:</span><span style="color:#75af00">read</span><span style="color:#111">]</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">p</span><span style="color:#111">[</span><span style="color:#75af00">i</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#75af00">rot13byte</span><span style="color:#111">(</span><span style="color:#75af00">b2</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">n</span> <span style="color:#f92672">+=</span> <span style="color:#75af00">read</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">n</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">rot13byte</span><span style="color:#111">(</span><span style="color:#75af00">b</span> <span style="color:#00a8c8">byte</span><span style="color:#111">)</span> <span style="color:#00a8c8">byte</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#111">rune</span><span style="color:#111">(</span><span style="color:#75af00">b</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">s</span> <span style="color:#f92672">&gt;=</span> <span style="color:#d88200">&#39;a&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75af00">s</span> <span style="color:#f92672">&lt;=</span> <span style="color:#d88200">&#39;m&#39;</span> <span style="color:#f92672">||</span> <span style="color:#75af00">s</span> <span style="color:#f92672">&gt;=</span> <span style="color:#d88200">&#39;A&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75af00">s</span> <span style="color:#f92672">&lt;=</span> <span style="color:#d88200">&#39;M&#39;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">b</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">s</span> <span style="color:#f92672">&gt;=</span> <span style="color:#d88200">&#39;n&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75af00">s</span> <span style="color:#f92672">&lt;=</span> <span style="color:#d88200">&#39;z&#39;</span> <span style="color:#f92672">||</span> <span style="color:#75af00">s</span> <span style="color:#f92672">&gt;=</span> <span style="color:#d88200">&#39;N&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75af00">s</span> <span style="color:#f92672">&lt;=</span> <span style="color:#d88200">&#39;Z&#39;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">b</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">b</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">strings</span><span style="color:#111">.</span><span style="color:#75af00">NewReader</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Lbh penpxrq gur pbqr!&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">r</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">rot13Reader</span><span style="color:#111">{</span><span style="color:#75af00">s</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">io</span><span style="color:#111">.</span><span style="color:#75af00">Copy</span><span style="color:#111">(</span><span style="color:#75af00">os</span><span style="color:#111">.</span><span style="color:#75af00">Stdout</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">r</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="images">Images</h3>
+<p>image 包定义 image 接口：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">image</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Image</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">ColorModel</span><span style="color:#111">()</span> <span style="color:#75af00">color</span><span style="color:#111">.</span><span style="color:#75af00">Model</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">Bounds</span><span style="color:#111">()</span> <span style="color:#75af00">Rectangle</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">At</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">y</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#75af00">color</span><span style="color:#111">.</span><span style="color:#75af00">Color</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>注意：Bounds方法的Rectangle返回值实际上是一个图像。Rectangle，因为声明在包图像中。color.color和color.Model类型也是接口，但我们将通过使用预定义的实现color.RGBA和color.RGBAModel来忽略这一点。这些接口和类型由 image/color 包指定</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;image&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">m</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">image</span><span style="color:#111">.</span><span style="color:#75af00">NewRGBA</span><span style="color:#111">(</span><span style="color:#75af00">image</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">100</span><span style="color:#111">,</span> <span style="color:#ae81ff">100</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">m</span><span style="color:#111">.</span><span style="color:#75af00">Bounds</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">m</span><span style="color:#111">.</span><span style="color:#75af00">At</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">RGBA</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="练习image">练习：image</h3>
+<p>还记得你之前写的图片生成器吗？让我们再写一个，但这次它将返回image.image的实现，而不是数据切片。
+定义您自己的图像类型，实现必要的方法，然后调用pic.ShowImage。
+Bounds应该返回一个 image.Rectangle，类似于图像。矩形（0，0，w，h）。
+ColorModel应返回color.RGBAModel。
+At应该返回一种颜色；最后一个图片生成器中的值v对应于颜色。RGBA{v，v，255，255}。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;image&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;image/color&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;golang.org/x/tour/pic&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Image</span> <span style="color:#00a8c8">struct</span><span style="color:#111">{}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#75af00">Image</span><span style="color:#111">)</span> <span style="color:#75af00">ColorModel</span><span style="color:#111">()</span> <span style="color:#75af00">color</span><span style="color:#111">.</span><span style="color:#75af00">Model</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">color</span><span style="color:#111">.</span><span style="color:#75af00">RGBAModel</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#75af00">Image</span><span style="color:#111">)</span> <span style="color:#75af00">Bounds</span><span style="color:#111">()</span> <span style="color:#75af00">image</span><span style="color:#111">.</span><span style="color:#75af00">Rectangle</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">image</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">200</span><span style="color:#111">,</span> <span style="color:#ae81ff">200</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#75af00">Image</span><span style="color:#111">)</span> <span style="color:#75af00">At</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">y</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#75af00">color</span><span style="color:#111">.</span><span style="color:#75af00">Color</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">color</span><span style="color:#111">.</span><span style="color:#75af00">RGBA</span><span style="color:#111">{</span><span style="color:#111">uint8</span><span style="color:#111">(</span><span style="color:#75af00">x</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">255</span><span style="color:#111">),</span> <span style="color:#111">uint8</span><span style="color:#111">(</span><span style="color:#75af00">y</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">255</span><span style="color:#111">),</span> <span style="color:#ae81ff">255</span><span style="color:#111">,</span> <span style="color:#ae81ff">255</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">m</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">Image</span><span style="color:#111">{}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">pic</span><span style="color:#111">.</span><span style="color:#75af00">ShowImage</span><span style="color:#111">(</span><span style="color:#75af00">m</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p><img src="/img/03/image_methods_0004.png" alt="image.png"></p>
+
+
+    
+
+
+                    
+                    <div class="row"><div class="position-relative mx-auto col-lg-9">
+                          <div class="bg-primary overflow-hidden p-3 mt-5 shadow">
+
+    <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
+
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/tour/03.html" title="3、基础篇（三）：更多类型: struct, slices, 和 map"><i class="fas fa-chevron-left p-1"></i>3、基础篇（三）：更多类型: struct, slices, 和 map</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/tour/05.html" title="5、泛型">5、泛型<i class="fas fa-chevron-right p-1"></i></a>
+    </div>
+</div>
+
+
+                        </div></div> 
+
+                </div>
+            </div> 
+            <div class="d-lg-none "><div class="row py-3 mb-5">
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+        </div> 
+        
+        <div class="row">
+            <div  class="col-12 text-muted text-sm-center"><h6>©2017-2023 鲁ICP备17023316号-1 Powered by Hugo</h6></div>
+        </div>
+        
+<script src="http://blog.911015.com/lib/jquery.min.js"></script> 
+<script src="http://blog.911015.com/lib/popper.min.js"></script> 
+
+<script src="http://blog.911015.com/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/blog.911015.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c998faac34ae24828c9c973cc2b76a0d";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

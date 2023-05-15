@@ -1,5 +1,5 @@
 +++
-title = "基础篇（三）：更多类型: struct, slices, 和 map"
+title = "3、基础篇（三）：更多类型: struct, slices, 和 map"
 description = "基础篇（三）：更多类型: struct, slices, 和 map"
 weight = 3
 url = "/tour/03.html"
@@ -454,7 +454,7 @@ func main() {
     pic.Show(Pic)
 }
 ```
-![image.png](https://cdn.nlark.com/yuque/0/2023/jpeg/12487795/1683790391324-b538633e-0cdf-4fe6-9685-d3bead652def.jpeg#averageHue=%237d7dff&clientId=u2accdf68-48c2-4&from=paste&id=u1e9ab2cb&originHeight=256&originWidth=256&originalType=url&ratio=1&rotation=0&showTitle=false&size=36760&status=done&style=none&taskId=u8528cc59-8143-4c71-8db6-0cbce242075&title=)
+![image.png](/img/03/image_tour_0003.png)
 
 
 ## Maps

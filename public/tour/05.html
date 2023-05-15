@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <meta name="description" content="Go编程语言是一个开源项目，旨在提高程序员的工作效率。">
+    <meta name="description" content="Go支持使用类型参数进行泛型编程。本课展示了在代码中使用泛型的一些示例。">
     
-    <link rel="alternate" type="application/rss+xml" href="http://blog.911015.com/beginner/index.xml" title="Go语言入门" />
-    <link rel="canonical" href="http://blog.911015.com/beginner/">
+    <link rel="canonical" href="http://blog.911015.com/tour/05.html">
 
     <title>
         
-        跟着用户手册学Golang | Go语言入门
+        5、泛型 | Go语言入门
         
     </title>
 
@@ -59,9 +58,6 @@
               </ul>
             </div>
     </div>
-    <div class="feed-icons">
-        <a  href="http://blog.911015.com/beginner/index.xml"><img class="w-75" src="/img/feed-icon.svg" alt="RSS feed" /></a>
-    </div>
     </nav>
 <div class="container-fluid">
             <div class="row">
@@ -87,7 +83,7 @@
         
 
          <ul class="navbar-nav flex-column pt-3">
-    <li data-nav-id="/beginner/" class="nav-item my-1 active haschildren
+    <li data-nav-id="/beginner/" class="nav-item my-1 parent haschildren
         ">
         
         
@@ -126,7 +122,7 @@
                   </a>
                 
         </li>
-    <li data-nav-id="/tour/" class="nav-item my-1 haschildren
+    <li data-nav-id="/tour/" class="nav-item my-1 parent haschildren
         ">
         
         
@@ -165,7 +161,7 @@
                   </a>
                 
         </li>
-        <li data-nav-id="/tour/05.html" class="nav-item my-1">
+        <li data-nav-id="/tour/05.html" class="nav-item my-1 active">
                 
                 
                   <a href="/tour/05.html" class="nav-link p-0">
@@ -184,7 +180,12 @@
 
 </div>
                 <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
-	<nav id="TableOfContents"></nav>
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#类型参数">类型参数</a></li>
+    <li><a href="#泛型类型">泛型类型</a></li>
+  </ul>
+</nav>
 			<div class="card shadow mt-3 " style="width: 10rem; ">
 				<a href="/contact.html" target="_blank">
 				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
@@ -214,7 +215,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">跟着用户手册学Golang</h1>
+    <h1 class="js-title">5、泛型</h1>
     <div class="d-flex align-items-center">
         
             <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
@@ -225,128 +226,53 @@
 <hr>
 
 
-
-
-<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-STYLE rounded" style="border-width:4px !important;">
-    <div class="wrap border border-left-0 rounded">
-        
-        <div class="card-header border-0 bg-white pl-3 text-STYLE">
-            <h3>文档简介</h3>
-        </div>
-        
-        <div class="card-body pt-1">
-            <blockquote>
-<p>Go编程语言是一个开源项目，旨在提高程序员的工作效率。</p>
-</blockquote>
 <blockquote>
-<p>Go表现力强、简洁、干净、高效。它的并发机制使编写程序变得容易，从而最大限度地利用多核和网络机器，而它的新型系统则实现了灵活和模块化的程序构建。Go可以快速编译为机器代码，但同时具有垃圾收集的便利性和运行时反射的功能。这是一种快速、静态类型化、编译的语言，感觉就像是一种动态类型化、解释的语言。</p>
+<p>Go支持使用类型参数进行泛型编程。本课展示了在代码中使用泛型的一些示例。</p>
 </blockquote>
-<blockquote>
-<p>Golang官方文档地址为：<a href="https://go.dev/doc/">go.dev/doc</a> ；文档开始简单介绍了Golang 的语言特性：简洁、高效、天然并发、快速编译、垃圾回收、反射，新类型系统等等。接下来分按入门，进阶、高级划分了大模块让初学者能够寻寻渐进的深入学习理解Golang；接下来我们将根据 <code>Getting Started</code>部分一步一步入门Golang。</p>
-</blockquote>
-<blockquote>
-<p>本章节内容为<a href="https://go.dev/doc/">官方文档</a>内容翻译；部分内容和代码为个人补充；<a href="https://go.dev/copyright">Copyright</a></p>
-</blockquote>
-<blockquote>
-<p>如果内容有误请 <a href="/contact.html"><i class='far fa-hand-point-right'></i>与我联系</a></p>
-</blockquote>
-
-        </div>
-    </div>
-</div>
-
-
-<div class="table table-striped" role="alert">
-    <table>
-<thead>
-<tr>
-<th style="text-align:center">教程列表</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="/beginner/01.html">安装Golang</a></td>
-<td style="text-align:left">有关下载和安装Go的说明。</td>
-</tr>
-<tr>
-<td style="text-align:center"><a href="/beginner/02.html">新手入门</a></td>
-<td style="text-align:left">一个简短的Hello，World入门教程。了解一些Go代码、工具、包和模块。</td>
-</tr>
-<tr>
-<td style="text-align:center"><a href="/beginner/03.html">创建Go项目</a></td>
-<td style="text-align:left">介绍函数、错误处理、数组、映射、单元测试和编译的简短主题教程。</td>
-</tr>
-<tr>
-<td style="text-align:center"><a href="/beginner/04.html">入门多模块工作区</a></td>
-<td style="text-align:left">介绍在Go中创建和使用多模块工作区的基本知识。多模块工作空间对于跨多个模块进行更改非常有用。（Go 1.18增加了工作空间模式，本地做多版本管理很方便）</td>
-</tr>
-<tr>
-<td style="text-align:center">用Go和Gin开发RESTful API</td>
-<td style="text-align:left">介绍使用Go和Gin web Framework编写RESTful web服务API的基础知识。</td>
-</tr>
-<tr>
-<td style="text-align:center">使用Go泛型</td>
-<td style="text-align:left">使用泛型，您可以声明和使用函数或类型，这些函数或类型是为与调用代码提供的任何一组类型一起工作而编写的。(Go 1.18 Go语言增加泛型)</td>
-</tr>
-<tr>
-<td style="text-align:center">使用fuzzing模糊测试</td>
-<td style="text-align:left">fuzzing可以为您的测试生成输入，这些输入可以捕捉到您可能错过的边缘案例和安全问题。（模糊测试是一种通过向目标系统提供非预期的输入并监视异常结果来发现软件漏洞的方法。）</td>
-</tr>
-<tr>
-<td style="text-align:center">编写Web应用程序</td>
-<td style="text-align:left">构建一个简单的web应用程序。</td>
-</tr>
-<tr>
-<td style="text-align:center">如何编写Go代码</td>
-<td style="text-align:left">本文档解释了如何在模块中开发一组简单的Go包，并展示了如何使用Go命令来构建和测试包。</td>
-</tr>
-<tr>
-<td style="text-align:center">Go之旅</td>
-<td style="text-align:left">Go语言的互动介绍分为三个部分。第一部分介绍了基本语法和数据结构；第二部分讨论了方法和接口；第三部分介绍了Go的并发原语。每一节都以一些练习作为结束，这样你就可以练习你所学到的东西。您可以在线参观，也可以使用以下软件在本地安装： go install golang.org/x/website/tour@latest这将把tour二进制文件放在GOPATH的bin目录中。</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-
-<h1 id="学习计划">学习计划</h1>
-<ul>
-<li>阅读官方文档；</li>
-<li>通过代码练习语法</li>
-<li>通过项目熟悉代码</li>
-</ul>
-
-
-
-<ul class="docs-children list-unstyled">
-			<li class="h2 py-1">
-				<a href="/beginner/01.html"> 01-Golang安装与体验 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/beginner/02.html"> 02-新手入门 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/beginner/03.html"> 03-创建Go项目 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/beginner/04.html"> 04-入门多模块工作区 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/tour/"> Go 编程语言之旅 </a>
-			</li>
-		
-
-	
-</ul>
-
-
-
-
+<h2 id="类型参数">类型参数</h2>
+<p>Go函数可以使用类型参数让函数支持多个类型。函数的类型参数用中括号包裹，位于函数的参数之前。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Index</span><span style="color:#111">[</span><span style="color:#75af00">T</span> <span style="color:#75af00">comparable</span><span style="color:#111">](</span><span style="color:#75af00">s</span> <span style="color:#111">[]</span><span style="color:#75af00">T</span><span style="color:#111">,</span> <span style="color:#75af00">x</span> <span style="color:#75af00">T</span><span style="color:#111">)</span> <span style="color:#00a8c8">int</span>
+</span></span></code></pre></div><p>这个声明意味着s是任何类型T的一个切片，它满足comparable内置约束。x也是相同类型的值。
+compatible是一个有用的约束，可以使用==和！=类型值上的运算符。在本例中，我们使用它将一个值与所有切片元素进行比较，直到找到匹配。此Index函数适用于任何支持比较的类型。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Index returns the index of x in s, or -1 if not found.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Index</span><span style="color:#111">[</span><span style="color:#75af00">T</span> <span style="color:#75af00">comparable</span><span style="color:#111">](</span><span style="color:#75af00">s</span> <span style="color:#111">[]</span><span style="color:#75af00">T</span><span style="color:#111">,</span> <span style="color:#75af00">x</span> <span style="color:#75af00">T</span><span style="color:#111">)</span> <span style="color:#00a8c8">int</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">s</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// v and x are type T, which has the comparable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// constraint, so we can use == here.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#00a8c8">if</span> <span style="color:#75af00">v</span> <span style="color:#f92672">==</span> <span style="color:#75af00">x</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">return</span> <span style="color:#75af00">i</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Index works on a slice of ints
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">si</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">int</span><span style="color:#111">{</span><span style="color:#ae81ff">10</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#ae81ff">15</span><span style="color:#111">,</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">10</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">Index</span><span style="color:#111">(</span><span style="color:#75af00">si</span><span style="color:#111">,</span> <span style="color:#ae81ff">15</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Index also works on a slice of strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">ss</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">string</span><span style="color:#111">{</span><span style="color:#d88200">&#34;foo&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;bar&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;baz&#34;</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">Index</span><span style="color:#111">(</span><span style="color:#75af00">ss</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;hello&#34;</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="泛型类型">泛型类型</h2>
+<p>除了泛型函数外，Go还支持泛型类型。可以使用类型参数对类型进行参数化，这对于实现泛型数据结构非常有用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// List represents a singly-linked list that holds
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// values of any type.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">type</span> <span style="color:#75af00">List</span><span style="color:#111">[</span><span style="color:#75af00">T</span> <span style="color:#75af00">any</span><span style="color:#111">]</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">next</span> <span style="color:#f92672">*</span><span style="color:#75af00">List</span><span style="color:#111">[</span><span style="color:#75af00">T</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">val</span>  <span style="color:#75af00">T</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>此示例演示了一个简单的类型声明，用于包含任何类型值的单链列表。</p>
 
 
     
@@ -358,8 +284,8 @@
 
     <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
 
-    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/" title="Go语言入门"><i class="fas fa-chevron-left p-1"></i>Go语言入门</a>
-        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/beginner/01.html" title="01-Golang安装与体验">01-Golang安装与体验<i class="fas fa-chevron-right p-1"></i></a>
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/tour/04.html" title="4、方法与接口"><i class="fas fa-chevron-left p-1"></i>4、方法与接口</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/tour/01.html" title="1、基础篇（一）：包、变量和方法">1、基础篇（一）：包、变量和方法<i class="fas fa-chevron-right p-1"></i></a>
     </div>
 </div>
 

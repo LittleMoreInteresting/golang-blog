@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="http://blog.911015.com/tour/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>基础篇（一）：包、变量和方法</title>
+      <title>1、基础篇（一）：包、变量和方法</title>
       <link>http://blog.911015.com/tour/01.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -22,7 +22,7 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main()
     </item>
     
     <item>
-      <title>基础篇（二）：Go语言流程控制</title>
+      <title>2、基础篇（二）：Go语言流程控制</title>
       <link>http://blog.911015.com/tour/02.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -35,7 +35,7 @@ package main import &amp;#34;fmt&amp;#34; func main() { sum := 1 for sum &amp;lt
     </item>
     
     <item>
-      <title>基础篇（三）：更多类型: struct, slices, 和 map</title>
+      <title>3、基础篇（三）：更多类型: struct, slices, 和 map</title>
       <link>http://blog.911015.com/tour/03.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -45,6 +45,29 @@ var p *int &amp;amp;运算符生成指向其操作数的指针。
 i := 42 p = &amp;amp;i *运算符表示指针的基本值。
 fmt.Println(*p) // read i through the pointer p *p = 21 // set i through the pointer p 与C不同，Go没有指针运算。
 package main import &amp;#34;fmt&amp;#34; func main() { i, j := 42, 2701 p := &amp;amp;i // point to i fmt.Println(*p) // read i through the pointer *p = 21 // set i through the pointer fmt.Println(i) // see the new value of i p = &amp;amp;j // point to j *p = *p / 37 // divide j through the pointer fmt.</description>
+    </item>
+    
+    <item>
+      <title>4、方法与接口</title>
+      <link>http://blog.911015.com/tour/04.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/tour/04.html</guid>
+      <description>Methods Go没有类。但是，您可以在类型上定义方法。 方法是一个具有特殊接收器参数的函数。 接收器出现在自己的参数列表中，位于func关键字和方法名称之间。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) type Vertex struct { X, Y float64 } func (v Vertex) Abs() float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(v.Abs()) } 在这个例子中，Abs方法有一个名为v的Vertex类型的接收器。 请记住：方法只是一个带有接收器参数的函数。下面的Abs是作为一个普通函数编写的，函数本身没有变化。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) type Vertex struct { X, Y float64 } func Abs(v Vertex) float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.</description>
+    </item>
+    
+    <item>
+      <title>5、泛型</title>
+      <link>http://blog.911015.com/tour/05.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/tour/05.html</guid>
+      <description>Go支持使用类型参数进行泛型编程。本课展示了在代码中使用泛型的一些示例。
+类型参数 Go函数可以使用类型参数让函数支持多个类型。函数的类型参数用中括号包裹，位于函数的参数之前。
+func Index[T comparable](s []T, x T) int 这个声明意味着s是任何类型T的一个切片，它满足comparable内置约束。x也是相同类型的值。 compatible是一个有用的约束，可以使用==和！=类型值上的运算符。在本例中，我们使用它将一个值与所有切片元素进行比较，直到找到匹配。此Index函数适用于任何支持比较的类型。
+package main import &amp;#34;fmt&amp;#34; // Index returns the index of x in s, or -1 if not found. func Index[T comparable](s []T, x T) int { for i, v := range s { // v and x are type T, which has the comparable // constraint, so we can use == here. if v == x { return i } } return -1 } func main() { // Index works on a slice of ints si := []int{10, 20, 15, -10} fmt.</description>
     </item>
     
   </channel>
