@@ -11,6 +11,7 @@ enableMissingTranslationPlaceholders = false
 sectionPagesMenu = 'main'
 # Enable Google Analytics by entering your tracking id
 googleAnalytics = ""
+enableRobotsTXT = true
 
 [params]
 ordersectionsby = "weight" # ordersectionsby = "title"
