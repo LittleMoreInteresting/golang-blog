@@ -40,6 +40,18 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main()
     </item>
     
     <item>
+      <title>go-zero 单体应用实践（一）</title>
+      <link>http://blog.911015.com/go-zero/01.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/go-zero/01.html</guid>
+      <description>环境搭建 官方文档
+Golang 环境安装 👉 golang Go Module设置 go env -w GO111MODULE=&amp;quot;on&amp;quot; goctl安装 👉 goctl protoc &amp;amp; protoc-gen-go安装 goctl env check -i -f --verbose etcd，redis，mysql 等开发工具可以通过Docker 快速搭建；可参考👉 gonivinck
+创建单体应用 1、创建目录 mkdir user-login cd user-login go mod init user-login 2、编辑api文件 userlogin.api api语法介绍
+type ( RegisterRequest { Name string `json:&amp;#34;name&amp;#34;` Email string `json:&amp;#34;email&amp;#34;` Password string `json:&amp;#34;password&amp;#34;` } RegisterResponse { ID int `json:&amp;#34;id&amp;#34;` Name string `json:&amp;#34;name&amp;#34;` Email string `json:&amp;#34;email&amp;#34;` } LoginRequest { Email string `json:&amp;#34;email&amp;#34;` Password string `json:&amp;#34;password&amp;#34;` } LoginResponse { Token string `json:&amp;#34;token&amp;#34;` Expire int64 `json:&amp;#34;expire&amp;#34;` } ) service userlogin-api { @handler RegisterHandler post /api/register(RegisterRequest) returns (RegisterResponse); @handler LoginHandler post /api/login(LoginRequest) returns (LoginResponse); } 3、执行生成代码命令 goctl api go -api userlogin.</description>
+    </item>
+    
+    <item>
       <title>02-新手入门</title>
       <link>http://blog.911015.com/beginner/02.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -69,6 +81,20 @@ package main import &amp;#34;fmt&amp;#34; func main() { sum := 1 for sum &amp;lt
     </item>
     
     <item>
+      <title>go-zero 单体应用实践（二）</title>
+      <link>http://blog.911015.com/go-zero/02.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/go-zero/02.html</guid>
+      <description>中间件使用 在go-zero中，中间件可以分为路由中间件和全局中间件，路由中间件是指某一些特定路由需要实现中间件逻辑，其和jwt类似，没有放在jwt:xxx下的路由不会使用中间件功能， 而全局中间件的服务范围则是整个服务。
+路由中间件 1、编辑 api 文件 userlogin/userlogin.api 生命接口需要添加的中间件，多个中间件用逗号分隔
+@server( middleware : Tagging,Version ) service userlogin-api { @handler Tags get /api/tags returns (TagResponse) } 2、goctl api 命令重新执行 生成middleware 文件
+userlogin/internal/middleware/taggingmiddleware.go userlogin/internal/middleware/versionmiddleware.go 可以看到路由文件中userlogin/internal/handler/routes.go 新增了一下代码
+server.AddRoutes( rest.WithMiddlewares( []rest.Middleware{serverCtx.Tagging, serverCtx.Version}, []rest.Route{ { Method: http.MethodGet, Path: &amp;#34;/api/tags&amp;#34;, Handler: TagsHandler(serverCtx), }, }..., ), ) 3、 文件中添加中间件依赖 userlogin/internal/svc/servicecontext.go
+type ServiceContext struct { Config config.Config Tagging rest.Middleware Version rest.Middleware UserModel user.UserModel } func NewServiceContext(c config.Config) *ServiceContext { conn := sqlx.</description>
+    </item>
+    
+    <item>
       <title>03-创建Go项目</title>
       <link>http://blog.911015.com/beginner/03.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -92,6 +118,17 @@ var p *int &amp;amp;运算符生成指向其操作数的指针。
 i := 42 p = &amp;amp;i *运算符表示指针的基本值。
 fmt.Println(*p) // read i through the pointer p *p = 21 // set i through the pointer p 与C不同，Go没有指针运算。
 package main import &amp;#34;fmt&amp;#34; func main() { i, j := 42, 2701 p := &amp;amp;i // point to i fmt.Println(*p) // read i through the pointer *p = 21 // set i through the pointer fmt.Println(i) // see the new value of i p = &amp;amp;j // point to j *p = *p / 37 // divide j through the pointer fmt.</description>
+    </item>
+    
+    <item>
+      <title>go-zero 单体应用实践（三）</title>
+      <link>http://blog.911015.com/go-zero/03.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/go-zero/03.html</guid>
+      <description>列表数据分页 1、api 定义 Pager api 可以单独一个文件；此时 userlogin.api 需要 import &amp;ldquo;api/pager.api&amp;rdquo;
+Pager { Page int `form:&amp;#34;page,default=1&amp;#34;` PageSize int `form:&amp;#34;page_size,default=10&amp;#34;` TotalSize int `form:&amp;#34;total_size,default=0&amp;#34;` } TagListRequest { Name string `form:&amp;#34;name,optional&amp;#34;` Pager } TagListResponse { List []TagResponse `json:&amp;#34;list&amp;#34;` Matedata Pager `json:&amp;#34;matedata&amp;#34;` } service userlogin-api { @handler Tags get /api/tag/list(TagListRequest) returns (TagListResponse) } 2、model 文件：BlogTagModel增加TageList方法；同时 customBlogTagModel.TagList 实现具体逻辑
+BlogTagModel interface { blogTagModel TagList(context.Context, *types.TagListRequest) (*types.TagListResponse, error) } func (c *customBlogTagModel) TagList(ctx context.Context, request *types.TagListRequest) (*types.TagListResponse, error) { result := &amp;amp;types.</description>
     </item>
     
     <item>
@@ -123,6 +160,20 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) type Vertex
     </item>
     
     <item>
+      <title>go-zero 微服务应用实践（一）</title>
+      <link>http://blog.911015.com/go-zero/04.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/go-zero/04.html</guid>
+      <description>简介 go-zero 是一个集成了各种工程实践的 web 和 rpc 框架。通过弹性设计保障了大并发服务端的稳定性，经受了充分的实战检验。
+本节将用go-zero 开发一个用户服务；主要包括注册、登录、用户信息查询功能
+初始化项目 //创建目录 madir project &amp;amp;&amp;amp; cd project //初始化项目 go mod init project 用户服务 0、环境准备 protoc &amp;amp; protoc-gen-go安装
+protoc是一款用C++编写的工具，其可以将proto文件翻译为指定语言的代码。在go-zero的微服务中，我们采用grpc进行服务间的通信，而grpc的编写就需要用到protoc和翻译成go语言rpc stub代码的插件protoc-gen-go。
+1、创建proto 文件 user/rpc/user.proto
+syntax = &amp;#34;proto3&amp;#34;; package user; option go_package = &amp;#34;./user&amp;#34;; message RegisterRequest { string Name = 1; int64 Gender = 2; string Email = 3; string Password = 4; } message RegisterResponse { int64 Id = 1; string Name = 2; int64 Gender = 3; string Email = 4; } message LoginRequest { string Email = 1; string Password = 2; } message LoginResponse { int64 Id = 1; string Name = 2; int64 Gender = 3; string Email = 4; } message UserInfoRequest { int64 Id = 1; } message UserInfoResponse { int64 Id = 1; string Name = 2; int64 Gender = 3; string Email = 4; } service User { rpc Register(RegisterRequest) returns(RegisterResponse); rpc Login(LoginRequest) returns(LoginResponse); rpc UserInfo(UserInfoRequest) returns(UserInfoResponse); } 2、创建 user/generate.</description>
+    </item>
+    
+    <item>
       <title>5、泛型</title>
       <link>http://blog.911015.com/tour/05.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -132,6 +183,17 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) type Vertex
 类型参数 Go函数可以使用类型参数让函数支持多个类型。函数的类型参数用中括号包裹，位于函数的参数之前。
 func Index[T comparable](s []T, x T) int 这个声明意味着s是任何类型T的一个切片，它满足comparable内置约束。x也是相同类型的值。 compatible是一个有用的约束，可以使用==和！=类型值上的运算符。在本例中，我们使用它将一个值与所有切片元素进行比较，直到找到匹配。此Index函数适用于任何支持比较的类型。
 package main import &amp;#34;fmt&amp;#34; // Index returns the index of x in s, or -1 if not found. func Index[T comparable](s []T, x T) int { for i, v := range s { // v and x are type T, which has the comparable // constraint, so we can use == here. if v == x { return i } } return -1 } func main() { // Index works on a slice of ints si := []int{10, 20, 15, -10} fmt.</description>
+    </item>
+    
+    <item>
+      <title>go-zero 微服务应用实践（二）</title>
+      <link>http://blog.911015.com/go-zero/05.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/go-zero/05.html</guid>
+      <description>服务调用 完成rpc访问功能后，还需要进行客户端调用，会用到goctl 的api功能；创建api目录编写api文件；api相关语法可以参考官方文档：api语法介绍
+1、API文件编写 其中 登录注册增加了参数验证，使用 validator 包进行验证详细使用方法可以到 github.com/go-playground/validator 查看
+syntax = &amp;#34;v1&amp;#34; type ( LoginRequest { Email string `json:&amp;#34;Email&amp;#34; validate:&amp;#34;required,email&amp;#34;` Password string `json:&amp;#34;password&amp;#34; validate:&amp;#34;required,gte=8&amp;#34;` } LoginResponse { AccessToken string `json:&amp;#34;accessToken&amp;#34;` AccessExpire int64 `json:&amp;#34;accessExpire&amp;#34;` } RegisterRequest { Name string `json:&amp;#34;name&amp;#34; validate:&amp;#34;required,gte=2,lte=20&amp;#34;` Gender int64 `json:&amp;#34;gender&amp;#34; validate:&amp;#34;oneof=1 2&amp;#34;` Email string `json:&amp;#34;Email&amp;#34; validate:&amp;#34;required,email&amp;#34;` Password string `json:&amp;#34;password&amp;#34; validate:&amp;#34;required,gte=8&amp;#34;` } RegisterResponse { Id int64 `json:&amp;#34;id&amp;#34;` Name string `json:&amp;#34;name&amp;#34;` Gender int64 `json:&amp;#34;gender&amp;#34;` Email string `json:&amp;#34;Email&amp;#34;` } UserInfoRequest { } UserInfoResponse { Id int64 `json:&amp;#34;id&amp;#34;` Name string `json:&amp;#34;name&amp;#34;` Gender int64 `json:&amp;#34;gender&amp;#34;` Email string `json:&amp;#34;Email&amp;#34;` } ) service User { @handler Login post /api/user/login(LoginRequest) returns (LoginResponse) @handler Register post /api/user/register(RegisterRequest) returns (RegisterResponse) } @server( jwt: Auth ) service User { @handler UserInfo post /api/user/userinfo(UserInfoRequest) returns (UserInfoResponse) } 2、执行goctl命令 goctl api go -api .</description>
     </item>
     
     <item>

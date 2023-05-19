@@ -4,11 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="canonical" href="http://blog.911015.com/beginner/02.html">
+    <meta name="description" content="go-zero 是一个集成了各种工程实践的 web 和 rpc 框架">
+    
+    <link rel="alternate" type="application/rss+xml" href="http://blog.911015.com/go-zero/index.xml" title="Go语言入门" />
+    <link rel="canonical" href="http://blog.911015.com/go-zero/">
 
     <title>
         
-        02-新手入门 | Go语言入门
+        go-zero应用实践 | Go语言入门
         
     </title>
 
@@ -56,6 +59,9 @@
               </ul>
             </div>
     </div>
+    <div class="feed-icons">
+        <a  href="http://blog.911015.com/go-zero/index.xml"><img class="w-75" src="/img/feed-icon.svg" alt="RSS feed" /></a>
+    </div>
     </nav>
 <div class="container-fluid">
             <div class="row">
@@ -81,7 +87,7 @@
         
 
          <ul class="navbar-nav flex-column pt-3">
-    <li data-nav-id="/beginner/" class="nav-item my-1 parent haschildren
+    <li data-nav-id="/beginner/" class="nav-item my-1 haschildren
         ">
         
         
@@ -96,7 +102,7 @@
                   </a>
                 
         </li>
-        <li data-nav-id="/beginner/02.html" class="nav-item my-1 active">
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
                 
                 
                   <a href="/beginner/02.html" class="nav-link p-0">
@@ -179,7 +185,7 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/go-zero/" class="nav-item my-1 haschildren
+    <li data-nav-id="/go-zero/" class="nav-item my-1 active haschildren
         ">
         
         
@@ -235,13 +241,7 @@
 
 </div>
                 <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
-	<nav id="TableOfContents">
-  <ul>
-    <li><a href="#前期准备">前期准备</a></li>
-    <li><a href="#hello-world">Hello World</a></li>
-    <li><a href="#调用外部包">调用外部包</a></li>
-  </ul>
-</nav>
+	<nav id="TableOfContents"></nav>
 			<div class="card shadow mt-3 " style="width: 10rem; ">
 				<a href="/contact.html" target="_blank">
 				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
@@ -271,7 +271,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">02-新手入门</h1>
+    <h1 class="js-title">go-zero应用实践</h1>
     <div class="d-flex align-items-center">
         
             <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
@@ -282,95 +282,66 @@
 <hr>
 
 
+
+
+<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-STYLE rounded" style="border-width:4px !important;">
+    <div class="wrap border border-left-0 rounded">
+        
+        <div class="card-header border-0 bg-white pl-3 text-STYLE">
+            <h3>文档简介</h3>
+        </div>
+        
+        <div class="card-body pt-1">
+            <p><a href="https://go-zero.dev/cn/docs/introduction/">go-zero</a> 是一个集成了各种工程实践的 web 和 rpc 框架。通过弹性设计保障了大并发服务端的稳定性，经受了充分的实战检验。</p>
+<p>go-zero 包含极简的 API 定义和生成工具 goctl，可以根据定义的 api 文件一键生成 Go, iOS, Android, Kotlin, Dart, TypeScript, JavaScript 代码，并可直接运行。</p>
+<p>使用 go-zero 的好处：</p>
+<ul>
+<li>轻松获得支撑千万日活服务的稳定性</li>
+<li>内建级联超时控制、限流、自适应熔断、自适应降载等微服务治理能力，无需配置和额外代码</li>
+<li>微服务治理中间件可无缝集成到其它现有框架使用</li>
+<li>极简的 API 描述，一键生成各端代码</li>
+<li>自动校验客户端请求参数合法性</li>
+<li>大量微服务治理和并发工具包</li>
+</ul>
 <blockquote>
-<p>在本教程中，您将获得Go编程的简要介绍</p>
-<ul>
-<li>安装Go .</li>
-<li>写一些简单的 &ldquo;Hello, world&rdquo; .</li>
-<li>使用go命令运行代码.</li>
-<li>使用Go程序包发现工具查找可以在自己的代码中使用的程序包.</li>
-<li>调用外部模块的功能.</li>
-</ul>
+<p>如果内容有误请 <a href="/contact.html"><i class='far fa-hand-point-right'></i>与我联系</a></p>
 </blockquote>
-<h2 id="前期准备">前期准备</h2>
-<ul>
-<li><strong>一些编程经验</strong>。 这里的代码非常简单，但了解一些函数相关的知识会有所帮助。.</li>
-<li><strong>用于编辑代码的工具</strong>。** ** 任何文本编辑器都可以。大多数文本编辑器都很好地支持Go。最受欢迎的是VSCode（免费）、GoLand（付费）和Vim（免费）。</li>
-<li><strong>一个命令终端.</strong> Go在Linux和Mac上以及Windows中的PowerShell或cmd上使用任何终端都能很好地工作。</li>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<ul class="docs-children list-unstyled">
+			<li class="h2 py-1">
+				<a href="/go-zero/01.html"> go-zero 单体应用实践（一） </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/go-zero/02.html"> go-zero 单体应用实践（二） </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/go-zero/03.html"> go-zero 单体应用实践（三） </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/go-zero/04.html"> go-zero 微服务应用实践（一） </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/go-zero/05.html"> go-zero 微服务应用实践（二） </a>
+			</li>
+		
+
+	
 </ul>
-<h2 id="hello-world">Hello World</h2>
-<p>按一下步骤写一段 “Hello World”代码</p>
-<p>1、打开一个命令提示符并cd到您的主目录。
-Linux/Mac 系统执行 : <code>cd</code>
-Window系统执行： <code>cd %HOMEPATH%</code></p>
-<p>2、为您的第一个Go源代码创建一个hello目录
-可以使用一下命令：</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> mkdir hello
-</span></span><span style="display:flex;"><span> <span style="color:#111">cd</span> hello
-</span></span></code></pre></div><p>3、为代码启用依赖管理</p>
-<p style="text-indent: 2em">
-当您的代码导入其他项目中的包（package）时，您可以通过自己的代码来管理这些模块的依赖关系。该模块由go.mod文件定义，通过该文件追踪提供包的这些模块。该go.mod文件与您的代码一起保存，包括在您的源代码存储库中。
-要通过创建go.mod文件为代码启用依赖管理，请运行go mod init+模块的名称 命令。该名称是模块的模块路径。
-在实际开发中，模块路径通常是保存源代码的存储仓库位置。例如，模块路径可能是github.com/mymodule。如果您计划发布您的模块供他人使用，则模块路径必须是Go工具可以下载您的模块的位置。
-对于本教程，只需使用example/hello。</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> go mod init example/hello
-</span></span><span style="display:flex;"><span> go: creating new go.mod: module example/hello
-</span></span></code></pre></div><p>4、在编辑器中，创建一个文件hello.go，在其中编写代码。
-5、将以下代码粘贴到hello.go文件中并保存该文件。</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Hello World（^-^）&#34;</span><span style="color:#111">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
-</span></span></code></pre></div><p>接下来看一下这段代码的内容：</p>
-<ul>
-<li>声明一个主包(main)（包是对函数进行分组的一种方式，它由同一目录中的所有文件组成）。</li>
-<li>导入流行的fmt包，其中包含格式化文本的功能，包括打印到控制台。这个包是Go的标准库之一。</li>
-<li>实现一个主要功能，将消息打印到控制台。当您运行主程序包时，默认情况下会执行一个主函数（main）。</li>
-</ul>
-<p>6、运行代码</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go run .
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Hello World（^-^）</span>
-</span></span></code></pre></div><p>7、go run命令是众多go命令之一。使用 <code>go help </code>命令可以查看其他命令帮助文档：</p>
-<h2 id="调用外部包">调用外部包</h2>
-<p style="text-indent: 2em">
-当你需要你的代码来做一些可能已经被其他人实现的事情时，你可以导入一个实现了这些功能的包直接使用。</p>
-1、使用外部模块的功能，使打印的消息更加有趣
-<ul>
-<li>访问pkg.go.dev并搜索“quote”包</li>
-<li>在搜索结果中找到并单击rsc.io/quote包（如果您看到rsc.io/quote/v3，请暂时忽略它）。</li>
-<li>在“文档”部分的“索引”下，记下可以从代码中调用的函数列表。您将使用Go功能。</li>
-<li>请注意，在本页顶部，&ldquo;quote&quot;包含在rsc.io/quote模块中。</li>
-</ul>
-<p style="text-indent: 2em">
- 您可以使用pkg.go.dev网站查找已发布的模块，这些模块的包中有您可以在自己的代码中使用的功能。包发布在模块中，比如rsc.io/quote，其他人可以在其中使用它们。随着时间的推移，新版本会对模块进行改进，您可以升级代码以使用改进的版本。
-</p>
-2、在Go代码中，导入rsc.io/quote包并调用其函数 quote.Go()。之后，您的代码应该包括以下内容：
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;rsc.io/quote&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">quote</span><span style="color:#111">.</span><span style="color:#75af00">Go</span><span style="color:#111">())</span>
-</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
-</span></span></code></pre></div><p>3、添加模块依赖和校验
-Go程序把“quote”包添加到依赖中（go.mod），以及用于验证模块的go.sum文件中。</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> $ go mod tidy
-</span></span><span style="display:flex;"><span> go: finding module <span style="color:#00a8c8">for</span> package rsc.io/quote
-</span></span><span style="display:flex;"><span> go: found rsc.io/quote in rsc.io/quote v1.5.2
-</span></span></code></pre></div><p>4、运行您的代码以查看您正在调用的函数生成的消息。</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> $ go run .
-</span></span><span style="display:flex;"><span> <span style="color:#75715e"># Don&#39;t communicate by sharing memory, share memory by communicating.</span>
-</span></span></code></pre></div><p>请注意，您的代码调用Go函数，打印出一条关于通信的格言。</p>
-<blockquote>
-<p>当您运行go mod tidy，它找到并下载了包含您导入的包的rsc.io/quote模块。默认情况下，它下载了最新版本v1.5.2。</p>
-</blockquote>
+
+
+
+
 
 
     
@@ -382,8 +353,8 @@ Go程序把“quote”包添加到依赖中（go.mod），以及用于验证模�
 
     <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
 
-    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/beginner/01.html" title="01-Golang安装与体验"><i class="fas fa-chevron-left p-1"></i>01-Golang安装与体验</a>
-        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/beginner/03.html" title="03-创建Go项目">03-创建Go项目<i class="fas fa-chevron-right p-1"></i></a>
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/tour/06.html" title="6、并发"><i class="fas fa-chevron-left p-1"></i>6、并发</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/go-zero/01.html" title="go-zero 单体应用实践（一）">go-zero 单体应用实践（一）<i class="fas fa-chevron-right p-1"></i></a>
     </div>
 </div>
 

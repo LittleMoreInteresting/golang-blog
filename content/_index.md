@@ -9,3 +9,4 @@ weight = 1
 {{< /lead >}}
 
 ## [跟着用户手册学Golang](/beginner/)
+## [go-zero应用实践](/go-zero/)

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="单体应用实践">
+    
+    <link rel="canonical" href="http://blog.911015.com/go-zero/01.html">
+
+    <title>
+        
+        go-zero 单体应用实践（一） | Go语言入门
+        
+    </title>
+
+    
+    <link href="http://blog.911015.com/css/fontawesome.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="http://blog.911015.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                    <img src="/img/site_logo.png" />
+                
+                Go语言入门
+            </a>
+        </div>
+        
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+              <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact.html" target="_blank">
+                                  <i class='fab fa-qq'></i> QQ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/LittleMoreInteresting/beginner-example" target="_blank">
+                                  <i class='fab fa-github'></i>
+                                </a>
+                            </li>
+              </ul>
+            </div>
+    </div>
+    </nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+          <div class="js-favorite-links mt-3 d-none">
+  <span class=""><i class="mr-1 fas fa-star"></i>Favorites</span>
+  <ul class="js-favorite-links-list navbar-nav flex-column mt-2">
+  </ul>
+  <hr class="w-100 mb-2">
+</div>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/beginner/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/beginner/"><h6>跟着用户手册学Golang</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/beginner/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/01.html" class="nav-link p-0">
+                    01-Golang安装与体验
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/02.html" class="nav-link p-0">
+                    02-新手入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/03.html" class="nav-link p-0">
+                    03-创建Go项目
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/04.html" class="nav-link p-0">
+                    04-入门多模块工作区
+                  </a>
+                
+        </li>
+    <li data-nav-id="/tour/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/tour/"><h6>Go 编程语言之旅</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/tour/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/01.html" class="nav-link p-0">
+                    1、基础篇（一）：包、变量和方法
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/02.html" class="nav-link p-0">
+                    2、基础篇（二）：Go语言流程控制
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/03.html" class="nav-link p-0">
+                    3、基础篇（三）：更多类型: struct, slices, 和 map
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/04.html" class="nav-link p-0">
+                    4、方法与接口
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/05.html" class="nav-link p-0">
+                    5、泛型
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/06.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/06.html" class="nav-link p-0">
+                    6、并发
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/go-zero/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/go-zero/"><h6>go-zero应用实践</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/go-zero/01.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/go-zero/01.html" class="nav-link p-0">
+                    go-zero 单体应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/02.html" class="nav-link p-0">
+                    go-zero 单体应用实践（二）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/03.html" class="nav-link p-0">
+                    go-zero 单体应用实践（三）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/04.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/05.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（二）
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1创建目录">1、创建目录</a></li>
+    <li><a href="#2编辑api文件-userloginapi">2、编辑api文件 userlogin.api</a></li>
+    <li><a href="#3执行生成代码命令">3、执行生成代码命令</a></li>
+    <li><a href="#4生成model文件">4、生成Model文件</a></li>
+    <li><a href="#5完善服务依赖">5、完善服务依赖</a></li>
+    <li><a href="#6业务逻辑代码">6、业务逻辑代码</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1开启jwt鉴权">1、开启jwt鉴权</a></li>
+    <li><a href="#2编写logic-代码">2、编写logic 代码</a></li>
+    <li><a href="#3运行测试">3、运行测试</a></li>
+  </ul>
+</nav>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">go-zero 单体应用实践（一）</h1>
+    <div class="d-flex align-items-center">
+        
+            <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
+        
+    </div>
+</div>
+
+<hr>
+
+
+<h1 id="环境搭建">环境搭建</h1>
+<blockquote>
+<p><a href="https://go-zero.dev/cn/docs/introduction">官方文档</a></p>
+</blockquote>
+<ul>
+<li>Golang 环境安装 👉 <a href="https://golang.google.cn/doc/install">golang</a></li>
+<li>Go Module设置 <code>go env -w GO111MODULE=&quot;on&quot;</code></li>
+<li>goctl安装  👉 <a href="https://go-zero.dev/cn/docs/goctl/installation">goctl</a></li>
+<li>protoc &amp; protoc-gen-go安装  <code>goctl env check -i -f --verbose</code></li>
+</ul>
+<p><a href="https://etcd.io/docs/v3.5/">etcd</a>，<a href="https://redis.io/">redis</a>，<a href="https://www.mysql.com/">mysql</a> 等开发工具可以通过Docker 快速搭建；可参考👉 <a href="https://github.com/nivin-studio/gonivinck">gonivinck</a></p>
+<h1 id="创建单体应用">创建单体应用</h1>
+<h2 id="1创建目录">1、创建目录</h2>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir user-login
+</span></span><span style="display:flex;"><span><span style="color:#111">cd</span> user-login
+</span></span><span style="display:flex;"><span>go mod init user-login
+</span></span></code></pre></div><h2 id="2编辑api文件-userloginapi">2、编辑api文件 userlogin.api</h2>
+<p><a href="https://go-zero.dev/cn/docs/design/grammar">api语法介绍</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#111">type</span> <span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>	RegisterRequest <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>		Name     string <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;name&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>		Email    string <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;email&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>		Password string <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;password&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	RegisterResponse <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>		ID    int    <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;id&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>		Name  string <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;name&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>		Email string <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;email&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	LoginRequest <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>		Email    string <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;email&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>		Password string <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;password&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	LoginResponse <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>		Token  string <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;token&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>		Expire int64  <span style="color:#d88200">`</span>json:<span style="color:#d88200">&#34;expire&#34;</span><span style="color:#d88200">`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>service userlogin-api <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	@handler RegisterHandler
+</span></span><span style="display:flex;"><span>	post /api/register<span style="color:#f92672">(</span>RegisterRequest<span style="color:#f92672">)</span> returns <span style="color:#f92672">(</span>RegisterResponse<span style="color:#f92672">)</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	@handler LoginHandler
+</span></span><span style="display:flex;"><span>	post /api/login<span style="color:#f92672">(</span>LoginRequest<span style="color:#f92672">)</span> returns <span style="color:#f92672">(</span>LoginResponse<span style="color:#f92672">)</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="3执行生成代码命令">3、执行生成代码命令</h2>
+<blockquote>
+<p>goctl api go -api userlogin.api -dir .
+go mod tidy</p>
+</blockquote>
+<p>生成文件目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>userlogin
+</span></span><span style="display:flex;"><span>├─etc // // 配置文件
+</span></span><span style="display:flex;"><span>├─internal
+</span></span><span style="display:flex;"><span>│  ├─config  // 配置声明type
+</span></span><span style="display:flex;"><span>│  ├─handler  // 路由及handler转发
+</span></span><span style="display:flex;"><span>│  ├─logic  // 业务逻辑
+</span></span><span style="display:flex;"><span>│  ├─svc // logic所依赖的资源池
+</span></span><span style="display:flex;"><span>│  └─types  // request、response的struct，根据api自动生成
+</span></span></code></pre></div><p>4、编辑配置文件  userlogin/etc/userlogin-api.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">Name</span><span style="color:#111">:</span> <span style="color:#ae81ff">userlogin-api</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Host</span><span style="color:#111">:</span> <span style="color:#ae81ff">0.0.0.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Port</span><span style="color:#111">:</span> <span style="color:#ae81ff">8888</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Mysql</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">DataSource</span><span style="color:#111">:</span> <span style="color:#ae81ff">root:123456@tcp(mysql:3306)/user?charset=utf8mb4&amp;parseTime=true&amp;loc=Asia%2FShanghai</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">CacheRedis</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">Host</span><span style="color:#111">:</span> <span style="color:#ae81ff">redis:6379</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span><span style="color:#111">:</span> <span style="color:#ae81ff">node</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Salt</span><span style="color:#111">:</span> <span style="color:#ae81ff">DWe7OZf6KPlnv7yy</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Auth</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">AccessSecret</span><span style="color:#111">:</span> <span style="color:#ae81ff">uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">AccessExpire</span><span style="color:#111">:</span> <span style="color:#ae81ff">86400</span>
+</span></span></code></pre></div><p>添加config声明 userlogin/internal/config/config.go
+其中Salt 用来密码加密存储，Auth  用于 <a href="https://go-zero.dev/cn/docs/advance/jwt">jwt鉴权</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Config</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">RestConf</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Mysql</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">DataSource</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">CacheRedis</span> <span style="color:#75af00">cache</span><span style="color:#111">.</span><span style="color:#75af00">CacheConf</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Salt</span>       <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Auth</span>       <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">AccessSecret</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">AccessExpire</span> <span style="color:#00a8c8">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="4生成model文件">4、生成Model文件</h2>
+<p>添加用户表  userlogin/model/user.sql</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">CREATE</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#f92672">`</span><span style="color:#00a8c8">user</span><span style="color:#f92672">`</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span><span style="color:#111">id</span><span style="color:#f92672">`</span> <span style="color:#111">bigint</span> <span style="color:#111">unsigned</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#111">AUTO_INCREMENT</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span><span style="color:#111">name</span><span style="color:#f92672">`</span> <span style="color:#111">varchar</span><span style="color:#111">(</span><span style="color:#ae81ff">255</span><span style="color:#111">)</span>  <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;&#39;</span> <span style="color:#00a8c8">COMMENT</span> <span style="color:#d88200">&#39;用户姓名&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span><span style="color:#111">email</span><span style="color:#f92672">`</span> <span style="color:#111">varchar</span><span style="color:#111">(</span><span style="color:#ae81ff">255</span><span style="color:#111">)</span>  <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;&#39;</span> <span style="color:#00a8c8">COMMENT</span> <span style="color:#d88200">&#39;用户邮箱&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span><span style="color:#111">password</span><span style="color:#f92672">`</span> <span style="color:#111">varchar</span><span style="color:#111">(</span><span style="color:#ae81ff">255</span><span style="color:#111">)</span>  <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;&#39;</span> <span style="color:#00a8c8">COMMENT</span> <span style="color:#d88200">&#39;用户密码&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span><span style="color:#111">create_time</span><span style="color:#f92672">`</span> <span style="color:#00a8c8">timestamp</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#00a8c8">CURRENT_TIMESTAMP</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span><span style="color:#111">update_time</span><span style="color:#f92672">`</span> <span style="color:#00a8c8">timestamp</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#00a8c8">CURRENT_TIMESTAMP</span> <span style="color:#00a8c8">ON</span> <span style="color:#00a8c8">UPDATE</span> <span style="color:#00a8c8">CURRENT_TIMESTAMP</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">PRIMARY</span> <span style="color:#00a8c8">KEY</span> <span style="color:#111">(</span><span style="color:#f92672">`</span><span style="color:#111">id</span><span style="color:#f92672">`</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">UNIQUE</span> <span style="color:#00a8c8">KEY</span> <span style="color:#f92672">`</span><span style="color:#111">idx_email_unique</span><span style="color:#f92672">`</span> <span style="color:#111">(</span><span style="color:#f92672">`</span><span style="color:#111">email</span><span style="color:#f92672">`</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span> <span style="color:#111">ENGINE</span><span style="color:#f92672">=</span><span style="color:#111">InnoDB</span>  <span style="color:#00a8c8">DEFAULT</span> <span style="color:#111">CHARSET</span><span style="color:#f92672">=</span><span style="color:#111">utf8mb4</span><span style="color:#111">;</span>
+</span></span></code></pre></div><p>通过命令生成model文件 <a href="https://go-zero.dev/cn/docs/goctl/model">model 指令</a></p>
+<blockquote>
+<p>goctl model mysql ddl -src=&ldquo;userlogin/model/user.sql&rdquo; -dir=&ldquo;userlogin/model/&rdquo;  -c</p>
+</blockquote>
+<p>-c 参数代表 在model层使用缓存 需要配置对应的 CacheRedis
+生成文件如下：</p>
+<pre tabindex="0"><code>user.sql
+usermodel.go
+usermodel_gen.go
+vars.go
+</code></pre><p>可以看到 goctl 已经生成了 UserModel interface 并实现了基本的增删改查询代码；
+<img src="https://cdn.nlark.com/yuque/0/2022/png/12487795/1657869696418-c471ff4c-d26d-4204-9429-55ec0921b534.png#clientId=ued4bc466-96bb-4&amp;from=paste&amp;height=524&amp;id=uda9f261e&amp;originHeight=524&amp;originWidth=684&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=63053&amp;status=done&amp;style=none&amp;taskId=u140ad78d-cb24-4458-81ea-e4cb522a9ee&amp;title=&amp;width=684" alt="image.png"></p>
+<h2 id="5完善服务依赖">5、完善服务依赖</h2>
+<p>编辑 userlogin/internal/svc/servicecontext.go 添加 logic所依赖的 UserModel</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">ServiceContext</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Config</span> <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">Config</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">UserModel</span> <span style="color:#75af00">model</span><span style="color:#111">.</span><span style="color:#75af00">UserModel</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewServiceContext</span><span style="color:#111">(</span><span style="color:#75af00">c</span> <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">Config</span><span style="color:#111">)</span> <span style="color:#f92672">*</span><span style="color:#75af00">ServiceContext</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">conn</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">sqlx</span><span style="color:#111">.</span><span style="color:#75af00">NewMysql</span><span style="color:#111">(</span><span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">Mysql</span><span style="color:#111">.</span><span style="color:#75af00">DataSource</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">ServiceContext</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Config</span><span style="color:#111">:</span>    <span style="color:#75af00">c</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">UserModel</span><span style="color:#111">:</span> <span style="color:#75af00">model</span><span style="color:#111">.</span><span style="color:#75af00">NewUserModel</span><span style="color:#111">(</span><span style="color:#75af00">conn</span><span style="color:#111">,</span> <span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">CacheRedis</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="6业务逻辑代码">6、业务逻辑代码</h2>
+<p>1、注册逻辑代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">RegisterLogic</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">logx</span><span style="color:#111">.</span><span style="color:#75af00">Logger</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">ctx</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">Context</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">svcCtx</span> <span style="color:#f92672">*</span><span style="color:#75af00">svc</span><span style="color:#111">.</span><span style="color:#75af00">ServiceContext</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewRegisterLogic</span><span style="color:#111">(</span><span style="color:#75af00">ctx</span> <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">Context</span><span style="color:#111">,</span> <span style="color:#75af00">svcCtx</span> <span style="color:#f92672">*</span><span style="color:#75af00">svc</span><span style="color:#111">.</span><span style="color:#75af00">ServiceContext</span><span style="color:#111">)</span> <span style="color:#f92672">*</span><span style="color:#75af00">RegisterLogic</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">RegisterLogic</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Logger</span><span style="color:#111">:</span> <span style="color:#75af00">logx</span><span style="color:#111">.</span><span style="color:#75af00">WithContext</span><span style="color:#111">(</span><span style="color:#75af00">ctx</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">ctx</span><span style="color:#111">:</span>    <span style="color:#75af00">ctx</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">svcCtx</span><span style="color:#111">:</span> <span style="color:#75af00">svcCtx</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">l</span> <span style="color:#f92672">*</span><span style="color:#75af00">RegisterLogic</span><span style="color:#111">)</span> <span style="color:#75af00">Register</span><span style="color:#111">(</span><span style="color:#75af00">req</span> <span style="color:#f92672">*</span><span style="color:#75af00">types</span><span style="color:#111">.</span><span style="color:#75af00">RegisterRequest</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#75af00">resp</span> <span style="color:#f92672">*</span><span style="color:#75af00">types</span><span style="color:#111">.</span><span style="color:#75af00">RegisterResponse</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">_</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#111">=</span> <span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">svcCtx</span><span style="color:#111">.</span><span style="color:#75af00">UserModel</span><span style="color:#111">.</span><span style="color:#75af00">FindOneByEmail</span><span style="color:#111">(</span><span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">ctx</span><span style="color:#111">,</span> <span style="color:#75af00">req</span><span style="color:#111">.</span><span style="color:#75af00">Email</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">==</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">status</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;该用户已存在&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#75af00">model</span><span style="color:#111">.</span><span style="color:#75af00">ErrNotFound</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">status</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">newUser</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">model</span><span style="color:#111">.</span><span style="color:#75af00">User</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Name</span><span style="color:#111">:</span>     <span style="color:#75af00">req</span><span style="color:#111">.</span><span style="color:#75af00">Name</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Email</span><span style="color:#111">:</span>    <span style="color:#75af00">req</span><span style="color:#111">.</span><span style="color:#75af00">Email</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Password</span><span style="color:#111">:</span> <span style="color:#75af00">cryptx</span><span style="color:#111">.</span><span style="color:#75af00">PasswordEncrypt</span><span style="color:#111">(</span><span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">svcCtx</span><span style="color:#111">.</span><span style="color:#75af00">Config</span><span style="color:#111">.</span><span style="color:#75af00">Salt</span><span style="color:#111">,</span> <span style="color:#75af00">req</span><span style="color:#111">.</span><span style="color:#75af00">Password</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">res</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">svcCtx</span><span style="color:#111">.</span><span style="color:#75af00">UserModel</span><span style="color:#111">.</span><span style="color:#75af00">Insert</span><span style="color:#111">(</span><span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">ctx</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">newUser</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">status</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">newUser</span><span style="color:#111">.</span><span style="color:#75af00">Id</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#111">=</span> <span style="color:#75af00">res</span><span style="color:#111">.</span><span style="color:#75af00">LastInsertId</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">status</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">types</span><span style="color:#111">.</span><span style="color:#75af00">RegisterResponse</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">ID</span><span style="color:#111">:</span>    <span style="color:#111">int</span><span style="color:#111">(</span><span style="color:#75af00">newUser</span><span style="color:#111">.</span><span style="color:#75af00">Id</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Name</span><span style="color:#111">:</span>  <span style="color:#75af00">newUser</span><span style="color:#111">.</span><span style="color:#75af00">Name</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Email</span><span style="color:#111">:</span> <span style="color:#75af00">newUser</span><span style="color:#111">.</span><span style="color:#75af00">Email</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">},</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>2、添加 JWT 工具   userlogin/common/jwtx/jwt.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">jwtx</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;github.com/golang-jwt/jwt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">GetToken</span><span style="color:#111">(</span><span style="color:#75af00">secretKey</span> <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">iat</span><span style="color:#111">,</span> <span style="color:#75af00">seconds</span><span style="color:#111">,</span> <span style="color:#75af00">uid</span> <span style="color:#00a8c8">int64</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">claims</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#75af00">jwt</span><span style="color:#111">.</span><span style="color:#75af00">MapClaims</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">claims</span><span style="color:#111">[</span><span style="color:#d88200">&#34;exp&#34;</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#75af00">iat</span> <span style="color:#f92672">+</span> <span style="color:#75af00">seconds</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">claims</span><span style="color:#111">[</span><span style="color:#d88200">&#34;iat&#34;</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#75af00">iat</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">claims</span><span style="color:#111">[</span><span style="color:#d88200">&#34;uid&#34;</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#75af00">uid</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">token</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">jwt</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#75af00">jwt</span><span style="color:#111">.</span><span style="color:#75af00">SigningMethodHS256</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">token</span><span style="color:#111">.</span><span style="color:#75af00">Claims</span> <span style="color:#111">=</span> <span style="color:#75af00">claims</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">token</span><span style="color:#111">.</span><span style="color:#75af00">SignedString</span><span style="color:#111">([]</span><span style="color:#111">byte</span><span style="color:#111">(</span><span style="color:#75af00">secretKey</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>3、用户登录逻辑  userlogin/internal/logic/loginlogic.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">LoginLogic</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">logx</span><span style="color:#111">.</span><span style="color:#75af00">Logger</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">ctx</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">Context</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">svcCtx</span> <span style="color:#f92672">*</span><span style="color:#75af00">svc</span><span style="color:#111">.</span><span style="color:#75af00">ServiceContext</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewLoginLogic</span><span style="color:#111">(</span><span style="color:#75af00">ctx</span> <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">Context</span><span style="color:#111">,</span> <span style="color:#75af00">svcCtx</span> <span style="color:#f92672">*</span><span style="color:#75af00">svc</span><span style="color:#111">.</span><span style="color:#75af00">ServiceContext</span><span style="color:#111">)</span> <span style="color:#f92672">*</span><span style="color:#75af00">LoginLogic</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">LoginLogic</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Logger</span><span style="color:#111">:</span> <span style="color:#75af00">logx</span><span style="color:#111">.</span><span style="color:#75af00">WithContext</span><span style="color:#111">(</span><span style="color:#75af00">ctx</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">ctx</span><span style="color:#111">:</span>    <span style="color:#75af00">ctx</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">svcCtx</span><span style="color:#111">:</span> <span style="color:#75af00">svcCtx</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">l</span> <span style="color:#f92672">*</span><span style="color:#75af00">LoginLogic</span><span style="color:#111">)</span> <span style="color:#75af00">Login</span><span style="color:#111">(</span><span style="color:#75af00">req</span> <span style="color:#f92672">*</span><span style="color:#75af00">types</span><span style="color:#111">.</span><span style="color:#75af00">LoginRequest</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#75af00">resp</span> <span style="color:#f92672">*</span><span style="color:#75af00">types</span><span style="color:#111">.</span><span style="color:#75af00">LoginResponse</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">res</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">svcCtx</span><span style="color:#111">.</span><span style="color:#75af00">UserModel</span><span style="color:#111">.</span><span style="color:#75af00">FindOneByEmail</span><span style="color:#111">(</span><span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">ctx</span><span style="color:#111">,</span> <span style="color:#75af00">req</span><span style="color:#111">.</span><span style="color:#75af00">Email</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">==</span> <span style="color:#75af00">model</span><span style="color:#111">.</span><span style="color:#75af00">ErrNotFound</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">status</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;用户不存在&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">status</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 判断密码是否正确
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">password</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">cryptx</span><span style="color:#111">.</span><span style="color:#75af00">PasswordEncrypt</span><span style="color:#111">(</span><span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">svcCtx</span><span style="color:#111">.</span><span style="color:#75af00">Config</span><span style="color:#111">.</span><span style="color:#75af00">Salt</span><span style="color:#111">,</span> <span style="color:#75af00">req</span><span style="color:#111">.</span><span style="color:#75af00">Password</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">password</span> <span style="color:#f92672">!=</span> <span style="color:#75af00">res</span><span style="color:#111">.</span><span style="color:#75af00">Password</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">status</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;密码错误&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">now</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Now</span><span style="color:#111">().</span><span style="color:#75af00">Unix</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">accessExpire</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">svcCtx</span><span style="color:#111">.</span><span style="color:#75af00">Config</span><span style="color:#111">.</span><span style="color:#75af00">Auth</span><span style="color:#111">.</span><span style="color:#75af00">AccessExpire</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">accessToken</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">jwtx</span><span style="color:#111">.</span><span style="color:#75af00">GetToken</span><span style="color:#111">(</span><span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">svcCtx</span><span style="color:#111">.</span><span style="color:#75af00">Config</span><span style="color:#111">.</span><span style="color:#75af00">Auth</span><span style="color:#111">.</span><span style="color:#75af00">AccessSecret</span><span style="color:#111">,</span> <span style="color:#75af00">now</span><span style="color:#111">,</span> <span style="color:#75af00">accessExpire</span><span style="color:#111">,</span> <span style="color:#75af00">res</span><span style="color:#111">.</span><span style="color:#75af00">Id</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">err</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">types</span><span style="color:#111">.</span><span style="color:#75af00">LoginResponse</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Token</span><span style="color:#111">:</span>  <span style="color:#75af00">accessToken</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Expire</span><span style="color:#111">:</span> <span style="color:#75af00">now</span> <span style="color:#f92672">+</span> <span style="color:#75af00">accessExpire</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">},</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>7、启动测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#75af00">run</span> <span style="color:#75af00">userlogin</span><span style="color:#111">.</span><span style="color:#00a8c8">go</span> <span style="color:#f92672">-</span><span style="color:#75af00">f</span> <span style="color:#75af00">etc</span><span style="color:#f92672">/</span><span style="color:#75af00">userlogin</span><span style="color:#f92672">-</span><span style="color:#75af00">api</span><span style="color:#111">.</span><span style="color:#75af00">yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#75af00">Starting</span> <span style="color:#75af00">server</span> <span style="color:#75af00">at</span> <span style="color:#ae81ff">0.0.0.0</span><span style="color:#111">:</span><span style="color:#ae81ff">8888.</span><span style="color:#111">..</span>
+</span></span></code></pre></div><p>注册测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl -i -X POST http://127.0.0.1:8888/api/register -H <span style="color:#d88200">&#39;Content-Type: application/json&#39;</span> -d <span style="color:#d88200">&#39;{&#34;name&#34;:&#34;test&#34;,&#34;email&#34;:&#34;test@gmail.com&#34;,&#34;password&#34;:&#34;123456&#34;}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Type: application/json<span style="color:#111">;</span> <span style="color:#111">charset</span><span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>Traceparent: 00-91ee4162c2a42c7df3111ab73cdb242f-1b886700e9099cc8-00
+</span></span><span style="display:flex;"><span>Date: Tue, <span style="color:#ae81ff">19</span> Jul <span style="color:#ae81ff">2022</span> 16:19:33 GMT
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">47</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#d88200">&#34;id&#34;</span>:1,<span style="color:#d88200">&#34;name&#34;</span>:<span style="color:#d88200">&#34;test&#34;</span>,<span style="color:#d88200">&#34;email&#34;</span>:<span style="color:#d88200">&#34;test@gmail.com&#34;</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>登录测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl -i -X POST http://127.0.0.1:8888/api/login -H <span style="color:#d88200">&#39;Content-Type: application/json&#39;</span> -d <span style="color:#d88200">&#39;{&#34;email&#34;:&#34;test@gmail.com&#34;,&#34;password&#34;:&#34;123456&#34;}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Type: application/json<span style="color:#111">;</span> <span style="color:#111">charset</span><span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>Traceparent: 00-4cc2b11a99a2216590c50a2a7215e832-d7af5dc45fa6a65b-00
+</span></span><span style="display:flex;"><span>Date: Tue, <span style="color:#ae81ff">19</span> Jul <span style="color:#ae81ff">2022</span> 16:22:28 GMT
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">171</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#d88200">&#34;token&#34;</span>:<span style="color:#d88200">&#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTgzMzQxNDgsImlhdCI6MTY1ODI0Nzc0OCwidWlkIjoxfQ.QGrhGWCRSMWGyEZyV7GatGYU_XgBVdjQRJqW7qEBk04&#34;</span>,<span style="color:#d88200">&#34;expire&#34;</span>:1658334148<span style="color:#f92672">}</span>
+</span></span></code></pre></div><h1 id="jwt鉴权应用">jwt鉴权应用</h1>
+<p>上面已经完成了登录注册功能；并且登录返回了Token；接下来就用一下Token</p>
+<h2 id="1开启jwt鉴权">1、开启jwt鉴权</h2>
+<p>编写 api 文件 在 service 上方声明使用jwt鉴权
+修改 userlogin/userlogin.api 重新执行 goctl api 命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">UserInfoResponse</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">ID</span>    <span style="color:#00a8c8">int64</span>    <span style="color:#d88200">`json:&#34;id&#34;`</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Name</span>  <span style="color:#00a8c8">string</span> <span style="color:#d88200">`json:&#34;name&#34;`</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Email</span> <span style="color:#00a8c8">string</span> <span style="color:#d88200">`json:&#34;email&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#75af00">server</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">jwt</span><span style="color:#111">:</span> <span style="color:#75af00">Auth</span> <span style="color:#75715e">// Auth 与 userlogin/internal/config/config.go 中配置的 jwt 参数对应
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">service</span> <span style="color:#75af00">userlogin</span><span style="color:#f92672">-</span><span style="color:#75af00">api</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#75af00">handler</span> <span style="color:#75af00">UserInfo</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">get</span> <span style="color:#f92672">/</span><span style="color:#75af00">api</span><span style="color:#f92672">/</span><span style="color:#75af00">userinfo</span> <span style="color:#75af00">returns</span> <span style="color:#111">(</span><span style="color:#75af00">UserInfoResponse</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>可以看到路由文件中 userlogin/internal/handler/routes.go 新增的路由中通 WithJwt 声明了使用jwt鉴权</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">server</span><span style="color:#111">.</span><span style="color:#75af00">AddRoutes</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">[]</span><span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">Route</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#75af00">Method</span><span style="color:#111">:</span>  <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">MethodGet</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#75af00">Path</span><span style="color:#111">:</span>    <span style="color:#d88200">&#34;/api/userinfo&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#75af00">Handler</span><span style="color:#111">:</span> <span style="color:#75af00">UserInfoHandler</span><span style="color:#111">(</span><span style="color:#75af00">serverCtx</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#111">},</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">},</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">WithJwt</span><span style="color:#111">(</span><span style="color:#75af00">serverCtx</span><span style="color:#111">.</span><span style="color:#75af00">Config</span><span style="color:#111">.</span><span style="color:#75af00">Auth</span><span style="color:#111">.</span><span style="color:#75af00">AccessSecret</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">)</span>
+</span></span></code></pre></div><h2 id="2编写logic-代码">2、编写logic 代码</h2>
+<blockquote>
+<p>userlogin/internal/logic/userinfologic.go</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewUserInfoLogic</span><span style="color:#111">(</span><span style="color:#75af00">ctx</span> <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">Context</span><span style="color:#111">,</span> <span style="color:#75af00">svcCtx</span> <span style="color:#f92672">*</span><span style="color:#75af00">svc</span><span style="color:#111">.</span><span style="color:#75af00">ServiceContext</span><span style="color:#111">)</span> <span style="color:#f92672">*</span><span style="color:#75af00">UserInfoLogic</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">UserInfoLogic</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Logger</span><span style="color:#111">:</span> <span style="color:#75af00">logx</span><span style="color:#111">.</span><span style="color:#75af00">WithContext</span><span style="color:#111">(</span><span style="color:#75af00">ctx</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">ctx</span><span style="color:#111">:</span>    <span style="color:#75af00">ctx</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">svcCtx</span><span style="color:#111">:</span> <span style="color:#75af00">svcCtx</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">l</span> <span style="color:#f92672">*</span><span style="color:#75af00">UserInfoLogic</span><span style="color:#111">)</span> <span style="color:#75af00">UserInfo</span><span style="color:#111">()</span> <span style="color:#111">(</span><span style="color:#75af00">resp</span> <span style="color:#f92672">*</span><span style="color:#75af00">types</span><span style="color:#111">.</span><span style="color:#75af00">UserInfoResponse</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">uid</span><span style="color:#111">,</span> <span style="color:#75af00">_</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">ctx</span><span style="color:#111">.</span><span style="color:#75af00">Value</span><span style="color:#111">(</span><span style="color:#d88200">&#34;uid&#34;</span><span style="color:#111">).(</span><span style="color:#75af00">json</span><span style="color:#111">.</span><span style="color:#75af00">Number</span><span style="color:#111">).</span><span style="color:#75af00">Int64</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">one</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">svcCtx</span><span style="color:#111">.</span><span style="color:#75af00">UserModel</span><span style="color:#111">.</span><span style="color:#75af00">FindOne</span><span style="color:#111">(</span><span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">ctx</span><span style="color:#111">,</span> <span style="color:#75af00">uid</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">err</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">types</span><span style="color:#111">.</span><span style="color:#75af00">UserInfoResponse</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">ID</span><span style="color:#111">:</span>    <span style="color:#75af00">one</span><span style="color:#111">.</span><span style="color:#75af00">Id</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Name</span><span style="color:#111">:</span>  <span style="color:#75af00">one</span><span style="color:#111">.</span><span style="color:#75af00">Name</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Email</span><span style="color:#111">:</span> <span style="color:#75af00">one</span><span style="color:#111">.</span><span style="color:#75af00">Email</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">},</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="3运行测试">3、运行测试</h2>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># curl -i http://127.0.0.1:8000/api/userinfo</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">401</span> Unauthorized
+</span></span><span style="display:flex;"><span>Traceparent: 00-a418d68212d9e2c29664a7e9aeefbd14-7282c005bbcd5f24-00
+</span></span><span style="display:flex;"><span>Date: Thu, <span style="color:#ae81ff">21</span> Jul <span style="color:#ae81ff">2022</span> 17:01:21 GMT
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#curl -i -X GET  &#39;http://127.0.0.1:8000/api/userinfo&#39;  -H &#39;Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTg1MDkzNDAsImlhdCI6MTY1ODQyMjk0MCwidWlkIjoxfQ.j6K0CjJ9jM5a3a7-DRUGq6b3uvMFcelvR7vQkZAQXWw&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Content-Type: application/json<span style="color:#111">;</span> <span style="color:#111">charset</span><span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>Traceparent: 00-e547b466d3e7da54d932838bfdee17c4-4ec7aaedb056ef03-00
+</span></span><span style="display:flex;"><span>Date: Thu, <span style="color:#ae81ff">21</span> Jul <span style="color:#ae81ff">2022</span> 17:07:42 GMT
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">47</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#d88200">&#34;id&#34;</span>:1,<span style="color:#d88200">&#34;name&#34;</span>:<span style="color:#d88200">&#34;test&#34;</span>,<span style="color:#d88200">&#34;email&#34;</span>:<span style="color:#d88200">&#34;test@gmail.com&#34;</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div>
+
+    
+
+
+                    
+                    <div class="row"><div class="position-relative mx-auto col-lg-9">
+                          <div class="bg-primary overflow-hidden p-3 mt-5 shadow">
+
+    <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
+
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/go-zero/" title="go-zero应用实践"><i class="fas fa-chevron-left p-1"></i>go-zero应用实践</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/go-zero/02.html" title="go-zero 单体应用实践（二）">go-zero 单体应用实践（二）<i class="fas fa-chevron-right p-1"></i></a>
+    </div>
+</div>
+
+
+                        </div></div> 
+
+                </div>
+            </div> 
+            <div class="d-lg-none "><div class="row py-3 mb-5">
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+        </div> 
+        
+        <div class="row">
+            <div  class="col-12 text-muted text-sm-center"><h6>©2017-2023 鲁ICP备17023316号-1 Powered by Hugo</h6></div>
+        </div>
+        
+<script src="http://blog.911015.com/lib/jquery.min.js"></script> 
+<script src="http://blog.911015.com/lib/popper.min.js"></script> 
+
+<script src="http://blog.911015.com/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/blog.911015.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c998faac34ae24828c9c973cc2b76a0d";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

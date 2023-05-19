@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="单体应用实践">
+    
+    <link rel="canonical" href="http://blog.911015.com/go-zero/02.html">
+
+    <title>
+        
+        go-zero 单体应用实践（二） | Go语言入门
+        
+    </title>
+
+    
+    <link href="http://blog.911015.com/css/fontawesome.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="http://blog.911015.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                    <img src="/img/site_logo.png" />
+                
+                Go语言入门
+            </a>
+        </div>
+        
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+              <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact.html" target="_blank">
+                                  <i class='fab fa-qq'></i> QQ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/LittleMoreInteresting/beginner-example" target="_blank">
+                                  <i class='fab fa-github'></i>
+                                </a>
+                            </li>
+              </ul>
+            </div>
+    </div>
+    </nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+          <div class="js-favorite-links mt-3 d-none">
+  <span class=""><i class="mr-1 fas fa-star"></i>Favorites</span>
+  <ul class="js-favorite-links-list navbar-nav flex-column mt-2">
+  </ul>
+  <hr class="w-100 mb-2">
+</div>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/beginner/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/beginner/"><h6>跟着用户手册学Golang</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/beginner/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/01.html" class="nav-link p-0">
+                    01-Golang安装与体验
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/02.html" class="nav-link p-0">
+                    02-新手入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/03.html" class="nav-link p-0">
+                    03-创建Go项目
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/04.html" class="nav-link p-0">
+                    04-入门多模块工作区
+                  </a>
+                
+        </li>
+    <li data-nav-id="/tour/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/tour/"><h6>Go 编程语言之旅</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/tour/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/01.html" class="nav-link p-0">
+                    1、基础篇（一）：包、变量和方法
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/02.html" class="nav-link p-0">
+                    2、基础篇（二）：Go语言流程控制
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/03.html" class="nav-link p-0">
+                    3、基础篇（三）：更多类型: struct, slices, 和 map
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/04.html" class="nav-link p-0">
+                    4、方法与接口
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/05.html" class="nav-link p-0">
+                    5、泛型
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/06.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/06.html" class="nav-link p-0">
+                    6、并发
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/go-zero/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/go-zero/"><h6>go-zero应用实践</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/go-zero/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/01.html" class="nav-link p-0">
+                    go-zero 单体应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/02.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/go-zero/02.html" class="nav-link p-0">
+                    go-zero 单体应用实践（二）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/03.html" class="nav-link p-0">
+                    go-zero 单体应用实践（三）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/04.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/05.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（二）
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#路由中间件">路由中间件</a></li>
+    <li><a href="#全局中间件">全局中间件</a></li>
+  </ul>
+</nav>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">go-zero 单体应用实践（二）</h1>
+    <div class="d-flex align-items-center">
+        
+            <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
+        
+    </div>
+</div>
+
+<hr>
+
+
+<h1 id="中间件使用">中间件使用</h1>
+<blockquote>
+<p>在go-zero中，中间件可以分为路由中间件和全局中间件，路由中间件是指某一些特定路由需要实现中间件逻辑，其和jwt类似，没有放在jwt:xxx下的路由不会使用中间件功能， 而全局中间件的服务范围则是整个服务。</p>
+</blockquote>
+<h2 id="路由中间件">路由中间件</h2>
+<p>1、编辑 api 文件 userlogin/userlogin.api  生命接口需要添加的中间件，多个中间件用逗号分隔</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>@server<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>	middleware : Tagging,Version
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>service userlogin-api <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	@handler Tags
+</span></span><span style="display:flex;"><span>	get /api/tags returns <span style="color:#f92672">(</span>TagResponse<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>2、goctl api 命令重新执行 生成middleware 文件</p>
+<ul>
+<li>userlogin/internal/middleware/taggingmiddleware.go</li>
+<li>userlogin/internal/middleware/versionmiddleware.go</li>
+</ul>
+<p>可以看到路由文件中userlogin/internal/handler/routes.go 新增了一下代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">server</span><span style="color:#111">.</span><span style="color:#75af00">AddRoutes</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">WithMiddlewares</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#111">[]</span><span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">Middleware</span><span style="color:#111">{</span><span style="color:#75af00">serverCtx</span><span style="color:#111">.</span><span style="color:#75af00">Tagging</span><span style="color:#111">,</span> <span style="color:#75af00">serverCtx</span><span style="color:#111">.</span><span style="color:#75af00">Version</span><span style="color:#111">},</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#111">[]</span><span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">Route</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#75af00">Method</span><span style="color:#111">:</span>  <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">MethodGet</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#75af00">Path</span><span style="color:#111">:</span>    <span style="color:#d88200">&#34;/api/tags&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#75af00">Handler</span><span style="color:#111">:</span> <span style="color:#75af00">TagsHandler</span><span style="color:#111">(</span><span style="color:#75af00">serverCtx</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#111">},</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#111">}</span><span style="color:#f92672">...</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">)</span>
+</span></span></code></pre></div><p>3、 文件中添加中间件依赖  userlogin/internal/svc/servicecontext.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">ServiceContext</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">Config</span>    <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">Config</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">Tagging</span>   <span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">Middleware</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">Version</span>   <span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">Middleware</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">UserModel</span> <span style="color:#75af00">user</span><span style="color:#111">.</span><span style="color:#75af00">UserModel</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewServiceContext</span><span style="color:#111">(</span><span style="color:#75af00">c</span> <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">Config</span><span style="color:#111">)</span> <span style="color:#f92672">*</span><span style="color:#75af00">ServiceContext</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">conn</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">sqlx</span><span style="color:#111">.</span><span style="color:#75af00">NewMysql</span><span style="color:#111">(</span><span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">Mysql</span><span style="color:#111">.</span><span style="color:#75af00">DataSource</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">ServiceContext</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">Config</span><span style="color:#111">:</span>    <span style="color:#75af00">c</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">UserModel</span><span style="color:#111">:</span> <span style="color:#75af00">user</span><span style="color:#111">.</span><span style="color:#75af00">NewUserModel</span><span style="color:#111">(</span><span style="color:#75af00">conn</span><span style="color:#111">,</span> <span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">CacheRedis</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">Tagging</span><span style="color:#111">:</span>   <span style="color:#75af00">middleware</span><span style="color:#111">.</span><span style="color:#75af00">NewTaggingMiddleware</span><span style="color:#111">().</span><span style="color:#75af00">Handle</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">Version</span><span style="color:#111">:</span>   <span style="color:#75af00">middleware</span><span style="color:#111">.</span><span style="color:#75af00">NewVersionMiddleware</span><span style="color:#111">().</span><span style="color:#75af00">Handle</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>4、启动测试</p>
+<blockquote>
+<p>http://127.0.0.1:8000/api/tags
+{     &ldquo;tag&rdquo;: &ldquo;tagV111&ndash;v1.1.0&rdquo; }</p>
+</blockquote>
+<h2 id="全局中间件">全局中间件</h2>
+<p>userlogin/userlogin.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">flag</span><span style="color:#111">.</span><span style="color:#75af00">Parse</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">c</span> <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">Config</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">conf</span><span style="color:#111">.</span><span style="color:#75af00">MustLoad</span><span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#75af00">configFile</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">c</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">logx</span><span style="color:#111">.</span><span style="color:#75af00">MustSetup</span><span style="color:#111">(</span><span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">LogConf</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">server</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">MustNewServer</span><span style="color:#111">(</span><span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">RestConf</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">defer</span> <span style="color:#75af00">server</span><span style="color:#111">.</span><span style="color:#75af00">Stop</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 全局中间件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">server</span><span style="color:#111">.</span><span style="color:#75af00">Use</span><span style="color:#111">(</span><span style="color:#00a8c8">func</span><span style="color:#111">(</span><span style="color:#75af00">next</span> <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">HandlerFunc</span><span style="color:#111">)</span> <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">HandlerFunc</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">func</span><span style="color:#111">(</span><span style="color:#75af00">writer</span> <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">ResponseWriter</span><span style="color:#111">,</span> <span style="color:#75af00">request</span> <span style="color:#f92672">*</span><span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">Request</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">logx</span><span style="color:#111">.</span><span style="color:#75af00">Info</span><span style="color:#111">(</span><span style="color:#d88200">&#34;global middleware&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">next</span><span style="color:#111">(</span><span style="color:#75af00">writer</span><span style="color:#111">,</span> <span style="color:#75af00">request</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">})</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">svc</span><span style="color:#111">.</span><span style="color:#75af00">NewServiceContext</span><span style="color:#111">(</span><span style="color:#75af00">c</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">handler</span><span style="color:#111">.</span><span style="color:#75af00">RegisterHandlers</span><span style="color:#111">(</span><span style="color:#75af00">server</span><span style="color:#111">,</span> <span style="color:#75af00">ctx</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Starting server at %s:%d...\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">Host</span><span style="color:#111">,</span> <span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">Port</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">server</span><span style="color:#111">.</span><span style="color:#75af00">Start</span><span style="color:#111">()</span>
+</span></span></code></pre></div><h1 id="链路追踪"><strong>链路追踪</strong></h1>
+<blockquote>
+<p>go-zero 框架已实现了链路追踪，并且Jaeger， Zipkin 这两种链路追踪上报工具，只要简单配置就实现链路追踪。</p>
+</blockquote>
+<p>1、编辑配置文件 增加jaeger配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">Telemetry</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Name</span><span style="color:#111">:</span> <span style="color:#ae81ff">user.api</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Endpoint</span><span style="color:#111">:</span> <span style="color:#ae81ff">http://jaeger:14268/api/traces</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Sampler</span><span style="color:#111">:</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Batcher</span><span style="color:#111">:</span> <span style="color:#ae81ff">jaeger</span>
+</span></span></code></pre></div><p>2、userlogin/internal/config/config.go 增加相应的映射</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Config</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">Telemetry</span> <span style="color:#75af00">trace</span><span style="color:#111">.</span><span style="color:#75af00">Config</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>3、启动测试
+访问 jaeger UI界面 <a href="http://127.0.0.1:5000/search">http://127.0.0.1:5000/search</a>
+<img src="https://cdn.nlark.com/yuque/0/2022/png/12487795/1658583864578-174aebf0-f0b2-4fee-8ca4-0f2eedac5c2e.png#clientId=uc124a46a-374c-4&amp;from=paste&amp;height=786&amp;id=u33955d93&amp;originHeight=786&amp;originWidth=1905&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=56200&amp;status=done&amp;style=none&amp;taskId=ucd71d1c1-4c8a-4508-a9f8-1befe93faa0&amp;title=&amp;width=1905" alt="image.png"></p>
+<h1 id="错误处理">错误处理</h1>
+<blockquote>
+<p>在业务中还会定义一些业务性错误，常用做法都是通过 code、msg 两个字段来进行业务处理结果描述</p>
+</blockquote>
+<ol>
+<li>自定义错误 userlogin/common/errorx/baseerror.go</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">errorx</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">defaultCode</span> <span style="color:#111">=</span> <span style="color:#ae81ff">1001</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">DBErrorCode</span> <span style="color:#111">=</span> <span style="color:#ae81ff">5001</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">CodeError</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Code</span> <span style="color:#00a8c8">int</span>    <span style="color:#d88200">`json:&#34;code&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Msg</span>  <span style="color:#00a8c8">string</span> <span style="color:#d88200">`json:&#34;msg&#34;`</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">CodeErrorResponse</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Code</span> <span style="color:#00a8c8">int</span>    <span style="color:#d88200">`json:&#34;code&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Msg</span>  <span style="color:#00a8c8">string</span> <span style="color:#d88200">`json:&#34;msg&#34;`</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewCodeError</span><span style="color:#111">(</span><span style="color:#75af00">code</span> <span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#75af00">msg</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#00a8c8">error</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">CodeError</span><span style="color:#111">{</span><span style="color:#75af00">Code</span><span style="color:#111">:</span> <span style="color:#75af00">code</span><span style="color:#111">,</span> <span style="color:#75af00">Msg</span><span style="color:#111">:</span> <span style="color:#75af00">msg</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewDefaultError</span><span style="color:#111">(</span><span style="color:#75af00">msg</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#00a8c8">error</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">NewCodeError</span><span style="color:#111">(</span><span style="color:#75af00">defaultCode</span><span style="color:#111">,</span> <span style="color:#75af00">msg</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">e</span> <span style="color:#f92672">*</span><span style="color:#75af00">CodeError</span><span style="color:#111">)</span> <span style="color:#75af00">Error</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">Msg</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">e</span> <span style="color:#f92672">*</span><span style="color:#75af00">CodeError</span><span style="color:#111">)</span> <span style="color:#75af00">Data</span><span style="color:#111">()</span> <span style="color:#f92672">*</span><span style="color:#75af00">CodeErrorResponse</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">CodeErrorResponse</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Code</span><span style="color:#111">:</span> <span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">Code</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Msg</span><span style="color:#111">:</span>  <span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">Msg</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>2、业务逻辑代码中替换为自定义错误 userlogin/internal/logic/loginlogic.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">==</span> <span style="color:#75af00">user</span><span style="color:#111">.</span><span style="color:#75af00">ErrNotFound</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">errorx</span><span style="color:#111">.</span><span style="color:#75af00">NewDefaultError</span><span style="color:#111">(</span><span style="color:#d88200">&#34;用户不存在&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span><span style="color:#111">,</span> <span style="color:#75af00">errorx</span><span style="color:#111">.</span><span style="color:#75af00">NewCodeError</span><span style="color:#111">(</span><span style="color:#75af00">errorx</span><span style="color:#111">.</span><span style="color:#75af00">DBErrorCode</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span></code></pre></div><p>3、开启自定义错误 userlogin/userlogin.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">httpx</span><span style="color:#111">.</span><span style="color:#75af00">SetErrorHandler</span><span style="color:#111">(</span><span style="color:#00a8c8">func</span><span style="color:#111">(</span><span style="color:#75af00">err</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#00a8c8">interface</span><span style="color:#111">{})</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">switch</span> <span style="color:#75af00">e</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">err</span><span style="color:#111">.(</span><span style="color:#00a8c8">type</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">case</span> <span style="color:#f92672">*</span><span style="color:#75af00">errorx</span><span style="color:#111">.</span><span style="color:#75af00">CodeError</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">return</span> <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">StatusOK</span><span style="color:#111">,</span> <span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">Data</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">default</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">return</span> <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">StatusInternalServerError</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">})</span>
+</span></span></code></pre></div><p>4、启动测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span>  <span style="color:#75af00">curl</span> <span style="color:#f92672">-</span><span style="color:#75af00">i</span> <span style="color:#f92672">-</span><span style="color:#75af00">X</span> <span style="color:#75af00">POST</span> <span style="color:#75af00">http</span><span style="color:#111">:</span><span style="color:#75715e">//127.0.0.1:8000/api/login -H &#39;Content-Type: application/json&#39; -d &#39;{&#34;email&#34;:&#34;notfound@gmail.com&#34;,&#34;password&#34;:&#34;****&#34;}&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span> <span style="color:#ae81ff">200</span> <span style="color:#75af00">OK</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Content</span><span style="color:#f92672">-</span><span style="color:#75af00">Type</span><span style="color:#111">:</span> <span style="color:#75af00">application</span><span style="color:#f92672">/</span><span style="color:#75af00">json</span><span style="color:#111">;</span> <span style="color:#75af00">charset</span><span style="color:#111">=</span><span style="color:#75af00">utf</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Traceparent</span><span style="color:#111">:</span> <span style="color:#ae81ff">00</span><span style="color:#f92672">-</span><span style="color:#75af00">d004fc85afc1bcb7f4cf6218de12e518</span><span style="color:#f92672">-</span><span style="color:#ae81ff">5</span><span style="color:#75af00">eed79e06803e434</span><span style="color:#f92672">-</span><span style="color:#ae81ff">01</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Date</span><span style="color:#111">:</span> <span style="color:#75af00">Mon</span><span style="color:#111">,</span> <span style="color:#ae81ff">25</span> <span style="color:#75af00">Jul</span> <span style="color:#ae81ff">2022</span> <span style="color:#ae81ff">14</span><span style="color:#111">:</span><span style="color:#ae81ff">07</span><span style="color:#111">:</span><span style="color:#ae81ff">02</span> <span style="color:#75af00">GMT</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Content</span><span style="color:#f92672">-</span><span style="color:#75af00">Length</span><span style="color:#111">:</span> <span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span><span style="color:#d88200">&#34;code&#34;</span><span style="color:#111">:</span><span style="color:#ae81ff">1001</span><span style="color:#111">,</span><span style="color:#d88200">&#34;msg&#34;</span><span style="color:#111">:</span><span style="color:#d88200">&#34;用户不存在&#34;</span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>自定义认证错误</p>
+<blockquote>
+<p>curl -i -X GET   &lsquo;<a href="http://127.0.0.1:8000/api/userinfo'">http://127.0.0.1:8000/api/userinfo&rsquo;</a></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span> <span style="color:#ae81ff">401</span> <span style="color:#75af00">Unauthorized</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Traceparent</span><span style="color:#111">:</span> <span style="color:#ae81ff">00</span><span style="color:#f92672">-</span><span style="color:#75af00">f1a3a6dee278d0aa8604c5eab2c276a3</span><span style="color:#f92672">-</span><span style="color:#75af00">f4a8de7774b93cf4</span><span style="color:#f92672">-</span><span style="color:#ae81ff">01</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Date</span><span style="color:#111">:</span> <span style="color:#75af00">Mon</span><span style="color:#111">,</span> <span style="color:#ae81ff">25</span> <span style="color:#75af00">Jul</span> <span style="color:#ae81ff">2022</span> <span style="color:#ae81ff">14</span><span style="color:#111">:</span><span style="color:#ae81ff">11</span><span style="color:#111">:</span><span style="color:#ae81ff">32</span> <span style="color:#75af00">GMT</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Content</span><span style="color:#f92672">-</span><span style="color:#75af00">Length</span><span style="color:#111">:</span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>修改代码 userlogin/userlogin.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">unauthorized</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">WithUnauthorizedCallback</span><span style="color:#111">(</span><span style="color:#00a8c8">func</span><span style="color:#111">(</span><span style="color:#75af00">w</span> <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">ResponseWriter</span><span style="color:#111">,</span> <span style="color:#75af00">r</span> <span style="color:#f92672">*</span><span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">Request</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">httpx</span><span style="color:#111">.</span><span style="color:#75af00">WriteJson</span><span style="color:#111">(</span><span style="color:#75af00">w</span><span style="color:#111">,</span> <span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">StatusOK</span><span style="color:#111">,</span> <span style="color:#75af00">errorx</span><span style="color:#111">.</span><span style="color:#75af00">NewCodeError</span><span style="color:#111">(</span><span style="color:#75af00">http</span><span style="color:#111">.</span><span style="color:#75af00">StatusUnauthorized</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">()))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">})</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">server</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">rest</span><span style="color:#111">.</span><span style="color:#75af00">MustNewServer</span><span style="color:#111">(</span><span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">RestConf</span><span style="color:#111">,</span> <span style="color:#75af00">unauthorized</span><span style="color:#111">)</span>
+</span></span></code></pre></div><p>测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span> <span style="color:#ae81ff">200</span> <span style="color:#75af00">OK</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Content</span><span style="color:#f92672">-</span><span style="color:#75af00">Type</span><span style="color:#111">:</span> <span style="color:#75af00">application</span><span style="color:#f92672">/</span><span style="color:#75af00">json</span><span style="color:#111">;</span> <span style="color:#75af00">charset</span><span style="color:#111">=</span><span style="color:#75af00">utf</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Traceparent</span><span style="color:#111">:</span> <span style="color:#ae81ff">00</span><span style="color:#f92672">-</span><span style="color:#75af00">f136c8b772b717f394871d447c2ad0af</span><span style="color:#f92672">-</span><span style="color:#ae81ff">400e2</span><span style="color:#75af00">c6cd45ab383</span><span style="color:#f92672">-</span><span style="color:#ae81ff">01</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Date</span><span style="color:#111">:</span> <span style="color:#75af00">Mon</span><span style="color:#111">,</span> <span style="color:#ae81ff">25</span> <span style="color:#75af00">Jul</span> <span style="color:#ae81ff">2022</span> <span style="color:#ae81ff">14</span><span style="color:#111">:</span><span style="color:#ae81ff">09</span><span style="color:#111">:</span><span style="color:#ae81ff">46</span> <span style="color:#75af00">GMT</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">Content</span><span style="color:#f92672">-</span><span style="color:#75af00">Length</span><span style="color:#111">:</span> <span style="color:#ae81ff">48</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span><span style="color:#d88200">&#34;code&#34;</span><span style="color:#111">:</span><span style="color:#ae81ff">401</span><span style="color:#111">,</span><span style="color:#d88200">&#34;msg&#34;</span><span style="color:#111">:</span><span style="color:#d88200">&#34;no token present in request&#34;</span><span style="color:#111">}</span>
+</span></span></code></pre></div>
+
+    
+
+
+                    
+                    <div class="row"><div class="position-relative mx-auto col-lg-9">
+                          <div class="bg-primary overflow-hidden p-3 mt-5 shadow">
+
+    <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
+
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/go-zero/01.html" title="go-zero 单体应用实践（一）"><i class="fas fa-chevron-left p-1"></i>go-zero 单体应用实践（一）</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/go-zero/03.html" title="go-zero 单体应用实践（三）">go-zero 单体应用实践（三）<i class="fas fa-chevron-right p-1"></i></a>
+    </div>
+</div>
+
+
+                        </div></div> 
+
+                </div>
+            </div> 
+            <div class="d-lg-none "><div class="row py-3 mb-5">
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+        </div> 
+        
+        <div class="row">
+            <div  class="col-12 text-muted text-sm-center"><h6>©2017-2023 鲁ICP备17023316号-1 Powered by Hugo</h6></div>
+        </div>
+        
+<script src="http://blog.911015.com/lib/jquery.min.js"></script> 
+<script src="http://blog.911015.com/lib/popper.min.js"></script> 
+
+<script src="http://blog.911015.com/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/blog.911015.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c998faac34ae24828c9c973cc2b76a0d";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>
