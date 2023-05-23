@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="alternate" type="application/rss+xml" href="http://blog.911015.com/tags/index.xml" title="Go语言入门" />
-    <link rel="canonical" href="http://blog.911015.com/tags/">
+    <meta name="description" content="gRPC 是 Google 开发的一款高性能、开源的远程过程调用（RPC）框架。它使用 Protocol Buffers 作为接口定义语言（IDL），可以在多种编程语言和平台之间进行通信。">
+    
+    <link rel="alternate" type="application/rss+xml" href="http://blog.911015.com/grpc/index.xml" title="Go语言入门" />
+    <link rel="canonical" href="http://blog.911015.com/grpc/">
 
     <title>
         
-        Tags | Go语言入门
+        gRPC 快速体验 | Go语言入门
         
     </title>
 
@@ -58,7 +60,7 @@
             </div>
     </div>
     <div class="feed-icons">
-        <a  href="http://blog.911015.com/tags/index.xml"><img class="w-75" src="/img/feed-icon.svg" alt="RSS feed" /></a>
+        <a  href="http://blog.911015.com/grpc/index.xml"><img class="w-75" src="/img/feed-icon.svg" alt="RSS feed" /></a>
     </div>
     </nav>
 <div class="container-fluid">
@@ -183,7 +185,7 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/grpc/" class="nav-item my-1 haschildren
+    <li data-nav-id="/grpc/" class="nav-item my-1 active haschildren
         ">
         
         
@@ -321,7 +323,7 @@
 
 </div>
                 <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
-	
+	<nav id="TableOfContents"></nav>
 			<div class="card shadow mt-3 " style="width: 10rem; ">
 				<a href="/contact.html" target="_blank">
 				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
@@ -351,7 +353,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">Tags</h1>
+    <h1 class="js-title">gRPC 快速体验</h1>
     <div class="d-flex align-items-center">
         
             <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
@@ -360,6 +362,66 @@
 </div>
 
 <hr>
+
+
+
+
+<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-info rounded" style="border-width:4px !important;">
+    <div class="wrap border border-left-0 rounded">
+        
+        <div class="card-header border-0 bg-white pl-3 text-info">
+            <h3>gRPC简介</h3>
+        </div>
+        
+        <div class="card-body pt-1">
+            <p>gRPC 是 Google 开发的一款高性能、开源的远程过程调用（RPC）框架。它使用 Protocol Buffers 作为接口定义语言（IDL），可以在多种编程语言和平台之间进行通信。</p>
+<p>gRPC 提供了强类型、高效、跨语言的服务定义和通信协议，并支持多种负载类型，包括 protobuf、JSON 和 XML。gRPC 可以使用 HTTP/2 协议进行双向流式传输，具有较低的网络延迟和带宽消耗，非常适合于分布式系统中的微服务架构。</p>
+<p>gRPC 支持四种服务模式：单项请求和响应、服务器流、客户端流和双向流，可以满足不同的业务需求。同时，gRPC 还提供了多种安全机制，包括基于 TLS 的身份验证和授权，以及基于 SSL/TLS 的连接加密和数据保护。</p>
+<p>gRPC 的优点包括：</p>
+<ul>
+<li>高效性：gRPC 使用二进制编码和压缩技术，比文本格式更高效。</li>
+<li>可扩展性：gRPC 的 IDL 和多种 API 版本控制方式，使其易于维护和扩展。</li>
+<li>跨语言性：gRPC 支持多种编程语言和平台之间的通信，包括 Java、Go、Python 等语言。</li>
+<li>易用性：gRPC 可以与现有的工具和生态系统集成，如 Kubernetes、Prometheus、Jaeger 等。</li>
+</ul>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<ul class="docs-children list-unstyled">
+			<li class="h2 py-1">
+				<a href="/grpc/01.html"> 一、Hello World </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/grpc/02.html"> 二、Streaming RPC </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/grpc/03.html"> 三、拦截器与Metadata </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/grpc/04.html"> 四、服务注册与发现 </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/grpc/05.html"> 五、gRPC-Gateway </a>
+			</li>
+		
+			<li class="h2 py-1">
+				<a href="/grpc/06.html"> 六、证书验证 </a>
+			</li>
+		
+
+	
+</ul>
+
+
 
 
 
@@ -373,7 +435,8 @@
 
     <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
 
-    <div class="d-flex justify-content-center"><a class="p-1 ml-3 d-inline-block text-white text-right" href="/beginner/" title="跟着用户手册学Golang">跟着用户手册学Golang<i class="fas fa-chevron-right p-1"></i></a>
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/tour/06.html" title="6、并发"><i class="fas fa-chevron-left p-1"></i>6、并发</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/grpc/01.html" title="一、Hello World">一、Hello World<i class="fas fa-chevron-right p-1"></i></a>
     </div>
 </div>
 

@@ -65,6 +65,22 @@ var mu sync.Mutex func someFunc() { mu.Lock() defer mu.Unlock() // 执行一些�
     </item>
     
     <item>
+      <title>一、Hello World</title>
+      <link>http://blog.911015.com/grpc/01.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/grpc/01.html</guid>
+      <description>一个高性能、开源的通用RPC框架 A high performance, open source universal RPC framework
+一、环境配置 1、下载并安装 protocol-buffers 2、安装Go语言插件
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+3、创建GRPC项目目录：
+mkdir grpc-demo go mod init grpc-demo
+二、创建并编译proto 文件 hello/proto/helloworld.proto
+Protobuf 中 除了支持如double、float、 int32、int64、 uint32、uint64、 bool、 string 和bytes 等基本数据类型还支持enum，oneof，map，repeated 等类型；更详细的Protobuf文档可以查阅 ：protocol-buffers 文档
+syntax = &amp;#34;proto3&amp;#34;; package helloworld; option go_package = &amp;#34;proto/;proto&amp;#34;; service Greeter { rpc SayHello(HelloRequest) returns (HelloReply) {}; } enum Gender { Unknown = 0; Female = 1; Male = 2; } message HelloRequest { string name = 1; int64 age = 2; oneof call { string mobile = 3; string phone = 4; } map&amp;lt;int64,string&amp;gt; role = 5; Gender gender = 6; } message HelloReply { string message = 1; } 创建好proto文件后执行编译命令，生成go文件代码</description>
+    </item>
+    
+    <item>
       <title>02-新手入门</title>
       <link>http://blog.911015.com/beginner/02.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -105,6 +121,19 @@ package main import &amp;#34;fmt&amp;#34; func main() { sum := 1 for sum &amp;lt
 userlogin/internal/middleware/taggingmiddleware.go userlogin/internal/middleware/versionmiddleware.go 可以看到路由文件中userlogin/internal/handler/routes.go 新增了一下代码
 server.AddRoutes( rest.WithMiddlewares( []rest.Middleware{serverCtx.Tagging, serverCtx.Version}, []rest.Route{ { Method: http.MethodGet, Path: &amp;#34;/api/tags&amp;#34;, Handler: TagsHandler(serverCtx), }, }..., ), ) 3、 文件中添加中间件依赖 userlogin/internal/svc/servicecontext.go
 type ServiceContext struct { Config config.Config Tagging rest.Middleware Version rest.Middleware UserModel user.UserModel } func NewServiceContext(c config.Config) *ServiceContext { conn := sqlx.</description>
+    </item>
+    
+    <item>
+      <title>二、Streaming RPC</title>
+      <link>http://blog.911015.com/grpc/02.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/grpc/02.html</guid>
+      <description>gRPC调用方式 在gRPC中，一共包含四种调用方式。
+Unary RPC:一元RPC Server-side streaming RPC: 服务端流式RPC Client-side streaming RPC: 客户端流式RPC Bidirectional streaming RPC: 双向流式RPC Streaming RPC streaming RPC 适用于大数据包场景，可以进行实时交互；
+**服务端流式RPC **：客户端发起一次普通的RPC请求，服务端通过流式响应多次发送数据集，客户端Recv接收数据集 客户端流式RPC：客户端发起多次请求给服务端，而服务端仅响应客户端一次 双向流式RPC: 由客户端以流式请求服务端，服务端同样以流式响应客户端。
+代码实现 1、proto文件：创建proto文件定义三种流模式服务，执行protoc命令编译代码；
+syntax = &amp;#34;proto3&amp;#34;; package pb; option go_package = &amp;#34;pb/;pb&amp;#34;; message Reply { string type = 1; string value = 2; } message Request { string type = 1; string value = 2; } service Streaming { rpc ServerStream (Request) returns (stream Reply); rpc ClientStream (stream Request) returns (Reply); rpc Bidirectional (stream Request) returns (stream Reply); } 2、server： 客户端流模式下 服务端手到 io.</description>
     </item>
     
     <item>
@@ -164,6 +193,20 @@ BlogTagModel interface { blogTagModel TagList(context.Context, *types.TagListReq
     </item>
     
     <item>
+      <title>三、拦截器与Metadata</title>
+      <link>http://blog.911015.com/grpc/03.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/grpc/03.html</guid>
+      <description>拦截器 根据RPC调用类型可以将gRPC拦截器分为两种：
+一元拦 截器(Unary Interceptor) :拦截和处理一元RPC调用。 流拦截器(Stream Interceptor) :拦截和处理流式RPC调用。 1、服务端拦截器 服务端一元拦截器类型为 grpc.UnaryServerInterceptor；流拦截器类型为 StreamServerInterceptor; 下面实现一个服务端一元拦截器：在调用服务前后各打印一条日志
+func HelloInterceptor() grpc.UnaryServerInterceptor { return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) { log.Println(&amp;#34;Hello&amp;#34;) resp, err = handler(ctx, req) log.Println(&amp;#34;Bye bye&amp;#34;) return } } 在服务端代码中配置拦截器；
+opts := []grpc.ServerOption{ grpc.UnaryInterceptor(interceptors.HelloInterceptor()), } server := grpc.NewServer(opts...) 2、使用多个拦截器 gRPC 默认只支持设置单个拦截器，设置过个拦截器会painc
+panic: The unary server interceptor was already set and may not be reset.
+设置多个拦截器可以使用 grpc-ecosystem/go-grpc-middleware</description>
+    </item>
+    
+    <item>
       <title>04-入门多模块工作区</title>
       <link>http://blog.911015.com/beginner/04.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -206,6 +249,18 @@ syntax = &amp;#34;proto3&amp;#34;; package user; option go_package = &amp;#34;./
     </item>
     
     <item>
+      <title>四、服务注册与发现</title>
+      <link>http://blog.911015.com/grpc/04.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/grpc/04.html</guid>
+      <description>环境依赖 安装并且启动etcd 按照etcd SDK go get go.etcd.io/etcd/client/v3@v3.5.4 go get google.golang.org/grpc@v1.48.0
+旧版本grpc与etcd可能存在不兼容问题，建议使用最新兼容版本
+服务注册与发现 实现思路：服务端启动服务时将自己的服务信息如IP、端口、版本等信息注册到注册中心（此处为ETCD），客户端在进行服务调用时会以约定好的服务名到注册中心查询，发现具体可以调用的服务。 服务端实现：
+func init() { flag.StringVar(&amp;amp;port, &amp;#34;p&amp;#34;, &amp;#34;8000&amp;#34;, &amp;#34;启动端口号&amp;#34;) flag.Parse() } func main() { server := grpc.NewServer() discover.RegisterDiscoverDemoServer(server, &amp;amp;DiscoverDemo{}) reflection.Register(server) taget := fmt.Sprintf(&amp;#34;grpc-demo/grpc/%s&amp;#34;, types.SERVER_NAME) client, err := etcd3.New(etcd3.Config{ Endpoints: []string{&amp;#34;http://127.0.0.1:2379&amp;#34;}, }) if err != nil { panic(err) } addr := &amp;#34;127.0.0.1:&amp;#34;+port err = register.EtcdAdd(client, taget,addr) if err != nil { return } lis, _ := net.Listen(&amp;#34;tcp&amp;#34;, addr) server.Serve(lis) } register.</description>
+    </item>
+    
+    <item>
       <title>5、泛型</title>
       <link>http://blog.911015.com/tour/05.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -229,6 +284,19 @@ syntax = &amp;#34;v1&amp;#34; type ( LoginRequest { Email string `json:&amp;#34;
     </item>
     
     <item>
+      <title>五、gRPC-Gateway</title>
+      <link>http://blog.911015.com/grpc/05.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/grpc/05.html</guid>
+      <description>简介 gRPC-Gateway是protoc的一个插件。它读取gRPC服务定义并生成反向代理服务器，该服务器将RESTful JSON API转换为gRPC。此服务器根据gRPC定义中的自定义选项生成。
+grpc-gateway文档 安装依赖 go get github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
+proto 文件 gateway/pb/gateway.proto 文件；其中 需要 import google/api/annotations.proto；可以将 github.com\grpc-ecosystem\grpc-gateway 下的 third_party\googleapis\google\api 文件拷贝到项目目录下；执行protoc命令
+protoc -I=./gateway/pb/ -I=./third_party/ &amp;ndash;go_out=./gateway/ &amp;ndash;go-grpc_out=./gateway/ -grpc-gateway_out=./gateway/ ./gateway/pb/gateway.proto
+syntax = &amp;#34;proto3&amp;#34;; package stream; option go_package = &amp;#34;pb/;gateway&amp;#34;; import &amp;#34;google/api/annotations.proto&amp;#34;; message Request { string name = 1; } message Reply { string content = 1; } service GatewayDemo { rpc Gate(Request) returns (Reply) { option (google.api.http) = { get: &amp;#34;/v1/gate/{name}&amp;#34; }; } } Server端 server端与正常gRPC服务没什么差别；</description>
+    </item>
+    
+    <item>
       <title>6、并发</title>
       <link>http://blog.911015.com/tour/06.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -239,6 +307,18 @@ Goroutines goroutine是一个由Go运行时管理的轻量级线程。
 go f(x, y, z) 开始运行新的goroutine f(x, y, z) f、x、y和z的求值发生在当前goroutine中，f的执行发生在新goroutine。 Goroutines在相同的地址空间中运行，因此对共享内存的访问必须同步。sync包提供了有用的并发原语，尽管Go中并不需要它们，因为还有其他基元。
 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) func say(s string) { for i := 0; i &amp;lt; 5; i++ { time.Sleep(100 * time.Millisecond) fmt.Println(s) } } func main() { go say(&amp;#34;world&amp;#34;) say(&amp;#34;hello&amp;#34;) } Channels Channel是一种类型化的管道，通过它可以使用通道操作符&amp;lt;-发送和接收值。
 ch &amp;lt;- v // Send v to channel ch. v := &amp;lt;-ch // Receive from ch, and // assign value to v. 数据沿箭头方向流动。 与map和slice一样， channel必须在使用前初始化：</description>
+    </item>
+    
+    <item>
+      <title>六、证书验证</title>
+      <link>http://blog.911015.com/grpc/06.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/grpc/06.html</guid>
+      <description>还记得前面章节中gRPC的服务中客户端在链接服务器中通过 grpc.WithInsecure() 选项跳过了对服务器证书的验证吗？为了保障gRPC通信不被第三方监听篡改或伪造，我们试一下对服务器启动TLS加密特性。
+一、生成证书 通过一个安全可靠的根证书分别对服务器和客户端的证书进行签名。这样客户端或服务器在收到对方的证书后可以通过根证书进行验证证书的有效性。
+1、CA证书 创建 ca.conf
+[ req ] default_bits = 4096 distinguished_name = req_distinguished_name [ req_distinguished_name ] countryName = Country Name (2 letter code) countryName_default = CN stateOrProvinceName = State or Province Name (full name) stateOrProvinceName_default = Beiging localityName = Locality Name (eg, city) localityName_default = Beijing organizationName = Organization Name (eg, company) organizationName_default = company commonName = Common Name (e.g. server FQDN or YOUR name) commonName_max = 64 commonName_default = Ted CA Test 生成ca根证书</description>
     </item>
     
     <item>
