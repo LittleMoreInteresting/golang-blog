@@ -9,5 +9,6 @@ weight = 1
 {{< /lead >}}
 
 ## [跟着用户手册学Golang](/beginner/)
+## [gRPC 快速体验](/grpc/)
 ## [go-zero应用实践](/go-zero/)
 ## [Go语言入门之路公众号文章](/wx/)
