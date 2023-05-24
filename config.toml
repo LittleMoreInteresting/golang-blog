@@ -47,7 +47,10 @@ site_logo = "/img/site_logo.png"
 
 [outputs]
 home = ["HTML","RSS","JSON"]
-
+[sitemap]
+  changefreq = 'daily'
+  filename = 'sitemap.xml'
+  priority = 0.5
 
 [menu]
 [[menu.shortcuts]]

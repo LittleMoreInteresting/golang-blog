@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="Go 语言中的数组和切片（slice）都是用于存储一系列数据的集合，但它们之间有几个重要的区别">
+    
+    <link rel="canonical" href="http://blog.911015.com/wx/20230523.html">
+
+    <title>
+        
+        Go语言数据结构： Array 和Slice | Go语言入门
+        
+    </title>
+
+    
+    <link href="http://blog.911015.com/css/fontawesome.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="http://blog.911015.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                    <img src="/img/site_logo.png" />
+                
+                Go语言入门
+            </a>
+        </div>
+        
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+              <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact.html" target="_blank">
+                                  <i class='fab fa-qq'></i> QQ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/LittleMoreInteresting/beginner-example" target="_blank">
+                                  <i class='fab fa-github'></i>
+                                </a>
+                            </li>
+              </ul>
+            </div>
+    </div>
+    </nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+          <div class="js-favorite-links mt-3 d-none">
+  <span class=""><i class="mr-1 fas fa-star"></i>Favorites</span>
+  <ul class="js-favorite-links-list navbar-nav flex-column mt-2">
+  </ul>
+  <hr class="w-100 mb-2">
+</div>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/beginner/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/beginner/"><h6>跟着用户手册学Golang</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/beginner/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/01.html" class="nav-link p-0">
+                    01-Golang安装与体验
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/02.html" class="nav-link p-0">
+                    02-新手入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/03.html" class="nav-link p-0">
+                    03-创建Go项目
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/04.html" class="nav-link p-0">
+                    04-入门多模块工作区
+                  </a>
+                
+        </li>
+    <li data-nav-id="/tour/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/tour/"><h6>Go 编程语言之旅</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/tour/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/01.html" class="nav-link p-0">
+                    1、基础篇（一）：包、变量和方法
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/02.html" class="nav-link p-0">
+                    2、基础篇（二）：Go语言流程控制
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/03.html" class="nav-link p-0">
+                    3、基础篇（三）：更多类型: struct, slices, 和 map
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/04.html" class="nav-link p-0">
+                    4、方法与接口
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/05.html" class="nav-link p-0">
+                    5、泛型
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/06.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/06.html" class="nav-link p-0">
+                    6、并发
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/grpc/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/grpc/"><h6>gRPC 快速体验</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/grpc/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/01.html" class="nav-link p-0">
+                    一、Hello World
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/02.html" class="nav-link p-0">
+                    二、Streaming RPC
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/03.html" class="nav-link p-0">
+                    三、拦截器与Metadata
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/04.html" class="nav-link p-0">
+                    四、服务注册与发现
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/05.html" class="nav-link p-0">
+                    五、gRPC-Gateway
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/06.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/06.html" class="nav-link p-0">
+                    六、证书验证
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/go-zero/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/go-zero/"><h6>go-zero应用实践</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/go-zero/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/01.html" class="nav-link p-0">
+                    go-zero 单体应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/02.html" class="nav-link p-0">
+                    go-zero 单体应用实践（二）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/03.html" class="nav-link p-0">
+                    go-zero 单体应用实践（三）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/04.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/05.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（二）
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/wx/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/wx/"><h6>公众号文章</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/wx/2023052202.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/2023052202.html" class="nav-link p-0">
+                    Go语言流程控制:Defer
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/2023052201.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/2023052201.html" class="nav-link p-0">
+                    编程语言这么多怎么选？
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230523.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/wx/20230523.html" class="nav-link p-0">
+                    Go语言数据结构： Array 和Slice
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#数组">数组</a>
+      <ul>
+        <li><a href="#创建数组">创建数组</a></li>
+        <li><a href="#访问数组元素">访问数组元素</a></li>
+        <li><a href="#遍历数组元素">遍历数组元素</a></li>
+      </ul>
+    </li>
+    <li><a href="#切片">切片</a>
+      <ul>
+        <li><a href="#创建切片">创建切片</a></li>
+        <li><a href="#访问切片元素">访问切片元素</a></li>
+        <li><a href="#遍历切片元素">遍历切片元素</a></li>
+        <li><a href="#切片操作">切片操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#在使用-go-语言中的切片slice时需要注意以下几点">在使用 Go 语言中的切片（slice）时，需要注意以下几点：</a></li>
+  </ul>
+</nav>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">Go语言数据结构： Array 和Slice</h1>
+    <div class="d-flex align-items-center">
+        
+            <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
+        
+        <img class="w-25 ml-4" src="/img/wx_search.png">
+    </div>
+</div>
+
+<hr>
+
+
+<h1 id="go语言数据结构-array-和slice">Go语言数据结构： Array 和Slice</h1>
+<p>Go 语言中的数组和切片（slice）都是用于存储一系列数据的集合，但它们之间有几个重要的区别。下面是它们的使用方法和区别：</p>
+<h2 id="数组">数组</h2>
+<p>数组是一个有固定大小的数据集合，定义时需要指定其长度。数组的长度是数组类型的一部分，因此不能改变数组的大小。数组可以包含相同类型的数据，这些数据在内存中是连续的。</p>
+<h3 id="创建数组">创建数组</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">a</span> <span style="color:#111">[</span><span style="color:#ae81ff">5</span><span style="color:#111">]</span><span style="color:#00a8c8">int</span>         <span style="color:#75715e">// 定义一个长度为5，元素类型为int的数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">b</span> <span style="color:#f92672">:=</span> <span style="color:#111">[</span><span style="color:#ae81ff">3</span><span style="color:#111">]</span><span style="color:#00a8c8">string</span><span style="color:#111">{</span><span style="color:#d88200">&#34;a&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;b&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;c&#34;</span><span style="color:#111">}</span>   <span style="color:#75715e">// 定义一个长度为3，元素类型为string的数组，并初始化数组值
+</span></span></span></code></pre></div><h3 id="访问数组元素">访问数组元素</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">a</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#ae81ff">1</span>         <span style="color:#75715e">// 给第1个元素赋值为1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">x</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">a</span><span style="color:#111">[</span><span style="color:#ae81ff">2</span><span style="color:#111">]</span>        <span style="color:#75715e">// 获取第3个元素的值
+</span></span></span></code></pre></div><h3 id="遍历数组元素">遍历数组元素</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">a</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;a[%d] = %d\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="切片">切片</h2>
+<p>切片是一个动态的数组，长度不固定，可以根据实际情况进行扩展。切片本身并不存储任何数据，它只是底层数组的引用，因此对切片的修改会影响到底层数组的内容。</p>
+<h3 id="创建切片">创建切片</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">s</span> <span style="color:#111">[]</span><span style="color:#00a8c8">int</span>          <span style="color:#75715e">// 定义一个空的整型切片
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">int</span><span style="color:#111">{</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">}</span>  <span style="color:#75715e">// 定义一个有3个元素的整型切片，并初始化数组值
+</span></span></span></code></pre></div><h3 id="访问切片元素">访问切片元素</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">x</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">s</span><span style="color:#111">[</span><span style="color:#ae81ff">2</span><span style="color:#111">]</span>            <span style="color:#75715e">// 获取第3个元素的值
+</span></span></span></code></pre></div><h3 id="遍历切片元素">遍历切片元素</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">s</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;s[%d] = %d\n&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">v</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="切片操作">切片操作</h3>
+<p>可以使用 slice 函数和操作符对切片进行操作。</p>
+<ul>
+<li>slice 函数：用于获取某个数组的一部分作为切片。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">a</span> <span style="color:#f92672">:=</span> <span style="color:#111">[</span><span style="color:#ae81ff">5</span><span style="color:#111">]</span><span style="color:#00a8c8">int</span><span style="color:#111">{</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">,</span> <span style="color:#ae81ff">5</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">a</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">:</span><span style="color:#ae81ff">3</span><span style="color:#111">]</span>          <span style="color:#75715e">// 获取a数组中索引从1到3的切片（不包含3）
+</span></span></span></code></pre></div><ul>
+<li>切片操作符：用于对切片进行扩展或缩小。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">int</span><span style="color:#111">{</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">,</span> <span style="color:#ae81ff">5</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">s</span> <span style="color:#111">=</span> <span style="color:#111">append</span><span style="color:#111">(</span><span style="color:#75af00">s</span><span style="color:#111">,</span> <span style="color:#ae81ff">6</span><span style="color:#111">)</span>     <span style="color:#75715e">// 在s切片末尾添加一个新元素6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">s</span> <span style="color:#111">=</span> <span style="color:#75af00">s</span><span style="color:#111">[:</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">s</span><span style="color:#111">)</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">]</span>     <span style="color:#75715e">// 删除s切片末尾的一个元素
+</span></span></span></code></pre></div><p>总之，数组和切片都是存储数据集合的方式，但它们在使用方法上存在一定的差别。数组长度是固定的，而切片长度可以根据实际情况动态调整；数组不能直接进行扩展或缩小，而切片则可以通过 slice 函数和操作符进行扩展或缩小。</p>
+<h2 id="在使用-go-语言中的切片slice时需要注意以下几点">在使用 Go 语言中的切片（slice）时，需要注意以下几点：</h2>
+<ol>
+<li>创建切片时不要忘记 make 函数</li>
+</ol>
+<p>在创建一个长度不为0的切片时，需要使用 make 函数来进行初始化。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">([]</span><span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#ae81ff">5</span><span style="color:#111">)</span>
+</span></span></code></pre></div><ol>
+<li>切片是引用类型</li>
+</ol>
+<p>切片是对底层数组的引用，因此修改切片会影响到原始数组。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">a</span> <span style="color:#f92672">:=</span> <span style="color:#111">[</span><span style="color:#ae81ff">3</span><span style="color:#111">]</span><span style="color:#00a8c8">int</span><span style="color:#111">{</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">a</span><span style="color:#111">[:]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">s</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">a</span><span style="color:#111">)</span>  <span style="color:#75715e">// [100 2 3]
+</span></span></span></code></pre></div><ol>
+<li>切片容量可以自动扩展</li>
+</ol>
+<p>切片的容量可以在底层数组没有空间存储更多元素时自动扩展。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">s</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">int</span><span style="color:#111">{</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">s</span> <span style="color:#111">=</span> <span style="color:#111">append</span><span style="color:#111">(</span><span style="color:#75af00">s</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">,</span> <span style="color:#ae81ff">5</span><span style="color:#111">,</span> <span style="color:#ae81ff">6</span><span style="color:#111">)</span>
+</span></span></code></pre></div><ol>
+<li>切片可以共享底层数组</li>
+</ol>
+<p>如果将一个切片赋值给另一个切片，两个切片将共享同一个底层数组。因此，修改其中一个切片的值将会影响到另一个切片。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">a</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">int</span><span style="color:#111">{</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">4</span><span style="color:#111">,</span> <span style="color:#ae81ff">5</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">s1</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">a</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">:</span><span style="color:#ae81ff">3</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">s2</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">a</span><span style="color:#111">[</span><span style="color:#ae81ff">2</span><span style="color:#111">:</span><span style="color:#ae81ff">4</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">s1</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">s2</span><span style="color:#111">)</span>  <span style="color:#75715e">// [100 4]
+</span></span></span></code></pre></div><ol>
+<li>切片可以作为参数传递</li>
+</ol>
+<p>在函数调用时，切片可以作为参数传递。由于切片是引用类型，因此修改切片的值会影响到原始数组。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">updateSlice</span><span style="color:#111">(</span><span style="color:#75af00">slice</span> <span style="color:#111">[]</span><span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">slice</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">a</span> <span style="color:#f92672">:=</span> <span style="color:#111">[]</span><span style="color:#00a8c8">int</span><span style="color:#111">{</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">updateSlice</span><span style="color:#111">(</span><span style="color:#75af00">a</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">a</span><span style="color:#111">)</span>  <span style="color:#75715e">// [100 2 3]
+</span></span></span></code></pre></div><p>总之，在使用 Go 语言中的切片时，需要注意它是一个引用类型，有自动扩展容量的特性，并且可以共享底层数组。正确地使用切片可以提高代码的可读性和效率。</p>
+
+
+    
+
+
+                    <div class="row">
+                        <div  class="col-12 text-muted text-sm-center">
+                            <img class="w-75" src="/img/wx_logo.png">
+                        </div>
+                    </div>
+                    <div class="row"><div class="position-relative mx-auto col-lg-9">
+                          <div class="bg-primary overflow-hidden p-3 mt-5 shadow">
+
+    <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
+
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/wx/2023052201.html" title="编程语言这么多怎么选？"><i class="fas fa-chevron-left p-1"></i>编程语言这么多怎么选？</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/wx/2023052202.html" title="Go语言流程控制:Defer">Go语言流程控制:Defer<i class="fas fa-chevron-right p-1"></i></a>
+    </div>
+</div>
+
+
+                        </div></div> 
+
+                </div>
+            </div> 
+            <div class="d-lg-none "><div class="row py-3 mb-5">
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+        </div> 
+
+        
+        <div class="row">
+            <div  class="col-12 text-muted text-sm-center"><h6>©2017-2023 鲁ICP备17023316号-1 Powered by Hugo</h6></div>
+        </div>
+        
+<script src="http://blog.911015.com/lib/jquery.min.js"></script> 
+<script src="http://blog.911015.com/lib/popper.min.js"></script> 
+
+<script src="http://blog.911015.com/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/blog.911015.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c998faac34ae24828c9c973cc2b76a0d";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

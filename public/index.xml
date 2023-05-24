@@ -193,6 +193,18 @@ BlogTagModel interface { blogTagModel TagList(context.Context, *types.TagListReq
     </item>
     
     <item>
+      <title>Go语言数据结构： Array 和Slice</title>
+      <link>http://blog.911015.com/wx/20230523.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230523.html</guid>
+      <description>Go语言数据结构： Array 和Slice Go 语言中的数组和切片（slice）都是用于存储一系列数据的集合，但它们之间有几个重要的区别。下面是它们的使用方法和区别：
+数组 数组是一个有固定大小的数据集合，定义时需要指定其长度。数组的长度是数组类型的一部分，因此不能改变数组的大小。数组可以包含相同类型的数据，这些数据在内存中是连续的。
+创建数组 var a [5]int // 定义一个长度为5，元素类型为int的数组 b := [3]string{&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;} // 定义一个长度为3，元素类型为string的数组，并初始化数组值 访问数组元素 a[0] = 1 // 给第1个元素赋值为1 x := a[2] // 获取第3个元素的值 遍历数组元素 for i, v := range a { fmt.Printf(&amp;#34;a[%d] = %d\n&amp;#34;, i, v) } 切片 切片是一个动态的数组，长度不固定，可以根据实际情况进行扩展。切片本身并不存储任何数据，它只是底层数组的引用，因此对切片的修改会影响到底层数组的内容。
+创建切片 var s []int // 定义一个空的整型切片 s := []int{1, 2, 3} // 定义一个有3个元素的整型切片，并初始化数组值 访问切片元素 x := s[2] // 获取第3个元素的值 遍历切片元素 for i, v := range s { fmt.</description>
+    </item>
+    
+    <item>
       <title>三、拦截器与Metadata</title>
       <link>http://blog.911015.com/grpc/03.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
