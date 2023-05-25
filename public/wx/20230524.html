@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="olang中的Map是一种集合类型，它用于将一个键值对映射到另一个键值对。这些键值对可以是任何可比较的类型，包括内置类型和用户定义的类型，而且每个键只能在Map中出现一次。 具体来说，Map是由一组键值对组成的无序集合。每个键必须是唯一的，而不同的键可以关联到相同的值。">
+    
+    <link rel="canonical" href="http://blog.911015.com/wx/20230524.html">
+
+    <title>
+        
+         Go 语言数据结构：Maps | Go语言入门
+        
+    </title>
+
+    
+    <link href="http://blog.911015.com/css/fontawesome.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="http://blog.911015.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                    <img src="/img/site_logo.png" />
+                
+                Go语言入门
+            </a>
+        </div>
+        
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+              <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact.html" target="_blank">
+                                  <i class='fab fa-qq'></i> QQ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/LittleMoreInteresting/beginner-example" target="_blank">
+                                  <i class='fab fa-github'></i>
+                                </a>
+                            </li>
+              </ul>
+            </div>
+    </div>
+    </nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+          <div class="js-favorite-links mt-3 d-none">
+  <span class=""><i class="mr-1 fas fa-star"></i>Favorites</span>
+  <ul class="js-favorite-links-list navbar-nav flex-column mt-2">
+  </ul>
+  <hr class="w-100 mb-2">
+</div>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/beginner/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/beginner/"><h6>跟着用户手册学Golang</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/beginner/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/01.html" class="nav-link p-0">
+                    01-Golang安装与体验
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/02.html" class="nav-link p-0">
+                    02-新手入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/03.html" class="nav-link p-0">
+                    03-创建Go项目
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/04.html" class="nav-link p-0">
+                    04-入门多模块工作区
+                  </a>
+                
+        </li>
+    <li data-nav-id="/tour/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/tour/"><h6>Go 编程语言之旅</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/tour/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/01.html" class="nav-link p-0">
+                    1、基础篇（一）：包、变量和方法
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/02.html" class="nav-link p-0">
+                    2、基础篇（二）：Go语言流程控制
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/03.html" class="nav-link p-0">
+                    3、基础篇（三）：更多类型: struct, slices, 和 map
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/04.html" class="nav-link p-0">
+                    4、方法与接口
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/05.html" class="nav-link p-0">
+                    5、泛型
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/06.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/06.html" class="nav-link p-0">
+                    6、并发
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/grpc/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/grpc/"><h6>gRPC 快速体验</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/grpc/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/01.html" class="nav-link p-0">
+                    一、Hello World
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/02.html" class="nav-link p-0">
+                    二、Streaming RPC
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/03.html" class="nav-link p-0">
+                    三、拦截器与Metadata
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/04.html" class="nav-link p-0">
+                    四、服务注册与发现
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/05.html" class="nav-link p-0">
+                    五、gRPC-Gateway
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/06.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/06.html" class="nav-link p-0">
+                    六、证书验证
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/go-zero/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/go-zero/"><h6>go-zero应用实践</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/go-zero/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/01.html" class="nav-link p-0">
+                    go-zero 单体应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/02.html" class="nav-link p-0">
+                    go-zero 单体应用实践（二）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/03.html" class="nav-link p-0">
+                    go-zero 单体应用实践（三）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/04.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/05.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（二）
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/wx/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/wx/"><h6>公众号文章</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/wx/2023052202.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/2023052202.html" class="nav-link p-0">
+                    Go语言流程控制:Defer
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/2023052201.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/2023052201.html" class="nav-link p-0">
+                    编程语言这么多怎么选？
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230523.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230523.html" class="nav-link p-0">
+                    Go语言数据结构： Array 和Slice
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230524.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/wx/20230524.html" class="nav-link p-0">
+                     Go 语言数据结构：Maps
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#map-基本用法">Map 基本用法</a></li>
+    <li><a href="#应用场景">应用场景</a></li>
+    <li><a href="#练习map">练习：map</a></li>
+    <li><a href="#注意事项">注意事项</a></li>
+  </ul>
+</nav>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title"> Go 语言数据结构：Maps</h1>
+    <div class="d-flex align-items-center">
+        
+            <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
+        
+        <img class="w-25 ml-4" src="/img/wx_search.png">
+    </div>
+</div>
+
+<hr>
+
+
+<p>Golang中的Map是一种集合类型，它用于将一个键值对映射到另一个键值对。这些键值对可以是任何可比较的类型，包括内置类型和用户定义的类型，而且每个键只能在Map中出现一次。
+具体来说，Map是由一组键值对组成的无序集合。每个键必须是唯一的，而不同的键可以关联到相同的值。Map通常用于需要快速查找特定键以获取相应值的场景，例如字典或计数器。</p>
+<h2 id="map-基本用法">Map 基本用法</h2>
+<p>以下是使用Map的一些基本用法：</p>
+<ol>
+<li>创建Map：使用make函数创建一个Map对象，同时指定键和值的类型。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">myMap</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">string</span><span style="color:#111">]</span><span style="color:#00a8c8">int</span><span style="color:#111">)</span>
+</span></span></code></pre></div><ol start="2">
+<li>添加元素：通过键值对的方式添加元素到Map中。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">myMap</span><span style="color:#111">[</span><span style="color:#d88200">&#34;apple&#34;</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">myMap</span><span style="color:#111">[</span><span style="color:#d88200">&#34;orange&#34;</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#ae81ff">5</span>
+</span></span></code></pre></div><ol start="3">
+<li>访问元素：通过键访问Map中的元素值。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">myMap</span><span style="color:#111">[</span><span style="color:#d88200">&#34;apple&#34;</span><span style="color:#111">])</span> <span style="color:#75715e">// Output: 10
+</span></span></span></code></pre></div><ol start="4">
+<li>更新元素：通过键更新Map中的元素值。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">myMap</span><span style="color:#111">[</span><span style="color:#d88200">&#34;apple&#34;</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#ae81ff">15</span>
+</span></span></code></pre></div><ol start="5">
+<li>删除元素：通过键删除Map中的元素。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#111">delete</span><span style="color:#111">(</span><span style="color:#75af00">myMap</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;orange&#34;</span><span style="color:#111">)</span>
+</span></span></code></pre></div><ol start="6">
+<li>遍历Map：使用for range语句遍历Map中的所有键值对,遍历是顺序是不确定的。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">for</span> <span style="color:#75af00">key</span><span style="color:#111">,</span> <span style="color:#75af00">value</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">myMap</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">key</span><span style="color:#111">,</span> <span style="color:#75af00">value</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="应用场景">应用场景</h2>
+<ol>
+<li>计数器：使用Map可以轻松实现计数器功能。例如，如果需要统计一个字符串中每个字符出现的次数，可以使用一个Map来保存每个字符及其出现次数。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">str</span> <span style="color:#f92672">:=</span> <span style="color:#d88200">&#34;abracadabra&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">counts</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">rune</span><span style="color:#111">]</span><span style="color:#00a8c8">int</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">for</span> <span style="color:#75af00">_</span><span style="color:#111">,</span> <span style="color:#75af00">c</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">str</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">counts</span><span style="color:#111">[</span><span style="color:#75af00">c</span><span style="color:#111">]</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">counts</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output: map[a:5 b:2 r:2 c:1 d:1]
+</span></span></span></code></pre></div><ol start="2">
+<li>缓存：Map也可以用作缓存，以加快应用程序的性能。例如，在Web应用程序中，可以将从数据库中检索到的数据存储在Map中，以避免重复查询相同的数据。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">User</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">ID</span>   <span style="color:#00a8c8">int</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">Name</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">cache</span> <span style="color:#111">=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">int</span><span style="color:#111">]</span><span style="color:#75af00">User</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">getUserByID</span><span style="color:#111">(</span><span style="color:#75af00">id</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#75af00">User</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">user</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">cache</span><span style="color:#111">[</span><span style="color:#75af00">id</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">if</span> <span style="color:#111">!</span><span style="color:#75af00">ok</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 从数据库中查询用户信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75af00">user</span> <span style="color:#111">=</span> <span style="color:#75af00">User</span><span style="color:#111">{</span><span style="color:#75af00">ID</span><span style="color:#111">:</span> <span style="color:#75af00">id</span><span style="color:#111">,</span> <span style="color:#75af00">Name</span><span style="color:#111">:</span> <span style="color:#d88200">&#34;John Doe&#34;</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">cache</span><span style="color:#111">[</span><span style="color:#75af00">id</span><span style="color:#111">]</span> <span style="color:#111">=</span> <span style="color:#75af00">user</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#75af00">user</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><ol start="3">
+<li>实现集合（set）数据结构：在只关心key是否存在，而不关系值的情况下可以使用 map[T]struct{} 来实现集合的效果</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">keySet</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">string</span><span style="color:#111">]</span><span style="color:#00a8c8">struct</span><span style="color:#111">{}{</span><span style="color:#d88200">&#34;golang&#34;</span><span style="color:#111">:</span> <span style="color:#111">{},</span> <span style="color:#d88200">&#34;java&#34;</span><span style="color:#111">:</span> <span style="color:#111">{}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">if</span> <span style="color:#75af00">_</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">keySet</span><span style="color:#111">[</span><span style="color:#d88200">&#34;golang&#34;</span><span style="color:#111">];</span> <span style="color:#75af00">ok</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;key golang exist&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;key golang not exist&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//output key golang exist
+</span></span></span></code></pre></div><h2 id="练习map">练习：map</h2>
+<p>实现WordCount。它应该返回字符串s中每个“单词”计数的map。wc.Test函数针对所提供的函数运行一个测试套件，并打印成功或失败。你可能会用到 strings.Fields。
+<em>以下代码仅供参考</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;strings&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;golang.org/x/tour/wc&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">WordCount</span><span style="color:#111">(</span><span style="color:#75af00">s</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">string</span><span style="color:#111">]</span><span style="color:#00a8c8">int</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">res</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">map</span><span style="color:#111">[</span><span style="color:#00a8c8">string</span><span style="color:#111">]</span><span style="color:#00a8c8">int</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">words</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">strings</span><span style="color:#111">.</span><span style="color:#75af00">Fields</span><span style="color:#111">(</span><span style="color:#75af00">s</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">_</span><span style="color:#111">,</span> <span style="color:#75af00">word</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">words</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">res</span><span style="color:#111">[</span><span style="color:#75af00">word</span><span style="color:#111">]</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">res</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">wc</span><span style="color:#111">.</span><span style="color:#75af00">Test</span><span style="color:#111">(</span><span style="color:#75af00">WordCount</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="注意事项">注意事项</h2>
+<p>在使用Map时，需要注意以下几点：</p>
+<ol>
+<li>并发访问：Map不是线程安全的，如果多个goroutine同时访问同一个Map，则可能会导致数据竞争和不确定结果。为了避免这种情况，可以使用sync.Mutex等方法进行加锁处理。</li>
+<li>空指针：在声明Map时，如果没有进行初始化，则默认值为nil。如果尝试对nil map进行操作，将会产生panic。应该在声明时进行初始化或者先判断map是否为nil。</li>
+<li>不稳定的迭代顺序：Map是无序的，因此不能保证迭代时元素的顺序。如果需要有序的集合，请使用Slice。</li>
+<li>未初始化的值类型：当使用值类型作为Map的键时，必须确保该类型已经被初始化。例如，如果使用结构体作为键，则必须确保结构体内所有字段都被初始化。</li>
+<li>Map长度计算：不能依赖len()函数来计算Map的长度。这是因为Map的长度是动态变化的。如果需要知道Map的长度，请自己统计元素数量。</li>
+<li>Map内存泄漏：如果不再需要Map中的某个元素，请及时删除它。否则，它将占用内存，并可能导致内存泄漏。</li>
+<li>Map键类型：Map的键可以是所有可比较的类型，包括基本类型、字符串和指针。但是，不建议使用浮点数作为键，因为在计算机内部表示时可能存在精度问题。</li>
+</ol>
+
+
+    
+
+
+                    <div class="row">
+                        <div  class="col-12 text-muted text-sm-center">
+                            <img class="w-75" src="/img/wx_logo.png">
+                        </div>
+                    </div>
+                    <div class="row"><div class="position-relative mx-auto col-lg-9">
+                          <div class="bg-primary overflow-hidden p-3 mt-5 shadow">
+
+    <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
+
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/wx/20230523.html" title="Go语言数据结构： Array 和Slice"><i class="fas fa-chevron-left p-1"></i>Go语言数据结构： Array 和Slice</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/wx/2023052202.html" title="Go语言流程控制:Defer">Go语言流程控制:Defer<i class="fas fa-chevron-right p-1"></i></a>
+    </div>
+</div>
+
+
+                        </div></div> 
+
+                </div>
+            </div> 
+            <div class="d-lg-none "><div class="row py-3 mb-5">
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+        </div> 
+
+        
+        <div class="row">
+            <div  class="col-12 text-muted text-sm-center"><h6>©2017-2023 鲁ICP备17023316号-1 Powered by Hugo</h6></div>
+        </div>
+        
+<script src="http://blog.911015.com/lib/jquery.min.js"></script> 
+<script src="http://blog.911015.com/lib/popper.min.js"></script> 
+
+<script src="http://blog.911015.com/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/blog.911015.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c998faac34ae24828c9c973cc2b76a0d";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

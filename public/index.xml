@@ -219,6 +219,17 @@ panic: The unary server interceptor was already set and may not be reset.
     </item>
     
     <item>
+      <title> Go 语言数据结构：Maps</title>
+      <link>http://blog.911015.com/wx/20230524.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230524.html</guid>
+      <description>Golang中的Map是一种集合类型，它用于将一个键值对映射到另一个键值对。这些键值对可以是任何可比较的类型，包括内置类型和用户定义的类型，而且每个键只能在Map中出现一次。 具体来说，Map是由一组键值对组成的无序集合。每个键必须是唯一的，而不同的键可以关联到相同的值。Map通常用于需要快速查找特定键以获取相应值的场景，例如字典或计数器。
+Map 基本用法 以下是使用Map的一些基本用法：
+创建Map：使用make函数创建一个Map对象，同时指定键和值的类型。 myMap := make(map[string]int) 添加元素：通过键值对的方式添加元素到Map中。 myMap[&amp;#34;apple&amp;#34;] = 10 myMap[&amp;#34;orange&amp;#34;] = 5 访问元素：通过键访问Map中的元素值。 fmt.Println(myMap[&amp;#34;apple&amp;#34;]) // Output: 10 更新元素：通过键更新Map中的元素值。 myMap[&amp;#34;apple&amp;#34;] = 15 删除元素：通过键删除Map中的元素。 delete(myMap, &amp;#34;orange&amp;#34;) 遍历Map：使用for range语句遍历Map中的所有键值对,遍历是顺序是不确定的。 for key, value := range myMap { fmt.Println(key, value) } 应用场景 计数器：使用Map可以轻松实现计数器功能。例如，如果需要统计一个字符串中每个字符出现的次数，可以使用一个Map来保存每个字符及其出现次数。 str := &amp;#34;abracadabra&amp;#34; counts := make(map[rune]int) for _, c := range str { counts[c]++ } fmt.Println(counts) // Output: map[a:5 b:2 r:2 c:1 d:1] 缓存：Map也可以用作缓存，以加快应用程序的性能。例如，在Web应用程序中，可以将从数据库中检索到的数据存储在Map中，以避免重复查询相同的数据。 type User struct { ID int Name string } var cache = make(map[int]User) func getUserByID(id int) (User, error) { user, ok := cache[id] if !</description>
+    </item>
+    
+    <item>
       <title>04-入门多模块工作区</title>
       <link>http://blog.911015.com/beginner/04.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
