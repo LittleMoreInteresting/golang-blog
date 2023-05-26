@@ -61,5 +61,20 @@ Map 基本用法 以下是使用Map的一些基本用法：
 创建Map：使用make函数创建一个Map对象，同时指定键和值的类型。 myMap := make(map[string]int) 添加元素：通过键值对的方式添加元素到Map中。 myMap[&amp;#34;apple&amp;#34;] = 10 myMap[&amp;#34;orange&amp;#34;] = 5 访问元素：通过键访问Map中的元素值。 fmt.Println(myMap[&amp;#34;apple&amp;#34;]) // Output: 10 更新元素：通过键更新Map中的元素值。 myMap[&amp;#34;apple&amp;#34;] = 15 删除元素：通过键删除Map中的元素。 delete(myMap, &amp;#34;orange&amp;#34;) 遍历Map：使用for range语句遍历Map中的所有键值对,遍历是顺序是不确定的。 for key, value := range myMap { fmt.Println(key, value) } 应用场景 计数器：使用Map可以轻松实现计数器功能。例如，如果需要统计一个字符串中每个字符出现的次数，可以使用一个Map来保存每个字符及其出现次数。 str := &amp;#34;abracadabra&amp;#34; counts := make(map[rune]int) for _, c := range str { counts[c]++ } fmt.Println(counts) // Output: map[a:5 b:2 r:2 c:1 d:1] 缓存：Map也可以用作缓存，以加快应用程序的性能。例如，在Web应用程序中，可以将从数据库中检索到的数据存储在Map中，以避免重复查询相同的数据。 type User struct { ID int Name string } var cache = make(map[int]User) func getUserByID(id int) (User, error) { user, ok := cache[id] if !</description>
     </item>
     
+    <item>
+      <title> Go 语言数据结构：结构体</title>
+      <link>http://blog.911015.com/wx/20230525.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230525.html</guid>
+      <description>指针 Go提供了指针类型。指针保存的是一个值的内存地址。但是Go没有指针运算。 类型*T是指向T值的指针。它的零值为nil。
+var p *int *&amp;amp; 运算符生成指向其操作数的指针。 **运算符表示指针的基本值。
+i := 42 p = &amp;amp;i fmt.Println(*p) // read i through the pointer p *p = 21 // set i through the pointer p 结构体（Structs） Go语言中，结构体是一种用户自定义的数据类型，用于存储不同数据类型的集合 。 使用点(.)访问结构字段。 在结构体中，字段首字母的大小写决定了该字段的可见性。 定义结构体 一个结构体包含0到N个字段（Field），每个字段由字段名和类型构成；定义一个结构体的一般方式如下，
+type T struct { field1 type1 field2 type2 ... } 如果个字段类型相同也可以简写成 :
+type T struct {X,Y int} 创建结构体 假设我们已经定义了这样一个结构体：
+type Vertex struct { X int Y int } 如何使用这个结构体呢？创建一个结构体变量常用的方法有：
+定义结构体类型变量 var v1 Vertex v1.</description>
+    </item>
+    
   </channel>
 </rss>

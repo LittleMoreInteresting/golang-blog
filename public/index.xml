@@ -230,6 +230,21 @@ Map 基本用法 以下是使用Map的一些基本用法：
     </item>
     
     <item>
+      <title> Go 语言数据结构：结构体</title>
+      <link>http://blog.911015.com/wx/20230525.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230525.html</guid>
+      <description>指针 Go提供了指针类型。指针保存的是一个值的内存地址。但是Go没有指针运算。 类型*T是指向T值的指针。它的零值为nil。
+var p *int *&amp;amp; 运算符生成指向其操作数的指针。 **运算符表示指针的基本值。
+i := 42 p = &amp;amp;i fmt.Println(*p) // read i through the pointer p *p = 21 // set i through the pointer p 结构体（Structs） Go语言中，结构体是一种用户自定义的数据类型，用于存储不同数据类型的集合 。 使用点(.)访问结构字段。 在结构体中，字段首字母的大小写决定了该字段的可见性。 定义结构体 一个结构体包含0到N个字段（Field），每个字段由字段名和类型构成；定义一个结构体的一般方式如下，
+type T struct { field1 type1 field2 type2 ... } 如果个字段类型相同也可以简写成 :
+type T struct {X,Y int} 创建结构体 假设我们已经定义了这样一个结构体：
+type Vertex struct { X int Y int } 如何使用这个结构体呢？创建一个结构体变量常用的方法有：
+定义结构体类型变量 var v1 Vertex v1.</description>
+    </item>
+    
+    <item>
       <title>04-入门多模块工作区</title>
       <link>http://blog.911015.com/beginner/04.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
