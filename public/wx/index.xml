@@ -76,5 +76,27 @@ type Vertex struct { X int Y int } 如何使用这个结构体呢？创建一个
 定义结构体类型变量 var v1 Vertex v1.</description>
     </item>
     
+    <item>
+      <title> Go 语言入门：方法</title>
+      <link>http://blog.911015.com/wx/20230526.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230526.html</guid>
+      <description>方法 Methods Go没有类。但是，您可以在类型上定义方法。 方法是一个具有特殊接收器参数的函数。 接收器出现在自己的参数列表中，位于func关键字和方法名称之间。语法如下
+func (t 类型) 方法名(参数名 参数类型 ...) [返回值类型]{ } 一下代码为官网示例；定义了一个 Vertex 类列；包含X Y 两个字段；定义了一个Abs 方法；计算坐标点到原点的距离。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) type Vertex struct { X, Y float64 } func (v Vertex) Abs() float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(v.Abs()) } 在这个例子中，Abs方法有一个名为v的Vertex类型的接收器。 请记住：方法只是一个带有接收器参数的函数。下面的Abs是作为一个普通函数编写的，函数本身没有变化。
+func Abs(v Vertex) float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.</description>
+    </item>
+    
+    <item>
+      <title> Go 语言中的接口：Interface</title>
+      <link>http://blog.911015.com/wx/20230527.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230527.html</guid>
+      <description>Interfaces 接口类型被定义为一组方法签名。 接口类型的值可以包含实现这些方法的任何值。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) type Abser interface { Abs() float64 } func main() { var a Abser f := MyFloat(-math.Sqrt2) v := Vertex{3, 4} a = f // a MyFloat implements Abser a = &amp;amp;v // a *Vertex implements Abser // In the following line, v is a Vertex (not *Vertex) // and does NOT implement Abser. a = v fmt.Println(a.Abs()) } type MyFloat float64 func (f MyFloat) Abs() float64 { if f &amp;lt; 0 { return float64(-f) } return float64(f) } type Vertex struct { X, Y float64 } func (v *Vertex) Abs() float64 { return math.</description>
+    </item>
+    
   </channel>
 </rss>
