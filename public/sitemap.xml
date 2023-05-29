@@ -82,10 +82,6 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://blog.911015.com/wx/20230525.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>http://blog.911015.com/beginner/04.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -102,7 +98,7 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://blog.911015.com/wx/20230526.html</loc>
+    <loc>http://blog.911015.com/wx/20230525.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -122,7 +118,7 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://blog.911015.com/wx/20230527.html</loc>
+    <loc>http://blog.911015.com/wx/20230526.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -131,6 +127,14 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://blog.911015.com/grpc/06.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://blog.911015.com/wx/20230527.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://blog.911015.com/wx/20230528.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>

@@ -98,5 +98,17 @@ func Abs(v Vertex) float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() {
 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) type Abser interface { Abs() float64 } func main() { var a Abser f := MyFloat(-math.Sqrt2) v := Vertex{3, 4} a = f // a MyFloat implements Abser a = &amp;amp;v // a *Vertex implements Abser // In the following line, v is a Vertex (not *Vertex) // and does NOT implement Abser. a = v fmt.Println(a.Abs()) } type MyFloat float64 func (f MyFloat) Abs() float64 { if f &amp;lt; 0 { return float64(-f) } return float64(f) } type Vertex struct { X, Y float64 } func (v *Vertex) Abs() float64 { return math.</description>
     </item>
     
+    <item>
+      <title> Go语言泛型入门</title>
+      <link>http://blog.911015.com/wx/20230528.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230528.html</guid>
+      <description>Go语言泛型入门 Go语言在 1.18中引入了对使用参数化类型的泛型代码的新支持。泛型是一种编写代码的方式，与所使用的特定类型无关。函数和类型现在可以被编写为使用一组类型中的任何一个。本课展示了在代码中使用泛型的一些示例。
+类型参数泛型 Go函数可以使用类型参数让函数支持多个类型。函数的类型参数用中括号包裹，位于函数的参数之前。
+func Index[T comparable](s []T, x T) int 这个声明意味着s是任何类型T的一个切片，它满足comparable内置约束。x也是相同类型的值。 compatible是一个有用的约束，可以使用==和!=类型值上的运算符。在本例中，我们使用它将一个值与所有切片元素进行比较，直到找到匹配。此Index函数适用于任何支持比较的类型。
+package main import &amp;#34;fmt&amp;#34; // Index returns the index of x in s, or -1 if not found. func Index[T comparable](s []T, x T) int { for i, v := range s { // v and x are type T, which has the comparable // constraint, so we can use == here. if v == x { return i } } return -1 } func main() { // Index works on a slice of ints si := []int{10, 20, 15, -10} fmt.</description>
+    </item>
+    
   </channel>
 </rss>
