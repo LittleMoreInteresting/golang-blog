@@ -407,6 +407,21 @@ ch &amp;lt;- v // Send v to channel ch. v := &amp;lt;-ch // Receive from ch, and
     </item>
     
     <item>
+      <title>Go语言协程</title>
+      <link>http://blog.911015.com/wx/20230601.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230601.html</guid>
+      <description>什么是Goroutine 在Go语言中goroutine一般翻译为Go协程或Go程；在《Effective Go》中对其有这样一段介绍： 百度翻译：它们之所以被称为goroutines，是因为现有的术语线程、协程、进程等等传达了不准确的含义。goroutine有一个简单的模型：它是一个与同一地址空间中的其他goroutine同时执行的函数。它重量轻，只需分配堆栈空间即可。堆栈一开始很小，所以很便宜，并通过根据需要分配（和释放）堆存储来增长。
+可以得知goroutine的特殊就是轻量，低成本，更易用。先看一下它是怎么使用的。
+启动一个Goroutine 在调用函数或者方法前面加上关键字** go**，就可以运行一个新的 goroutine，调用后会立即返回。每一个goroutine之间是并发执行的，执行顺序并是不确定的。我们来看下面例子：
+func echo(tag string) { fmt.Println(&amp;#34;[&amp;#34; + tag + &amp;#34;] goroutine running&amp;#34;) } func main() { go echo(&amp;#34;G1&amp;#34;) fmt.Println(&amp;#34;main stop&amp;#34;) } 如果你直接运行这段代码，大多数情况下应该是看不到echo函数执行的，原因是 Go 协程调用后会立即返回，执行下一行。如果 Go 主协程终止，则程序终止，其他 Go 协程也不会继续运行。如果要正常看到echo的输出可以在Go主协程结束前进行等待，比如sleep几秒：
+time.Sleep(5 * time.Second) 显然这样不够优雅，因为实际情况中我们并不能确定go协程执行多久，也就没法确定sleep等待的时间。下面我们介绍一直更合适的方法sync.WaitGroup。
+使用 sync.WaitGroup WaitGroup用于等待一组线程的结束；父线程调用Add方法来设定应等待的线程的数量。每个被等待的线程在结束时应调用Done方法。同时，主线程里可以调用Wait方法阻塞至所有线程结束。有三个到处方法分别是：Add、Done、Wait(); 下面我们重写一下上面的代码：
+var wg sync.WaitGroup wg.Add(1) go func() { defer wg.Done() fmt.Println(&amp;#34;[Go 1]: this is Goroutine 1&amp;#34;) }() wg.Add(1) go func() { defer wg.Done() fmt.Println(&amp;#34;[Go 2]: this is Goroutine 1&amp;#34;) }() wg.</description>
+    </item>
+    
+    <item>
       <title>与我联系</title>
       <link>http://blog.911015.com/contact.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

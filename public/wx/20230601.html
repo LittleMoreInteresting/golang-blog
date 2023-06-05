@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <meta name="description" content="编程语言这么多怎么选？Go、Java、PHP，Python还是C&#43;&#43;？">
+    <meta name="description" content="在Go语言中goroutine一般翻译为Go协程或Go程">
     
-    <link rel="canonical" href="http://blog.911015.com/wx/2023052201.html">
+    <link rel="canonical" href="http://blog.911015.com/wx/20230601.html">
 
     <title>
         
-        编程语言这么多怎么选？ | Go语言入门
+        Go语言协程 | Go语言入门
         
     </title>
 
@@ -302,7 +302,7 @@
                   </a>
                 
         </li>
-        <li data-nav-id="/wx/2023052201.html" class="nav-item my-1 active">
+        <li data-nav-id="/wx/2023052201.html" class="nav-item my-1">
                 
                 
                   <a href="/wx/2023052201.html" class="nav-link p-0">
@@ -366,7 +366,7 @@
                   </a>
                 
         </li>
-        <li data-nav-id="/wx/20230601.html" class="nav-item my-1">
+        <li data-nav-id="/wx/20230601.html" class="nav-item my-1 active">
                 
                 
                   <a href="/wx/20230601.html" class="nav-link p-0">
@@ -385,13 +385,13 @@
                 <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
 	<nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#什么是goroutine">什么是Goroutine</a></li>
+    <li><a href="#启动一个goroutine">启动一个Goroutine</a></li>
+    <li><a href="#使用-syncwaitgroup">使用 sync.WaitGroup</a></li>
+    <li><a href="#使用-channel">使用 channel</a></li>
+    <li><a href="#使用-context">使用 context</a>
       <ul>
-        <li><a href="#go">Go</a></li>
-        <li><a href="#php">PHP</a></li>
-        <li><a href="#java">Java</a></li>
-        <li><a href="#python">Python</a></li>
-        <li><a href="#c">C++</a></li>
+        <li><a href="#往期文章">往期文章：</a></li>
       </ul>
     </li>
   </ul>
@@ -425,7 +425,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">编程语言这么多怎么选？</h1>
+    <h1 class="js-title">Go语言协程</h1>
     <div class="d-flex align-items-center">
         
             <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
@@ -437,105 +437,80 @@
 <hr>
 
 
-<h3 id="go">Go</h3>
-<p>Go是一种由Google开发的编程语言。其主要特点包括：</p>
-<ul>
-<li>静态类型：在编译时检查类型，可以提供更好的代码健壮性。</li>
-<li>并发编程：支持Goroutines（轻量级线程）和Channels（通信机制），使并发编程变得简单。</li>
-<li>内存管理：Go具有自动垃圾回收机制，可以减少内存泄漏问题。</li>
-</ul>
-<p>Go的生态系统正在快速增长，有许多优秀的开源库和框架可供使用。它非常适合云原生应用的开发，如Docker等。较新的Web框架，例如Gin和Echo，也使Go在Web开发中越来越受欢迎。
-在性能方面，Go比动态语言更快，但比C++等系统级语言稍慢。
-Go的学习曲线较为平稳，对于具有其他编程经验的开发人员来说相对容易上手。</p>
-<h3 id="php">PHP</h3>
-<p>PHP是一种广泛用于Web开发的动态类型语言。其主要特点包括：</p>
-<ul>
-<li>动态类型：无需在编写代码时指定变量类型，使代码更加灵活。</li>
-<li>便于Web开发：PHP具有许多与Web相关的函数和库，如文件上传、会话管理等。</li>
-<li>面向对象编程：支持面向对象编程风格，使代码更加易于维护。</li>
-</ul>
-<p>PHP生态系统非常丰富，包括许多流行的Web框架和CMS平台，例如Laravel和WordPress。这些工具可使Web开发更加高效。
-在性能方面，PHP比静态语言慢，但可以通过各种缓存技术（如APC和OPcache）提高性能。
-PHP学习曲线相对较低，因此非常适合初学者或那些想快速入门Web开发的人选择。</p>
-<h3 id="java">Java</h3>
-<p>Java是一种强类型的跨平台语言，并且具有以下特点：</p>
-<ul>
-<li>静态类型：在编译时检查类型，使代码更加健壮。</li>
-<li>跨平台：Java字节码可以在任何支持Java的操作系统上运行。</li>
-<li>面向对象编程：支持类和对象，使得代码更易于维护。</li>
-</ul>
-<p>Java的生态系统非常丰富，涵盖了众多企业应用程序框架，例如Spring和Hibernate。这些框架可帮助开发人员快速构建稳健的企业级应用程序。
-在性能方面，Java比动态语言快，但启动时间较长。
-相对于其他语言，Java的学习曲线中等。因为它有一个强大的库和框架生态系统，需要一些时间来理解和掌握这些技术。</p>
-<h3 id="python">Python</h3>
-<p>Python是一种动态类型语言，用于各种用途，包括数据分析、机器学习、Web开发等。其主要特点包括：</p>
-<ul>
-<li>动态类型：无需在编写代码时指定变量类型，使代码更灵活。</li>
-<li>简洁易读：Python具有清晰简单的语法，使得代码易于阅读和编写。</li>
-<li>自然语言处理和数据科学：Python具有丰富的库和工具，如NumPy、pandas和scikit-learn等，使得数据科学工作变得更加容易。</li>
-</ul>
-<p>Python生态系统非常丰富，包括许多科学计算库和Web框架，例如Django和Flask。Python也是自然语言处理领域的首选语言。
-在性能方面，Python比静态语言慢，但对于普通计算任务而言，其代码实现更为容易。另外，Python可以通过JIT编译器（如PyPy）提高性能。
-相对于其他语言，Python的学习曲线较浅，适合初学者或那些希望快速入门数据科学或Web开发的人选择。</p>
-<h3 id="c">C++</h3>
-<p>C++是一种静态类型语言，常用于底层编程和高性能计算任务。其主要特点包括：</p>
-<ul>
-<li>静态类型：在编译时检查类型，可以提供更好的代码健壮性。</li>
-<li>高性能：C++可以直接操作硬件，因此可以实现非常高效的代码。</li>
-<li>底层编程：C++没有自动垃圾回收机制，使得程序员需要手动管理内存，并且可以进行指针操作等底层编程技术。</li>
-</ul>
-<p>C++的生态系统虽然不如其他语言那么丰富，但它有许多优秀的基础设施库和跨平台工具，如Boost和Qt等。
-在性能方面，C++是最快的语言之一，因为它可以直接操作硬件和内存。
-相对于其他语言，C++的学习曲线较陡峭。它需要更多的时间和精力来掌握，因为它具有底层编程技术和复杂的内存管理要求。</p>
-<table>
-<thead>
-<tr>
-<th>语言</th>
-<th>语言特性</th>
-<th>生态系统</th>
-<th>性能</th>
-<th>学习难度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Go</td>
-<td>静态类型、并发编程、内存管理</td>
-<td>快速增长的开源库和框架，适合云原生应用</td>
-<td>比动态语言快，但比C++等系统级语言稍慢</td>
-<td>中等</td>
-</tr>
-<tr>
-<td>PHP</td>
-<td>动态类型、便于Web开发、面向对象编程</td>
-<td>丰富的Web生态系统，如WordPress</td>
-<td>比静态语言慢，但可以通过各种缓存技术提高性能</td>
-<td>简单</td>
-</tr>
-<tr>
-<td>Java</td>
-<td>静态类型、跨平台、面向对象编程</td>
-<td>丰富的企业应用生态系统，如Spring、Hibernate等</td>
-<td>比动态语言快，但启动时间较长</td>
-<td>中等</td>
-</tr>
-<tr>
-<td>Python</td>
-<td>动态类型、简洁易读、自然语言处理、数据科学</td>
-<td>丰富的科学计算生态系统，如NumPy、pandas、scikit-learn等</td>
-<td>比静态语言慢，但普通计算任务易于实现</td>
-<td>简单</td>
-</tr>
-<tr>
-<td>C++</td>
-<td>静态类型、高性能、底层编程</td>
-<td>丰富的基础设施生态系统，如Boost</td>
-<td>最接近硬件的语言之一，性能最高</td>
-<td>困难</td>
-</tr>
-</tbody>
-</table>
-<p>总体而言，Go、Java和Python是比较流行的语言，它们都有丰富的生态系统，并且相对于C++来说学习难度较低。其中，Go具有出色的并发编程能力，适合云原生应用开发；Java是企业级开发的首选语言；Python则在数据科学和自然语言处理方面得到广泛应用。PHP则是一种简单易学的Web开发语言，而C++则适合底层编程和高性能计算任务。当然，选择哪种语言取决于具体的需求和项目要求。</p>
+<h2 id="什么是goroutine">什么是Goroutine</h2>
+<p>在Go语言中goroutine一般翻译为Go协程或Go程；在《Effective Go》中对其有这样一段介绍：
+<img src="https://cdn.nlark.com/yuque/0/2023/png/12487795/1685676597715-b40edadf-e0f1-49c5-9b59-9bf7c5a98a32.png#averageHue=%23fdfbf9&amp;clientId=uda458466-a394-4&amp;from=paste&amp;height=262&amp;id=u5cb85531&amp;originHeight=262&amp;originWidth=1012&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=48878&amp;status=done&amp;style=none&amp;taskId=u8a0ba463-9179-47eb-b064-29e89ef57fa&amp;title=&amp;width=1012" alt="image.png"></p>
+<blockquote>
+<p>百度翻译：它们之所以被称为goroutines，是因为现有的术语线程、协程、进程等等传达了不准确的含义。goroutine有一个简单的模型：它是一个与同一地址空间中的其他goroutine同时执行的函数。它重量轻，只需分配堆栈空间即可。堆栈一开始很小，所以很便宜，并通过根据需要分配（和释放）堆存储来增长。</p>
+</blockquote>
+<p>可以得知goroutine的特殊就是轻量，低成本，更易用。先看一下它是怎么使用的。</p>
+<h2 id="启动一个goroutine">启动一个Goroutine</h2>
+<p>在调用函数或者方法前面加上关键字** go**，就可以运行一个新的 goroutine，调用后会立即返回。每一个goroutine之间是并发执行的，执行顺序并是不确定的。我们来看下面例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">echo</span><span style="color:#111">(</span><span style="color:#75af00">tag</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;[&#34;</span> <span style="color:#f92672">+</span> <span style="color:#75af00">tag</span> <span style="color:#f92672">+</span> <span style="color:#d88200">&#34;]  goroutine running&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">go</span> <span style="color:#75af00">echo</span><span style="color:#111">(</span><span style="color:#d88200">&#34;G1&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;main stop&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>如果你直接运行这段代码，大多数情况下应该是看不到echo函数执行的，原因是 Go 协程调用后会立即返回，执行下一行。如果 Go 主协程终止，则程序终止，其他 Go 协程也不会继续运行。如果要正常看到echo的输出可以在Go主协程结束前进行等待，比如sleep几秒：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span></code></pre></div><p>显然这样不够优雅，因为实际情况中我们并不能确定go协程执行多久，也就没法确定sleep等待的时间。下面我们介绍一直更合适的方法sync.WaitGroup。</p>
+<h2 id="使用-syncwaitgroup">使用 sync.WaitGroup</h2>
+<p>WaitGroup用于等待一组线程的结束；父线程调用Add方法来设定应等待的线程的数量。每个被等待的线程在结束时应调用Done方法。同时，主线程里可以调用Wait方法阻塞至所有线程结束。有三个到处方法分别是：Add、Done、Wait();
+下面我们重写一下上面的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">wg</span> <span style="color:#75af00">sync</span><span style="color:#111">.</span><span style="color:#75af00">WaitGroup</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Add</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">defer</span> <span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Done</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;[Go 1]: this is Goroutine 1&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Add</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">defer</span> <span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Done</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;[Go 2]: this is Goroutine 1&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Wait</span><span style="color:#111">()</span> <span style="color:#75715e">// 此处会阻塞等待计数器归零
+</span></span></span></code></pre></div><p>WaitGroup使用时需要注意：
+1、零值可以，无需单独初始化；
+2、Add数和Doen属需要一一对应，
+3、Done 要在进程最后执行；Done 相当于 Add(-1)；如果计数器小于0会panic</p>
+<p>goroutine 使用起来固然方便，但是做到控制好goroutine的生命周期却不容易，如果只是简单的用go 关键字启动后不管，无法确定或控制其停止可能会产生大量野生goroutine,特殊情况下可能会造成内存泄漏等问题。下面我们介绍两种常见的goroutine控制方法：</p>
+<h2 id="使用-channel">使用 channel</h2>
+<p>我们需要重写一下echo函数，让它接受一个chan参数，用来接受来自主程的关闭信号；代码如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">echo_chan</span><span style="color:#111">(</span><span style="color:#75af00">tag</span> <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">stop</span> <span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">struct</span><span style="color:#111">{})</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">begin</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">true</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">select</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#75af00">stop</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">tag</span> <span style="color:#f92672">+</span> <span style="color:#d88200">&#34;stop!&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">begin</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">begin</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 模拟go程进行某些操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;[&#34;</span> <span style="color:#f92672">+</span> <span style="color:#75af00">tag</span> <span style="color:#f92672">+</span> <span style="color:#d88200">&#34;]&#34;</span> <span style="color:#f92672">+</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Now</span><span style="color:#111">().</span><span style="color:#75af00">String</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>由本例只需要接受信号，不需要传递具体消息内容 chan struct{} 类型的channel以减少开销，方法中我们重新创建了一个goroutine用来监听stop 的信号；接受到信号后通过修改begin为false 来停止任务；通常情况下可能是调用任务对象的stop方法比如http server 中的Shutdown()。</p>
+<h2 id="使用-context">使用 context</h2>
+<p>context 与channel 类似； 通过 鉴定 ctx.Done()控制goroutine。具体代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">echo_ctx</span><span style="color:#111">(</span><span style="color:#75af00">tag</span> <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">ctx</span> <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">Context</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">begin</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">true</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">select</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#75af00">ctx</span><span style="color:#111">.</span><span style="color:#75af00">Done</span><span style="color:#111">():</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#75af00">tag</span> <span style="color:#f92672">+</span> <span style="color:#d88200">&#34;stop!&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">begin</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">begin</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;[&#34;</span> <span style="color:#f92672">+</span> <span style="color:#75af00">tag</span> <span style="color:#f92672">+</span> <span style="color:#d88200">&#34;]&#34;</span> <span style="color:#f92672">+</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Now</span><span style="color:#111">().</span><span style="color:#75af00">String</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="往期文章">往期文章：</h3>
 
 
     
@@ -551,8 +526,8 @@ PHP学习曲线相对较低，因此非常适合初学者或那些想快速入�
 
     <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
 
-    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/wx/2023052202.html" title="Go语言流程控制:Defer"><i class="fas fa-chevron-left p-1"></i>Go语言流程控制:Defer</a>
-        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/wx/20230523.html" title="Go语言数据结构： Array 和Slice">Go语言数据结构： Array 和Slice<i class="fas fa-chevron-right p-1"></i></a>
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/wx/20230529.html" title=" Go语言并发入门"><i class="fas fa-chevron-left p-1"></i> Go语言并发入门</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/wx/2023052202.html" title="Go语言流程控制:Defer">Go语言流程控制:Defer<i class="fas fa-chevron-right p-1"></i></a>
     </div>
 </div>
 
