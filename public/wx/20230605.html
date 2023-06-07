@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="channel是Go语言中类型安全的内置类型；两个goruntine可以通过channle同步的进行消息通信">
+    
+    <link rel="canonical" href="http://blog.911015.com/wx/20230605.html">
+
+    <title>
+        
+        Go语言：channel | Go语言入门
+        
+    </title>
+
+    
+    <link href="http://blog.911015.com/css/fontawesome.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="http://blog.911015.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                    <img src="/img/site_logo.png" />
+                
+                Go语言入门
+            </a>
+        </div>
+        
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMainCollapse">
+              <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact.html" target="_blank">
+                                  <i class='fab fa-qq'></i> QQ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/LittleMoreInteresting/beginner-example" target="_blank">
+                                  <i class='fab fa-github'></i>
+                                </a>
+                            </li>
+              </ul>
+            </div>
+    </div>
+    </nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+          <div class="js-favorite-links mt-3 d-none">
+  <span class=""><i class="mr-1 fas fa-star"></i>Favorites</span>
+  <ul class="js-favorite-links-list navbar-nav flex-column mt-2">
+  </ul>
+  <hr class="w-100 mb-2">
+</div>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/beginner/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/beginner/"><h6>跟着用户手册学Golang</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/beginner/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/01.html" class="nav-link p-0">
+                    01-Golang安装与体验
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/02.html" class="nav-link p-0">
+                    02-新手入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/03.html" class="nav-link p-0">
+                    03-创建Go项目
+                  </a>
+                
+        </li>
+        <li data-nav-id="/beginner/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/beginner/04.html" class="nav-link p-0">
+                    04-入门多模块工作区
+                  </a>
+                
+        </li>
+    <li data-nav-id="/tour/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/tour/"><h6>Go 编程语言之旅</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/tour/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/01.html" class="nav-link p-0">
+                    1、基础篇（一）：包、变量和方法
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/02.html" class="nav-link p-0">
+                    2、基础篇（二）：Go语言流程控制
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/03.html" class="nav-link p-0">
+                    3、基础篇（三）：更多类型: struct, slices, 和 map
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/04.html" class="nav-link p-0">
+                    4、方法与接口
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/05.html" class="nav-link p-0">
+                    5、泛型
+                  </a>
+                
+        </li>
+        <li data-nav-id="/tour/06.html" class="nav-item my-1">
+                
+                
+                  <a href="/tour/06.html" class="nav-link p-0">
+                    6、并发
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/grpc/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/grpc/"><h6>gRPC 快速体验</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/grpc/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/01.html" class="nav-link p-0">
+                    一、Hello World
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/02.html" class="nav-link p-0">
+                    二、Streaming RPC
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/03.html" class="nav-link p-0">
+                    三、拦截器与Metadata
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/04.html" class="nav-link p-0">
+                    四、服务注册与发现
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/05.html" class="nav-link p-0">
+                    五、gRPC-Gateway
+                  </a>
+                
+        </li>
+        <li data-nav-id="/grpc/06.html" class="nav-item my-1">
+                
+                
+                  <a href="/grpc/06.html" class="nav-link p-0">
+                    六、证书验证
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/go-zero/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/go-zero/"><h6>go-zero应用实践</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/go-zero/01.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/01.html" class="nav-link p-0">
+                    go-zero 单体应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/02.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/02.html" class="nav-link p-0">
+                    go-zero 单体应用实践（二）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/03.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/03.html" class="nav-link p-0">
+                    go-zero 单体应用实践（三）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/04.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/04.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（一）
+                  </a>
+                
+        </li>
+        <li data-nav-id="/go-zero/05.html" class="nav-item my-1">
+                
+                
+                  <a href="/go-zero/05.html" class="nav-link p-0">
+                    go-zero 微服务应用实践（二）
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/wx/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/wx/"><h6>公众号文章</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/wx/2023052202.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/2023052202.html" class="nav-link p-0">
+                    Go语言流程控制:Defer
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/2023052201.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/2023052201.html" class="nav-link p-0">
+                    编程语言这么多怎么选？
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230523.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230523.html" class="nav-link p-0">
+                    Go语言数据结构： Array 和Slice
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230524.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230524.html" class="nav-link p-0">
+                     Go 语言数据结构：Maps
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230525.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230525.html" class="nav-link p-0">
+                     Go 语言数据结构：结构体
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230526.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230526.html" class="nav-link p-0">
+                     Go 语言入门：方法
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230527.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230527.html" class="nav-link p-0">
+                     Go 语言中的接口：Interface
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230528.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230528.html" class="nav-link p-0">
+                     Go语言泛型入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230529.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230529.html" class="nav-link p-0">
+                     Go语言并发入门
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230601.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230601.html" class="nav-link p-0">
+                    Go语言协程
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230605.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/wx/20230605.html" class="nav-link p-0">
+                    Go语言：channel
+                  </a>
+                
+        </li>
+        <li data-nav-id="/wx/20230606.html" class="nav-item my-1">
+                
+                
+                  <a href="/wx/20230606.html" class="nav-link p-0">
+                    Go语言错误处理
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#无缓冲-channels">无缓冲 Channels</a></li>
+    <li><a href="#有缓冲channels">有缓冲Channels</a></li>
+    <li><a href="#单向channel">单向Channel</a></li>
+    <li><a href="#常见用法扇入模式">常见用法：扇入模式</a></li>
+    <li><a href="#常见用法扇出模式">常见用法：扇出模式</a></li>
+    <li><a href="#反射操作channel">反射操作Channel</a></li>
+  </ul>
+</nav>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-3 " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">Go语言：channel</h1>
+    <div class="d-flex align-items-center">
+        
+            <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
+        
+        <img class="w-25 ml-4" src="/img/wx_search.png">
+    </div>
+</div>
+
+<hr>
+
+
+<p>channel是Go语言中类型安全的内置类型；两个goruntine可以通过channle同步的进行消息通信；想必你一定听过Go 的创始人之一 Rob Pike的那句名言：</p>
+<blockquote>
+<p>Do not communicate by sharing memory; instead, share memory by communicating；
+不要通过共享内存的方式通信，而是要通过通信的方式共享数据</p>
+</blockquote>
+<p>channel的设计和使用充分体现了这样Go语言哲学思想；下面我们来了解一下channel的基本类型和常见用法。</p>
+<h2 id="无缓冲-channels">无缓冲 Channels</h2>
+<blockquote>
+<p>ch := make(chan struct{})</p>
+</blockquote>
+<p>无缓冲chan的特点是发送端和接受端必须同时准备就绪才可以发送数据；因此：
+1、如果发送端goroutine发送数据时如果接收端为没有goroutine准备就绪时发送端会阻塞
+2、同样的当接收端goroutine从channel中读取数据时，如果发送端没有发送数据，接收端将阻塞。
+<img src="/img/wx/84e1e817-96f7-4d8f-8ce0-21860780e078.png" alt="84e1e817-96f7-4d8f-8ce0-21860780e078.png">
+看一下下面这段代码会发生什么情况？</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">ch</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">struct</span><span style="color:#111">{})</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#00a8c8">struct</span><span style="color:#111">{}{}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;-</span><span style="color:#75af00">ch</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;receive message&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}()</span>
+</span></span></code></pre></div><p>显然在第二行 写入chan时 接收端的goroutine并没有就绪，因此此处会一直等待，导致接下来接收端无法正常启动。从而造成死锁的情况；这种情况下可以怎么解决呢？一直方式是新启动一个goroutine进行写入操作；例外一种就是将ch的容量改为1；和也就是接下来我们要介绍的有缓冲chan。</p>
+<h2 id="有缓冲channels">有缓冲Channels</h2>
+<blockquote>
+<p>ch := make(chan struct{}，10)</p>
+</blockquote>
+<p>有缓冲Channel具有容量，因此其行为与无缓冲channel不同。当 goroutine 向缓冲chan发送数据时，如果chan已经写满则该goroutine将阻塞直到chan可写入。如果chan中有空间，可以立即发送goroutine 可以继续执行。当goroutine 从缓冲chan读取数据时，如果缓冲chan为空，则该goroutine阻塞直到有数据写入。
+<img src="/img/wx/f6240a8b-d9ee-443c-b25e-ee3edca228e1.png" alt="f6240a8b-d9ee-443c-b25e-ee3edca228e1.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">ch</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">struct</span><span style="color:#111">{},</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#00a8c8">struct</span><span style="color:#111">{}{}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;-</span><span style="color:#75af00">ch</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;receive message&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}()</span>
+</span></span></code></pre></div><h2 id="单向channel">单向Channel</h2>
+<p>上面的示例中我们用到的都是双向channel，既可以写入也可以读取；接下来我们介绍的时单向channel，也就是只能读取或者只能写入的通道；
+1、只能读取 &lt;-chan
+2、只能写入 chan&lt;-</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">read</span><span style="color:#111">(</span><span style="color:#75af00">ch</span> <span style="color:#f92672">&lt;-</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;read from channel: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">&lt;-</span><span style="color:#75af00">ch</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">write</span><span style="color:#111">(</span><span style="color:#75af00">ch</span> <span style="color:#00a8c8">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#d88200">&#34;message&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;write to channel &#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">ch1</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#75af00">write</span><span style="color:#111">(</span><span style="color:#75af00">ch1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#75af00">read</span><span style="color:#111">(</span><span style="color:#75af00">ch1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>需要注意的时双向chan可以转成单项chan，而单向chan不能转成双向chan。</p>
+<h2 id="常见用法扇入模式">常见用法：扇入模式</h2>
+<p>这里的扇入是指有多个Channel 输入、一个 Channel 输出。
+此处引用“<strong>Go Concurrency Patterns</strong>”中的示例；将多个chan合并到 out chan；通过WaitGroup等待全部chan的数据写入out后关闭out chan；</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">merge</span><span style="color:#111">(</span><span style="color:#75af00">cs</span> <span style="color:#f92672">...&lt;-</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#f92672">&lt;-</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">wg</span> <span style="color:#75af00">sync</span><span style="color:#111">.</span><span style="color:#75af00">WaitGroup</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">out</span> <span style="color:#f92672">:=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Add</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">cs</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">_</span><span style="color:#111">,</span> <span style="color:#75af00">c</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">cs</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">(</span><span style="color:#75af00">c</span> <span style="color:#f92672">&lt;-</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">for</span> <span style="color:#75af00">n</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">c</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#75af00">out</span> <span style="color:#f92672">&lt;-</span> <span style="color:#75af00">n</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Done</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}(</span><span style="color:#75af00">c</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Wait</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">close</span><span style="color:#111">(</span><span style="color:#75af00">out</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">out</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="常见用法扇出模式">常见用法：扇出模式</h2>
+<p>扇出模式是和扇入模式相反的。扇出模式只有一个输入 Channel，有多个目标 Channel即一对多的关系。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">fanOut</span><span style="color:#111">(</span><span style="color:#75af00">ch</span> <span style="color:#f92672">&lt;-</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#75af00">out</span> <span style="color:#111">[]</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">wg</span> <span style="color:#75af00">sync</span><span style="color:#111">.</span><span style="color:#75af00">WaitGroup</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">ch</span> <span style="color:#111">{</span> <span style="color:#75715e">// 从输入chan中读取数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#75af00">i</span> <span style="color:#111">&lt;</span> <span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">out</span><span style="color:#111">);</span> <span style="color:#75af00">i</span><span style="color:#f92672">++</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Add</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">(</span><span style="color:#75af00">v</span> <span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#75af00">idx</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#00a8c8">defer</span> <span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Done</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#75af00">out</span><span style="color:#111">[</span><span style="color:#75af00">idx</span><span style="color:#111">]</span> <span style="color:#f92672">&lt;-</span> <span style="color:#75af00">v</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#111">}(</span><span style="color:#75af00">v</span><span style="color:#111">,</span> <span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">wg</span><span style="color:#111">.</span><span style="color:#75af00">Wait</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#75af00">i</span> <span style="color:#111">&lt;</span> <span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">out</span><span style="color:#111">);</span> <span style="color:#75af00">i</span><span style="color:#f92672">++</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">close</span><span style="color:#111">(</span><span style="color:#75af00">out</span><span style="color:#111">[</span><span style="color:#75af00">i</span><span style="color:#111">])</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="反射操作channel">反射操作Channel</h2>
+<p>一般处理单个channel会用select监听；或者for range结构读取；如果channl数量比较多或者数量不确定，可以使用反射操作channel</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">createCases</span><span style="color:#111">(</span><span style="color:#75af00">chs</span> <span style="color:#f92672">...</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span><span style="color:#111">)</span> <span style="color:#111">[]</span><span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">SelectCase</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">cases</span> <span style="color:#111">[]</span><span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">SelectCase</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 创建recv case
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">_</span><span style="color:#111">,</span> <span style="color:#75af00">ch</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">chs</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">cases</span> <span style="color:#111">=</span> <span style="color:#111">append</span><span style="color:#111">(</span><span style="color:#75af00">cases</span><span style="color:#111">,</span> <span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">SelectCase</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">Dir</span><span style="color:#111">:</span>  <span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">SelectRecv</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">Chan</span><span style="color:#111">:</span> <span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">ValueOf</span><span style="color:#111">(</span><span style="color:#75af00">ch</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">})</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 创建send case
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span><span style="color:#111">,</span> <span style="color:#75af00">ch</span> <span style="color:#f92672">:=</span> <span style="color:#00a8c8">range</span> <span style="color:#75af00">chs</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">v</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">ValueOf</span><span style="color:#111">(</span><span style="color:#75af00">i</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">cases</span> <span style="color:#111">=</span> <span style="color:#111">append</span><span style="color:#111">(</span><span style="color:#75af00">cases</span><span style="color:#111">,</span> <span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">SelectCase</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">Dir</span><span style="color:#111">:</span>  <span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">SelectSend</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">Chan</span><span style="color:#111">:</span> <span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">ValueOf</span><span style="color:#111">(</span><span style="color:#75af00">ch</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">Send</span><span style="color:#111">:</span> <span style="color:#75af00">v</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">})</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">cases</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">ch1</span> <span style="color:#111">=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">ch2</span> <span style="color:#111">=</span> <span style="color:#111">make</span><span style="color:#111">(</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">int</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 创建SelectCase
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">cases</span> <span style="color:#111">=</span> <span style="color:#75af00">createCases</span><span style="color:#111">(</span><span style="color:#75af00">ch1</span><span style="color:#111">,</span> <span style="color:#75af00">ch2</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">for</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">ch1</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">for</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">ch1</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">chosen</span><span style="color:#111">,</span> <span style="color:#75af00">recv</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">reflect</span><span style="color:#111">.</span><span style="color:#75af00">Select</span><span style="color:#111">(</span><span style="color:#75af00">cases</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">if</span> <span style="color:#75af00">recv</span><span style="color:#111">.</span><span style="color:#75af00">IsValid</span><span style="color:#111">()</span> <span style="color:#111">{</span> <span style="color:#75715e">// recv case
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;recv:&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">cases</span><span style="color:#111">[</span><span style="color:#75af00">chosen</span><span style="color:#111">].</span><span style="color:#75af00">Dir</span><span style="color:#111">,</span> <span style="color:#75af00">recv</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span> <span style="color:#75715e">// send case
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;send:&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">cases</span><span style="color:#111">[</span><span style="color:#75af00">chosen</span><span style="color:#111">].</span><span style="color:#75af00">Dir</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div>
+
+    
+
+
+                    <div class="row">
+                        <div  class="col-12 text-muted text-sm-center">
+                            <img class="w-75" src="/img/wx_logo.png">
+                        </div>
+                    </div>
+                    <div class="row"><div class="position-relative mx-auto col-lg-9">
+                          <div class="bg-primary overflow-hidden p-3 mt-5 shadow">
+
+    <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
+
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/wx/20230601.html" title="Go语言协程"><i class="fas fa-chevron-left p-1"></i>Go语言协程</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/wx/20230606.html" title="Go语言错误处理">Go语言错误处理<i class="fas fa-chevron-right p-1"></i></a>
+    </div>
+</div>
+
+
+                        </div></div> 
+
+                </div>
+            </div> 
+            <div class="d-lg-none "><div class="row py-3 mb-5">
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="/contact.html" target="_blank">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://u.jd.com/8uQM1lK" target="_blank">
+				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
+				<a href="https://m.tb.cn/h.UvSpPDX" target="_blank">
+				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				</a>
+				<div class="card-body">
+					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i></p>
+				</div>
+			</div>
+</div></div>
+        </div> 
+
+        
+        <div class="row">
+            <div  class="col-12 text-muted text-sm-center"><h6>©2017-2023 鲁ICP备17023316号-1 Powered by Hugo</h6></div>
+        </div>
+        
+<script src="http://blog.911015.com/lib/jquery.min.js"></script> 
+<script src="http://blog.911015.com/lib/popper.min.js"></script> 
+
+<script src="http://blog.911015.com/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/blog.911015.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c998faac34ae24828c9c973cc2b76a0d";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

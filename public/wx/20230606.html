@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <meta name="description" content="Go语言入门之路公众号文章">
+    <meta name="description" content="在 Go 语言中，error 是一个内置的接口类型，只有一个方法签名：Error() string ；">
     
-    <link rel="alternate" type="application/rss+xml" href="http://blog.911015.com/wx/index.xml" title="Go语言入门" />
-    <link rel="canonical" href="http://blog.911015.com/wx/">
+    <link rel="canonical" href="http://blog.911015.com/wx/20230606.html">
 
     <title>
         
-        公众号文章 | Go语言入门
+        Go语言错误处理 | Go语言入门
         
     </title>
 
@@ -58,9 +57,6 @@
                             </li>
               </ul>
             </div>
-    </div>
-    <div class="feed-icons">
-        <a  href="http://blog.911015.com/wx/index.xml"><img class="w-75" src="/img/feed-icon.svg" alt="RSS feed" /></a>
     </div>
     </nav>
 <div class="container-fluid">
@@ -291,7 +287,7 @@
         </li>
         </ul>
     </li>
-    <li data-nav-id="/wx/" class="nav-item my-1 active haschildren
+    <li data-nav-id="/wx/" class="nav-item my-1 parent haschildren
         ">
         
         
@@ -386,7 +382,7 @@
                   </a>
                 
         </li>
-        <li data-nav-id="/wx/20230606.html" class="nav-item my-1">
+        <li data-nav-id="/wx/20230606.html" class="nav-item my-1 active">
                 
                 
                   <a href="/wx/20230606.html" class="nav-link p-0">
@@ -403,7 +399,14 @@
 
 </div>
                 <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
-	<nav id="TableOfContents"></nav>
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#哨兵模式sentinel-errors">哨兵模式（Sentinel errors）</a></li>
+    <li><a href="#错误类型error-types">错误类型(Error types)</a></li>
+    <li><a href="#不透明错误-opaque-errors">不透明错误 （Opaque errors）</a></li>
+    <li><a href="#几个错误处理原则">几个错误处理原则</a></li>
+  </ul>
+</nav>
 			<div class="card shadow mt-3 " style="width: 10rem; ">
 				<a href="/contact.html" target="_blank">
 				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
@@ -433,7 +436,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">公众号文章</h1>
+    <h1 class="js-title">Go语言错误处理</h1>
     <div class="d-flex align-items-center">
         
             <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
@@ -445,65 +448,53 @@
 <hr>
 
 
-
-
-
-<ul class="docs-children list-unstyled">
-			<li class="h2 py-1">
-				<a href="/wx/2023052202.html"> Go语言流程控制:Defer </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/2023052201.html"> 编程语言这么多怎么选？ </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230523.html"> Go语言数据结构： Array 和Slice </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230524.html">  Go 语言数据结构：Maps </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230525.html">  Go 语言数据结构：结构体 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230526.html">  Go 语言入门：方法 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230527.html">  Go 语言中的接口：Interface </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230528.html">  Go语言泛型入门 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230529.html">  Go语言并发入门 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230601.html"> Go语言协程 </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230605.html"> Go语言：channel </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/wx/20230606.html"> Go语言错误处理 </a>
-			</li>
-		
-
-	
+<blockquote>
+<blockquote>
+<p>Errors are values &ndash; <em>Rob Pike</em></p>
+</blockquote>
+</blockquote>
+<p>在 Go 语言中，error 是一个内置的接口类型，只有一个方法签名：Error() string ；</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#00a8c8">error</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Error</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>errors 包提供了一个error接口的实现；并且可以通过 errors.New()方法创建一个包含错误消息的 error</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">Div</span><span style="color:#111">(</span><span style="color:#75af00">a</span><span style="color:#111">,</span> <span style="color:#75af00">b</span> <span style="color:#00a8c8">float64</span><span style="color:#111">)</span> <span style="color:#111">(</span><span style="color:#00a8c8">float64</span><span style="color:#111">,</span> <span style="color:#00a8c8">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">b</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">errors</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#d88200">&#34;0 cannot be a divisor&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">a</span> <span style="color:#f92672">/</span> <span style="color:#75af00">b</span><span style="color:#111">,</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>通常定义外部调用的函数时会吧error类型作为最后一个返回值，用来处理异常情况；因为Go语言允许多返回值的特性，这样用起来会很方便。但同时也带来一个问题那就是调用方需要通过if判断来异常。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// handle error
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>对于用惯了try-catch 的程序员来说，刚接触Go这一点会有些不习惯。感觉代码里到处都是 if err != nil。这一点也遭到不少人的吐槽。为此 Go语言之父 <em>Rob Pike <em>在 _ 《</em><a href="https://go.dev/blog/errors-are-values"><em>Errors are values</em></a></em>》_一文中专门做了解释。其中特别强调： <em>Errors 是值类型 值可以编程，由于error就是一个值，因此它可以编程处理。当然，一个涉及error值的常见语句是判断它是否为零值，但对于error还有无数其他事情可以做，应用其中一些其他事情可以使程序变得更好，从而消除大部分用if语句检查每个错误那样的代码段。</em>
+接下来我们看一下处理error的集中方式</p>
+<h2 id="哨兵模式sentinel-errors">哨兵模式（Sentinel errors）</h2>
+<p>是一种预定义特定错误的方式，Sentinel errors愿意为使用一个特定值来表示不可能进行进一步处理的做法。所以对于 Go而言，表示使用特定的值来表示错误。比如：**io.EOF；**尽管一些标准库中有这样的用法但是使用 sentinel errors方式是最不灵活的错误处理策略，一方面 用方必须使用 == 将结果与预先声明的值进行比较，无法携带更多的上下文信息，会造成两个包直接的依赖关系。因此应该尽可能避免使用这种方式。</p>
+<h2 id="错误类型error-types">错误类型(Error types)</h2>
+<p>Error Types是指实现了error接口的类型，其优点是除了包含error 还可以根据需求携带其他必要的字段可以提供更多的上下文信息。标准库中fs.PathError 就是一个例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// PathError records an error and the operation and file path that caused it.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">type</span> <span style="color:#75af00">PathError</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Op</span>   <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Path</span> <span style="color:#00a8c8">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Err</span>  <span style="color:#00a8c8">error</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">e</span> <span style="color:#f92672">*</span><span style="color:#75af00">PathError</span><span style="color:#111">)</span> <span style="color:#75af00">Error</span><span style="color:#111">()</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span> <span style="color:#00a8c8">return</span> <span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">Op</span> <span style="color:#f92672">+</span> <span style="color:#d88200">&#34; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">Path</span> <span style="color:#f92672">+</span> <span style="color:#d88200">&#34;: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#75af00">e</span><span style="color:#111">.</span><span style="color:#75af00">Err</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">()</span> <span style="color:#111">}</span>
+</span></span></code></pre></div><p>这种方式也有一定弊端，那就是调用者如果要使用类型断言和类型 switch，就得让自定义的 error 变为可导出类型。这种模型会导致和调用者产生强耦合。</p>
+<h2 id="不透明错误-opaque-errors">不透明错误 （Opaque errors）</h2>
+<p>这种方式调用者只知道发生了错误，而不知道具体错误类型。调用者处理这种错误的方式就是一旦出错直接返回，否则继续执行。如果某些特定情况下需要根据错误做出某些行为。比如一个网络请求中，需要根据错误类型决定是否重试。这种情况下不要去判断错误类型而是判断是否实现了某个接口。例如：</p>
+<p>拿到error后通过调用IsTemporary 判断是否重试。这个逻辑可以在不导入定义错误的包或者实际上不了解 err 的底层类型的情况下实现。</p>
+<h2 id="几个错误处理原则">几个错误处理原则</h2>
+<ul>
+<li>通过消除错误消除错误处理 Eliminate error handling by eliminating errors</li>
+<li>应该只处理一次错误，处理错误意味着检查错误值并做出单一决定。 You should only handle errors once. Handling an error means inspecting the error value, and making a single decision.</li>
+<li>错误要被日志记录。The error has been logged.</li>
+<li>应用程序处理错误，保证100%完整性。The application is back to 100% integrity</li>
+<li>之后不再报告当前错误。The current error is not reported any longer.</li>
+<li>如果无法处理错误，请包装并返回调用堆栈。If the error is not going to be handled, wrap and return up the call stack.</li>
 </ul>
-
-
-
-
 
 
     
@@ -519,7 +510,7 @@
 
     <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
 
-    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/go-zero/05.html" title="go-zero 微服务应用实践（二）"><i class="fas fa-chevron-left p-1"></i>go-zero 微服务应用实践（二）</a>
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/wx/20230605.html" title="Go语言：channel"><i class="fas fa-chevron-left p-1"></i>Go语言：channel</a>
         <a class="p-1 ml-3 d-inline-block text-white text-right" href="/wx/2023052202.html" title="Go语言流程控制:Defer">Go语言流程控制:Defer<i class="fas fa-chevron-right p-1"></i></a>
     </div>
 </div>

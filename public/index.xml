@@ -422,6 +422,35 @@ var wg sync.WaitGroup wg.Add(1) go func() { defer wg.Done() fmt.Println(&amp;#34
     </item>
     
     <item>
+      <title>Go语言：channel</title>
+      <link>http://blog.911015.com/wx/20230605.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230605.html</guid>
+      <description>channel是Go语言中类型安全的内置类型；两个goruntine可以通过channle同步的进行消息通信；想必你一定听过Go 的创始人之一 Rob Pike的那句名言：
+Do not communicate by sharing memory; instead, share memory by communicating； 不要通过共享内存的方式通信，而是要通过通信的方式共享数据
+channel的设计和使用充分体现了这样Go语言哲学思想；下面我们来了解一下channel的基本类型和常见用法。
+无缓冲 Channels ch := make(chan struct{})
+无缓冲chan的特点是发送端和接受端必须同时准备就绪才可以发送数据；因此： 1、如果发送端goroutine发送数据时如果接收端为没有goroutine准备就绪时发送端会阻塞 2、同样的当接收端goroutine从channel中读取数据时，如果发送端没有发送数据，接收端将阻塞。 看一下下面这段代码会发生什么情况？
+ch := make(chan struct{}) ch &amp;lt;- struct{}{} go func() { &amp;lt;-ch fmt.Println(&amp;#34;receive message&amp;#34;) }() 显然在第二行 写入chan时 接收端的goroutine并没有就绪，因此此处会一直等待，导致接下来接收端无法正常启动。从而造成死锁的情况；这种情况下可以怎么解决呢？一直方式是新启动一个goroutine进行写入操作；例外一种就是将ch的容量改为1；和也就是接下来我们要介绍的有缓冲chan。
+有缓冲Channels ch := make(chan struct{}，10)
+有缓冲Channel具有容量，因此其行为与无缓冲channel不同。当 goroutine 向缓冲chan发送数据时，如果chan已经写满则该goroutine将阻塞直到chan可写入。如果chan中有空间，可以立即发送goroutine 可以继续执行。当goroutine 从缓冲chan读取数据时，如果缓冲chan为空，则该goroutine阻塞直到有数据写入。 ch := make(chan struct{},1) ch &amp;lt;- struct{}{} go func() { &amp;lt;-ch fmt.Println(&amp;#34;receive message&amp;#34;) }() 单向Channel 上面的示例中我们用到的都是双向channel，既可以写入也可以读取；接下来我们介绍的时单向channel，也就是只能读取或者只能写入的通道； 1、只能读取 &amp;lt;-chan 2、只能写入 chan&amp;lt;-</description>
+    </item>
+    
+    <item>
+      <title>Go语言错误处理</title>
+      <link>http://blog.911015.com/wx/20230606.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230606.html</guid>
+      <description>Errors are values &amp;ndash; Rob Pike
+在 Go 语言中，error 是一个内置的接口类型，只有一个方法签名：Error() string ；
+type error interface { Error() string } errors 包提供了一个error接口的实现；并且可以通过 errors.New()方法创建一个包含错误消息的 error
+func Div(a, b float64) (float64, error) { if b == 0 { return 0, errors.New(&amp;#34;0 cannot be a divisor&amp;#34;) } return a / b, nil } 通常定义外部调用的函数时会吧error类型作为最后一个返回值，用来处理异常情况；因为Go语言允许多返回值的特性，这样用起来会很方便。但同时也带来一个问题那就是调用方需要通过if判断来异常。
+if err != nil { // handle error } 对于用惯了try-catch 的程序员来说，刚接触Go这一点会有些不习惯。感觉代码里到处都是 if err != nil。这一点也遭到不少人的吐槽。为此 Go语言之父 Rob Pike 在 _ 《Errors are values》_一文中专门做了解释。其中特别强调： Errors 是值类型 值可以编程，由于error就是一个值，因此它可以编程处理。当然，一个涉及error值的常见语句是判断它是否为零值，但对于error还有无数其他事情可以做，应用其中一些其他事情可以使程序变得更好，从而消除大部分用if语句检查每个错误那样的代码段。 接下来我们看一下处理error的集中方式</description>
+    </item>
+    
+    <item>
       <title>与我联系</title>
       <link>http://blog.911015.com/contact.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
