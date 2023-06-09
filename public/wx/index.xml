@@ -167,5 +167,16 @@ func Div(a, b float64) (float64, error) { if b == 0 { return 0, errors.New(&amp;
 if err != nil { // handle error } 对于用惯了try-catch 的程序员来说，刚接触Go这一点会有些不习惯。感觉代码里到处都是 if err != nil。这一点也遭到不少人的吐槽。为此 Go语言之父 Rob Pike 在 _ 《Errors are values》_一文中专门做了解释。其中特别强调： Errors 是值类型 值可以编程，由于error就是一个值，因此它可以编程处理。当然，一个涉及error值的常见语句是判断它是否为零值，但对于error还有无数其他事情可以做，应用其中一些其他事情可以使程序变得更好，从而消除大部分用if语句检查每个错误那样的代码段。 接下来我们看一下处理error的集中方式</description>
     </item>
     
+    <item>
+      <title>Go语言错误处理</title>
+      <link>http://blog.911015.com/wx/20230607.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/wx/20230607.html</guid>
+      <description>Go并发模式：Context 介绍 在Go服务器中，每个传入请求都在自己的goroutine中处理。请求处理程序通常启动额外的goroutine来访问后台，如数据库和RPC服务。处理请求的goroutine集合通常需要访问特定于请求的值，例如用户身份标识、授权令牌和请求的超时时间等。当一个请求被取消或请求超时时，所有处理该请求的goroutine都应该迅速退出，这样系统就可以回收它们正在使用的资源。《Go Concurrency Patterns: Context》
+Context context文包的核心是Context 接口类型：
+// A Context carries a deadline, cancellation signal, and request-scoped values // across API boundaries. Its methods are safe for simultaneous use by multiple // goroutines. type Context interface { // Done returns a channel that is closed when this Context is canceled // or times out. Done() &amp;lt;-chan struct{} // Err indicates why this context was canceled, after the Done channel // is closed.</description>
+    </item>
+    
   </channel>
 </rss>

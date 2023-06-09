@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <meta name="description" content="go-zero 是一个集成了各种工程实践的 web 和 rpc 框架">
+    <meta name="description" content="在 Go 语言中，error 是一个内置的接口类型，只有一个方法签名：Error() string ；">
     
-    <link rel="alternate" type="application/rss+xml" href="http://blog.911015.com/go-zero/index.xml" title="Go语言入门" />
-    <link rel="canonical" href="http://blog.911015.com/go-zero/">
+    <link rel="canonical" href="http://blog.911015.com/wx/20230607.html">
 
     <title>
         
-        go-zero应用实践 | Go语言入门
+        Go语言错误处理 | Go语言入门
         
     </title>
 
@@ -58,9 +57,6 @@
                             </li>
               </ul>
             </div>
-    </div>
-    <div class="feed-icons">
-        <a  href="http://blog.911015.com/go-zero/index.xml"><img class="w-75" src="/img/feed-icon.svg" alt="RSS feed" /></a>
     </div>
     </nav>
 <div class="container-fluid">
@@ -242,7 +238,7 @@
         </li>
         </ul>
     </li>
-    <li data-nav-id="/go-zero/" class="nav-item my-1 active haschildren
+    <li data-nav-id="/go-zero/" class="nav-item my-1 haschildren
         ">
         
         
@@ -291,7 +287,7 @@
         </li>
         </ul>
     </li>
-    <li data-nav-id="/wx/" class="nav-item my-1 haschildren
+    <li data-nav-id="/wx/" class="nav-item my-1 parent haschildren
         ">
         
         
@@ -394,7 +390,7 @@
                   </a>
                 
         </li>
-        <li data-nav-id="/wx/20230607.html" class="nav-item my-1">
+        <li data-nav-id="/wx/20230607.html" class="nav-item my-1 active">
                 
                 
                   <a href="/wx/20230607.html" class="nav-link p-0">
@@ -411,7 +407,14 @@
 
 </div>
                 <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
-	<nav id="TableOfContents"></nav>
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#context">Context</a></li>
+    <li><a href="#context使用规约">Context使用规约</a></li>
+    <li><a href="#举个例子">举个例子</a></li>
+  </ul>
+</nav>
 			<div class="card shadow mt-3 " style="width: 10rem; ">
 				<a href="/contact.html" target="_blank">
 				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
@@ -441,7 +444,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">go-zero应用实践</h1>
+    <h1 class="js-title">Go语言错误处理</h1>
     <div class="d-flex align-items-center">
         
             <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
@@ -453,67 +456,82 @@
 <hr>
 
 
-
-
-<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-STYLE rounded" style="border-width:4px !important;">
-    <div class="wrap border border-left-0 rounded">
-        
-        <div class="card-header border-0 bg-white pl-3 text-STYLE">
-            <h3>文档简介</h3>
-        </div>
-        
-        <div class="card-body pt-1">
-            <p><a href="https://go-zero.dev/cn/docs/introduction/">go-zero</a> 是一个集成了各种工程实践的 web 和 rpc 框架。通过弹性设计保障了大并发服务端的稳定性，经受了充分的实战检验。</p>
-<p>go-zero 包含极简的 API 定义和生成工具 goctl，可以根据定义的 api 文件一键生成 Go, iOS, Android, Kotlin, Dart, TypeScript, JavaScript 代码，并可直接运行。</p>
-<p>使用 go-zero 的好处：</p>
-<ul>
-<li>轻松获得支撑千万日活服务的稳定性</li>
-<li>内建级联超时控制、限流、自适应熔断、自适应降载等微服务治理能力，无需配置和额外代码</li>
-<li>微服务治理中间件可无缝集成到其它现有框架使用</li>
-<li>极简的 API 描述，一键生成各端代码</li>
-<li>自动校验客户端请求参数合法性</li>
-<li>大量微服务治理和并发工具包</li>
-</ul>
+<h1 id="go并发模式context">Go并发模式：Context</h1>
+<h2 id="介绍">介绍</h2>
 <blockquote>
-<p>如果内容有误请 <a href="/contact.html"><i class='far fa-hand-point-right'></i>与我联系</a></p>
+<p>在Go服务器中，每个传入请求都在自己的goroutine中处理。请求处理程序通常启动额外的goroutine来访问后台，如数据库和RPC服务。处理请求的goroutine集合通常需要访问特定于请求的值，例如用户身份标识、授权令牌和请求的超时时间等。当一个请求被取消或请求超时时，所有处理该请求的goroutine都应该迅速退出，这样系统就可以回收它们正在使用的资源。《<a href="https://go.dev/blog/context">Go Concurrency Patterns: Context</a>》</p>
 </blockquote>
-
-        </div>
-    </div>
-</div>
-
-
-
-
-<ul class="docs-children list-unstyled">
-			<li class="h2 py-1">
-				<a href="/go-zero/01.html"> go-zero 单体应用实践（一） </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/go-zero/02.html"> go-zero 单体应用实践（二） </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/go-zero/03.html"> go-zero 单体应用实践（三） </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/go-zero/04.html"> go-zero 微服务应用实践（一） </a>
-			</li>
-		
-			<li class="h2 py-1">
-				<a href="/go-zero/05.html"> go-zero 微服务应用实践（二） </a>
-			</li>
-		
-
-	
+<h2 id="context">Context</h2>
+<p>context文包的核心是Context 接口类型：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// A Context carries a deadline, cancellation signal, and request-scoped values
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// across API boundaries. Its methods are safe for simultaneous use by multiple
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// goroutines.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">type</span> <span style="color:#75af00">Context</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Done returns a channel that is closed when this Context is canceled
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// or times out.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">Done</span><span style="color:#111">()</span> <span style="color:#f92672">&lt;-</span><span style="color:#00a8c8">chan</span> <span style="color:#00a8c8">struct</span><span style="color:#111">{}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Err indicates why this context was canceled, after the Done channel
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// is closed.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">Err</span><span style="color:#111">()</span> <span style="color:#00a8c8">error</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Deadline returns the time when this Context will be canceled, if any.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">Deadline</span><span style="color:#111">()</span> <span style="color:#111">(</span><span style="color:#75af00">deadline</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Time</span><span style="color:#111">,</span> <span style="color:#75af00">ok</span> <span style="color:#00a8c8">bool</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Value returns the value associated with key or nil if none.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">Value</span><span style="color:#111">(</span><span style="color:#75af00">key</span> <span style="color:#00a8c8">interface</span><span style="color:#111">{})</span> <span style="color:#00a8c8">interface</span><span style="color:#111">{}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><ul>
+<li>Done 方法返回一个 Channel 对象。在 Context 被取消时，这个channel 会被关闭。cancel、timeout、deadline 都可能导致Done被关闭。Done被关闭的时候，可以通过 ctx.Err() 获取错误信息。</li>
+<li>Deadline 方法会返回这个 Context 被取消的截止日期。如果没有设置则第二个返回值ok是 false。</li>
+<li>Value 返回此 ctx 中和指定的 key 对应的 value。</li>
 </ul>
-
-
-
-
-
+<p>context 包中有两个常用的方法：</p>
+<ul>
+<li>context.Background() 一般会用来创建根Context；该方法返回一个空Context；没有值。</li>
+<li>context.TODO() 如果不清楚该用哪个Context，或不知道要传递一些什么上下文信息的时候可以使用</li>
+</ul>
+<h2 id="context使用规约">Context使用规约</h2>
+<ul>
+<li>1、函数使用 Context作为参数的时候会把context作为第一个参数。</li>
+<li>2、不要使用 nil 当做 Context 类型的参数值，可以使用 context.Background()</li>
+<li>3、不要将上下文存储在结构类型内；而是将Context显式的透传给每个需要它的函数。</li>
+<li>4、key 的类型不应该是字符串类型或者其它内建类型。使用WithValue时，key 的类型应该是自己定义的类型或者struct{}。</li>
+<li>5、使用WithCancel、WithDeadline、WithTimeout或WithValue替换上下文。</li>
+<li>6、取消上下文时，从中派生的所有上下文也将被取消。</li>
+</ul>
+<h2 id="举个例子">举个例子</h2>
+<p>使用 Context 来取消一个 goroutine 的运行，goroutine 需要尝试检查 Context 的 Done 是否关闭</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">ctx</span><span style="color:#111">,</span> <span style="color:#75af00">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">WithCancel</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">Background</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">go</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">defer</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;this goroutine exit !!!&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">for</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">select</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#75af00">ctx</span><span style="color:#111">.</span><span style="color:#75af00">Done</span><span style="color:#111">():</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#00a8c8">return</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#00a8c8">default</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;do something&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">cancel</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Sleep</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Second</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div>
 
     
 
@@ -528,8 +546,8 @@
 
     <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
 
-    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/grpc/06.html" title="六、证书验证"><i class="fas fa-chevron-left p-1"></i>六、证书验证</a>
-        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/go-zero/01.html" title="go-zero 单体应用实践（一）">go-zero 单体应用实践（一）<i class="fas fa-chevron-right p-1"></i></a>
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/wx/20230606.html" title="Go语言错误处理"><i class="fas fa-chevron-left p-1"></i>Go语言错误处理</a>
+        <a class="p-1 ml-3 d-inline-block text-white text-right" href="/wx/2023052202.html" title="Go语言流程控制:Defer">Go语言流程控制:Defer<i class="fas fa-chevron-right p-1"></i></a>
     </div>
 </div>
 
