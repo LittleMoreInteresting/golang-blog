@@ -1,7 +1,7 @@
 +++
 title = "go-zero应用实践"
 description = "go-zero 是一个集成了各种工程实践的 web 和 rpc 框架"
-weight = 3
+weight = 30
 url = "/go-zero/"
 +++
 

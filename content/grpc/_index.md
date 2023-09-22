@@ -1,7 +1,7 @@
 +++
 title = "gRPC 快速体验"
 description = "gRPC 是 Google 开发的一款高性能、开源的远程过程调用（RPC）框架。它使用 Protocol Buffers 作为接口定义语言（IDL），可以在多种编程语言和平台之间进行通信。"
-weight = 2
+weight = 20
 url = "/grpc/"
 +++
 
