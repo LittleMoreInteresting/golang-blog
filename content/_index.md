@@ -10,6 +10,6 @@ weight = 1
 
 ## [跟着用户手册学Golang](/beginner/)
 ## [gRPC 快速体验](/grpc/)
-## [go-Kratos 实践](/go-kratos/)
+## [go-Kratos 实践](/kratos/)
 ## [go-zero应用实践](/go-zero/)
 ## [Go语言入门之路公众号文章](/wx/)

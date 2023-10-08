@@ -462,6 +462,16 @@ Context context文包的核心是Context 接口类型：
     </item>
     
     <item>
+      <title>01：初始化项目(一)</title>
+      <link>http://blog.911015.com/kratos/01.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.911015.com/kratos/01.html</guid>
+      <description>安装kratos及相关工具 1、kratos 安装 Copygo install github.com/go-kratos/kratos/cmd/kratos/v2@latest kratos -v # kratos version v2.6.2 2、wine 安装 Copygo install github.com/google/wire/cmd/wire@latest 3、安装 protoc 及 protoc-gen-go
+protoc protoc-gen-go 4、安装 buf buf是一个用于管理和构建Protocol Buffers（protobuf）定义文件的命令行工具。它提供了一种简单而强大的方式来验证、格式化和构建protobuf定义文件，以及生成相关的代码。 Copygo install github.com/bufbuild/buf/cmd/buf@v1.23.1 buf --version 创建项目 使用 kratos new 命令创建并启动一个hello world 项目： Copykratos new kratos-admin cd kratos-admin // 下载相关依赖 go mod tidy // 构建 go get github.com/google/wire/cmd/wire@latest go generate ./... // 运行项目 kratos run 至此我们已经将一个kratos 项目的骨架搭建好了，运行成功后可以访问：http:127.0.0.1:8000/helloworld/beginner 将会得到以下结果： Copy{ &amp;#34;message&amp;#34;: &amp;#34;Hello beginner&amp;#34; } 接下来我们看一下该项目下的结构</description>
+    </item>
+    
+    <item>
       <title>与我联系</title>
       <link>http://blog.911015.com/contact.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
