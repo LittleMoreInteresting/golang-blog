@@ -6,10 +6,10 @@
 			{{- range sort . "Weight"}}
 			<div class="card shadow mt-3 " style="width: 10rem; ">
 				<a href="{{.url}}" target="_blank">
-				<img src="{{.img}}" style="height: 10rem" class="card-img-top" alt="wx">
+				<img src="{{.img}}"  class="card-img-top" alt="wx">
 				</a>
-				<div class="card-body">
-					<p class="card-text text-md-center" style="font-size: 14px"> {{safeHTML .name}}</p>
+				<div class="card-body" style="padding: 0.5rem">
+					<p class="card-text text-md-center" style="font-size: 12px"> {{safeHTML .name}}</p>
 				</div>
 			</div>
 			{{- end}}
