@@ -70,13 +70,13 @@ url = "/contact.html"
 weight = 1
 
 [[params.cards]]
-name = "<i class='far fa-hand-point-right'></i>点点小广告<i class='far fa-hand-point-left'></i>"
+name = "<i class='far fa-hand-point-right'></i>洋葱小店<i class='far fa-hand-point-left'></i>"
 img = "/img/jd.jpg"
-url = "https://u.jd.com/8uQM1lK"
+url = "https://m.msyc.cc/wx/index.html?tmn=58654"
 weight = 2
 
 [[params.cards]]
-name = "<i class='far fa-hand-point-right'></i>天喵优惠攻略<i class='far fa-hand-point-left'></i>"
+name = "<i class='far fa-hand-point-right'></i>LUCA<i class='far fa-hand-point-left'></i>"
 img = "/img/tb.jpg"
-url = "https://m.tb.cn/h.UvSpPDX"
+url = "https://m.msyc.cc/wx/lucaBrand.html?tmn=58654&shared_id=906513"
 weight = 2
