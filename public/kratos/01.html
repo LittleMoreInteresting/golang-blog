@@ -11,7 +11,7 @@
 
     <title>
         
-        01：初始化项目(一) | Go语言入门
+        02：基础功能封装 | Go语言入门
         
     </title>
 
@@ -250,7 +250,15 @@
                 
                 
                   <a href="/kratos/01.html" class="nav-link p-0">
-                    01：初始化项目(一)
+                    01：初始化项目
+                  </a>
+                
+        </li>
+        <li data-nav-id="/kratos/01.html" class="nav-item my-1 active">
+                
+                
+                  <a href="/kratos/01.html" class="nav-link p-0">
+                    02：基础功能封装
                   </a>
                 
         </li>
@@ -427,10 +435,9 @@
                 <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
 	<nav id="TableOfContents">
   <ul>
-    <li><a href="#安装kratos及相关工具">安装kratos及相关工具</a></li>
-    <li><a href="#创建项目">创建项目</a></li>
-    <li><a href="#目录结构与介绍">目录结构与介绍</a></li>
-    <li><a href="#从maingo-开始">从main.go 开始</a></li>
+    <li><a href="#启动参数处理">启动参数处理</a></li>
+    <li><a href="#日志处理">日志处理</a></li>
+    <li><a href="#读取配置文件">读取配置文件</a></li>
   </ul>
 </nav>
 			<div class="card shadow mt-3 " style="width: 10rem; ">
@@ -462,7 +469,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">01：初始化项目(一)</h1>
+    <h1 class="js-title">02：基础功能封装</h1>
     <div class="d-flex align-items-center">
         
             <button class="js-toggle-favorite-btn pl-0 btn btn-sm"><i class="mr-1 fas fa-star"></i><span class="js-toggle-favorite-text"></span></button>
@@ -474,214 +481,148 @@
 <hr>
 
 
-<h2 id="安装kratos及相关工具">安装kratos及相关工具</h2>
-<p>1、kratos 安装
-
-
-
-
-
-
-    
-    
-
-
-
-
-<div class="position-relative">
-    <div class="position-absolute" style="right:0;">
-        <button class="btn btn-light" data-clipboard-target="#clipboard_687c65288e">
-        Copy
-        </button>
-    </div>
-    <div id="clipboard_687c65288e">
-    <div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#75af00">install</span> <span style="color:#75af00">github</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#00a8c8">go</span><span style="color:#f92672">-</span><span style="color:#75af00">kratos</span><span style="color:#f92672">/</span><span style="color:#75af00">kratos</span><span style="color:#f92672">/</span><span style="color:#75af00">cmd</span><span style="color:#f92672">/</span><span style="color:#75af00">kratos</span><span style="color:#f92672">/</span><span style="color:#75af00">v2</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#75af00">latest</span>
-</span></span><span style="display:flex;"><span><span style="color:#75af00">kratos</span> <span style="color:#f92672">-</span><span style="color:#75af00">v</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#75af00">kratos</span> <span style="color:#75af00">version</span> <span style="color:#75af00">v2</span><span style="color:#ae81ff">.6.2</span>
-</span></span></code></pre></div>
-    </div>
-</div>
-
-
-
-
-2、wine 安装
-
-
-
-
-
-
-    
-    
-
-
-
-
-<div class="position-relative">
-    <div class="position-absolute" style="right:0;">
-        <button class="btn btn-light" data-clipboard-target="#clipboard_019f575e11">
-        Copy
-        </button>
-    </div>
-    <div id="clipboard_019f575e11">
-    <div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#75af00">install</span> <span style="color:#75af00">github</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">google</span><span style="color:#f92672">/</span><span style="color:#75af00">wire</span><span style="color:#f92672">/</span><span style="color:#75af00">cmd</span><span style="color:#f92672">/</span><span style="color:#75af00">wire</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#75af00">latest</span>
-</span></span></code></pre></div>
-    </div>
-</div>
-
-
-
-
-3、安装 protoc 及 protoc-gen-go</p>
-<ul>
-<li><a href="https://github.com/protocolbuffers/protobuf">protoc</a></li>
-<li><a href="https://github.com/protocolbuffers/protobuf-go">protoc-gen-go</a></li>
-</ul>
-<p>4、安装 buf
-buf是一个用于管理和构建Protocol Buffers（protobuf）定义文件的命令行工具。它提供了一种简单而强大的方式来验证、格式化和构建protobuf定义文件，以及生成相关的代码。
-
-
-
-
-
-
-    
-    
-
-
-
-
-<div class="position-relative">
-    <div class="position-absolute" style="right:0;">
-        <button class="btn btn-light" data-clipboard-target="#clipboard_8c03e5f535">
-        Copy
-        </button>
-    </div>
-    <div id="clipboard_8c03e5f535">
-    <div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#75af00">install</span> <span style="color:#75af00">github</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">bufbuild</span><span style="color:#f92672">/</span><span style="color:#75af00">buf</span><span style="color:#f92672">/</span><span style="color:#75af00">cmd</span><span style="color:#f92672">/</span><span style="color:#75af00">buf</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#75af00">v1</span><span style="color:#ae81ff">.23.1</span>
-</span></span><span style="display:flex;"><span><span style="color:#75af00">buf</span> <span style="color:#f92672">--</span><span style="color:#75af00">version</span>
-</span></span></code></pre></div>
-    </div>
-</div>
-
-
-
-</p>
-<h2 id="创建项目">创建项目</h2>
-<p>使用 kratos new 命令创建并启动一个hello world 项目：
-
-
-
-
-
-
-    
-    
-
-
-
-
-<div class="position-relative">
-    <div class="position-absolute" style="right:0;">
-        <button class="btn btn-light" data-clipboard-target="#clipboard_3e352392f1">
-        Copy
-        </button>
-    </div>
-    <div id="clipboard_3e352392f1">
-    <div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75af00">kratos</span> <span style="color:#75af00">new</span> <span style="color:#75af00">kratos</span><span style="color:#f92672">-</span><span style="color:#75af00">admin</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75af00">cd</span> <span style="color:#75af00">kratos</span><span style="color:#f92672">-</span><span style="color:#75af00">admin</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 下载相关依赖
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">go</span> <span style="color:#75af00">mod</span> <span style="color:#75af00">tidy</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 构建
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">go</span> <span style="color:#75af00">get</span> <span style="color:#75af00">github</span><span style="color:#111">.</span><span style="color:#75af00">com</span><span style="color:#f92672">/</span><span style="color:#75af00">google</span><span style="color:#f92672">/</span><span style="color:#75af00">wire</span><span style="color:#f92672">/</span><span style="color:#75af00">cmd</span><span style="color:#f92672">/</span><span style="color:#75af00">wire</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#75af00">latest</span>
-</span></span><span style="display:flex;"><span><span style="color:#00a8c8">go</span> <span style="color:#75af00">generate</span> <span style="color:#111">.</span><span style="color:#f92672">/...</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 运行项目
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">kratos</span> <span style="color:#75af00">run</span>
-</span></span></code></pre></div>
-    </div>
-</div>
-
-
-
-
-至此我们已经将一个kratos 项目的骨架搭建好了，运行成功后可以访问：http:127.0.0.1:8000/helloworld/beginner 将会得到以下结果：
-
-
-
-
-
-
-    
-    
-
-
-
-
-<div class="position-relative">
-    <div class="position-absolute" style="right:0;">
-        <button class="btn btn-light" data-clipboard-target="#clipboard_a34bf9f90a">
-        Copy
-        </button>
-    </div>
-    <div id="clipboard_a34bf9f90a">
-    <div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#111">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;message&#34;</span><span style="color:#111">:</span> <span style="color:#d88200">&#34;Hello beginner&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
-</span></span></code></pre></div>
-    </div>
-</div>
-
-
-
-
-接下来我们看一下该项目下的结构</p>
-<h2 id="目录结构与介绍">目录结构与介绍</h2>
-<ul>
-<li>api 下面维护了微服务使用的proto文件以及根据它们所生成的go文件；如果proto文件比较多，可以将proto文件和生产的go文件分目录存放，比如proto目录存放proto源文件，proto上层目录存生成文件</li>
-<li>cmd 服务启动的入口文件</li>
-<li>configs  配置文件;一般用来本地调试，生产建议使用配置文件管理工具</li>
-<li>internal  业务逻辑代码，使用internal避免错误引用</li>
-<li>internal/biz  业务逻辑的组装层</li>
-<li>internal/conf   内部使用的config的结构定义，使用proto格式生成</li>
-<li>internal/data  业务数据访问，包含 cache、db 等封装，实现了 biz 的 repo 接口</li>
-<li>internal/server http和grpc实例的创建和配置</li>
-<li>internal/service  实现了 api 定义的服务层</li>
-<li>internal/biz  业务逻辑的组装层</li>
-<li>third_party   api 依赖的第三方proto</li>
-</ul>
-<h2 id="从maingo-开始">从main.go 开始</h2>
-<p>打开 cmd/kratos-admin/main.go；如果你是使用Goland编辑器，第一次打开你能会有一个错误提示：找不到wireApp 方法，需要按照下图设置一下。
-<img src="/img/kratos/01/1688621390001-4f4e1406-3d79-478f-bf5c-f9864f0f9d01.png" alt="image.png">
-
-
-<div class="card my-3 border-top-0 border-right-0 border-bottom-0 border-left border-info rounded" style="border-width:4px !important;">
-    <div class="wrap border border-left-0 rounded">
-        
-        <div class="card-body pt-1">
-            <blockquote>
-<p>wireinject 是一个构建约束的标记，用于使用 github.com/google/wire 进行依赖注入的代码文件。在使用 wire 生成依赖注入代码时，会在生成的代码文件中添加 // +build wireinject 注释，以标记该文件是由 wire 工具生成的。wire  文档 <a href="https://github.com/google/wire/blob/main/docs/guide.md">https://github.com/google/wire/blob/main/docs/guide.md</a></p>
-</blockquote>
-
-        </div>
-    </div>
-</div>
-</p>
-<p>main.go 中的逻辑大致分为 部分：</p>
+<p>Kratos入库文件 cmd/<servername>/main.go 中的逻辑大致分为：</p>
 <ul>
 <li>接收命令参数</li>
 <li>创建日志对象 Logger</li>
 <li>读取配置文件</li>
-<li>创建 *kratos.App 并启动；其中 wireApp 方法有wire自动生成，生成代码在wire_gen.go。</li>
 </ul>
-
+<p>接下来我们将这部分通用代码进行封装；代码将放到项目目录的pkg/bootstrap 下</p>
+<h2 id="启动参数处理">启动参数处理</h2>
+<p>为了是程序更加灵活通常会将一些参数在程序启动时传入；比如运行环境，配置文件路径等；接下来我们已接收conf(本地 文件配置); env （运行环境如 dev 开发 ；pro 生产）;consul （consul 远程配置 地址） 三个参数为例进行封装；代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#75af00">bootstrap</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#d88200">&#34;flag&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">CommandFlags</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Conf</span>   <span style="color:#00a8c8">string</span> <span style="color:#75715e">// 文件配置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">Env</span>    <span style="color:#00a8c8">string</span> <span style="color:#75715e">// 运行环境 dev 开发 ；pro 生产
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75af00">Consul</span> <span style="color:#00a8c8">string</span> <span style="color:#75715e">// consul 远程配置 地址
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewCommandFlags</span><span style="color:#111">()</span> <span style="color:#f92672">*</span><span style="color:#75af00">CommandFlags</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">CommandFlags</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Conf</span><span style="color:#111">:</span>   <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Env</span><span style="color:#111">:</span>    <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Consul</span><span style="color:#111">:</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">f</span> <span style="color:#f92672">*</span><span style="color:#75af00">CommandFlags</span><span style="color:#111">)</span> <span style="color:#75af00">Init</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">flag</span><span style="color:#111">.</span><span style="color:#75af00">StringVar</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#75af00">f</span><span style="color:#111">.</span><span style="color:#75af00">Conf</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;conf&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;../../configs&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;config path, eg: -conf bootstrap.yaml&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">flag</span><span style="color:#111">.</span><span style="color:#75af00">StringVar</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#75af00">f</span><span style="color:#111">.</span><span style="color:#75af00">Env</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;env&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;dev&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;runtime environment, eg: -env dev&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">flag</span><span style="color:#111">.</span><span style="color:#75af00">StringVar</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#75af00">f</span><span style="color:#111">.</span><span style="color:#75af00">Consul</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;consul&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;config server host, eg: -consul http://127.0.0.1:8500&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>接收命令行参数用到了flag包；需要注意的是在入库文件调用封装方法后需要执行 <strong>flag.Parse()</strong>
+<strong>如：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#75af00">init</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Flags</span>   <span style="color:#111">=</span> <span style="color:#75af00">bootstrap</span><span style="color:#111">.</span><span style="color:#75af00">NewCommandFlags</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Flags</span><span style="color:#111">.</span><span style="color:#75af00">Init</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">flag</span><span style="color:#111">.</span><span style="color:#75af00">Parse</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="日志处理">日志处理</h2>
+<p>Kratos提供了统一的日志处理组件和日志接入抽象；通过实现Logger 对象可以很方便的实现自定义日志处理逻辑；log.DefaultLogger 可以将日志信息打印到控制台；如果将日志输出到文件中可以考虑通过zap包做封装；代码可以参考<a href="https://github.com/go-kratos/examples/blob/main/log/zap.go">kratos-example</a>；
+<strong>代码如下：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;github.com/go-kratos/kratos/v2/log&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">rotatelogs</span> <span style="color:#d88200">&#34;github.com/lestrrat-go/file-rotatelogs&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;go.uber.org/zap&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#d88200">&#34;go.uber.org/zap/zapcore&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#75af00">_</span> <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Logger</span> <span style="color:#111">=</span> <span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#75af00">ZapLogger</span><span style="color:#111">)(</span><span style="color:#00a8c8">nil</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ZapLogger is a logger impl.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">type</span> <span style="color:#75af00">ZapLogger</span> <span style="color:#00a8c8">struct</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">log</span>  <span style="color:#f92672">*</span><span style="color:#75af00">zap</span><span style="color:#111">.</span><span style="color:#75af00">Logger</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">Sync</span> <span style="color:#00a8c8">func</span><span style="color:#111">()</span> <span style="color:#00a8c8">error</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// NewZapLogger return a zap logger.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewZapLogger</span><span style="color:#111">(</span><span style="color:#75af00">encoder</span> <span style="color:#75af00">zapcore</span><span style="color:#111">.</span><span style="color:#75af00">EncoderConfig</span><span style="color:#111">,</span> <span style="color:#75af00">prefix</span> <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">level</span> <span style="color:#75af00">zap</span><span style="color:#111">.</span><span style="color:#75af00">AtomicLevel</span><span style="color:#111">,</span> <span style="color:#75af00">opts</span> <span style="color:#f92672">...</span><span style="color:#75af00">zap</span><span style="color:#111">.</span><span style="color:#75af00">Option</span><span style="color:#111">)</span> <span style="color:#f92672">*</span><span style="color:#75af00">ZapLogger</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">rotateLogger</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">rotatelogs</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#d88200">&#34;./log/&#34;</span><span style="color:#f92672">+</span><span style="color:#75af00">prefix</span><span style="color:#f92672">+</span><span style="color:#d88200">&#34;_%Y%m%d.log&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">rotatelogs</span><span style="color:#111">.</span><span style="color:#75af00">WithMaxAge</span><span style="color:#111">(</span><span style="color:#75af00">time</span><span style="color:#111">.</span><span style="color:#75af00">Hour</span><span style="color:#f92672">*</span><span style="color:#ae81ff">24</span><span style="color:#f92672">*</span><span style="color:#ae81ff">30</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Fatalf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;logger.Setup err: %v&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">core</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">zapcore</span><span style="color:#111">.</span><span style="color:#75af00">NewCore</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">zapcore</span><span style="color:#111">.</span><span style="color:#75af00">NewConsoleEncoder</span><span style="color:#111">(</span><span style="color:#75af00">encoder</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">zapcore</span><span style="color:#111">.</span><span style="color:#75af00">NewMultiWriteSyncer</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75af00">zapcore</span><span style="color:#111">.</span><span style="color:#75af00">AddSync</span><span style="color:#111">(</span><span style="color:#75af00">os</span><span style="color:#111">.</span><span style="color:#75af00">Stdout</span><span style="color:#111">),</span>    <span style="color:#75715e">//输出到控制台上
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#75af00">zapcore</span><span style="color:#111">.</span><span style="color:#75af00">AddSync</span><span style="color:#111">(</span><span style="color:#75af00">rotateLogger</span><span style="color:#111">),</span> <span style="color:#75715e">//输出到文本中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#111">),</span> <span style="color:#75af00">level</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">zapLogger</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">zap</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#75af00">core</span><span style="color:#111">,</span> <span style="color:#75af00">opts</span><span style="color:#f92672">...</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#f92672">&amp;</span><span style="color:#75af00">ZapLogger</span><span style="color:#111">{</span><span style="color:#75af00">log</span><span style="color:#111">:</span> <span style="color:#75af00">zapLogger</span><span style="color:#111">,</span> <span style="color:#75af00">Sync</span><span style="color:#111">:</span> <span style="color:#75af00">zapLogger</span><span style="color:#111">.</span><span style="color:#75af00">Sync</span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">func</span> <span style="color:#111">(</span><span style="color:#75af00">l</span> <span style="color:#f92672">*</span><span style="color:#75af00">ZapLogger</span><span style="color:#111">)</span> <span style="color:#75af00">Log</span><span style="color:#111">(</span><span style="color:#75af00">level</span> <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Level</span><span style="color:#111">,</span> <span style="color:#75af00">keyvals</span> <span style="color:#f92672">...</span><span style="color:#00a8c8">interface</span><span style="color:#111">{})</span> <span style="color:#00a8c8">error</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">keyvals</span><span style="color:#111">)</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">keyvals</span><span style="color:#111">)</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Warn</span><span style="color:#111">(</span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprint</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Keyvalues must appear in pairs: &#34;</span><span style="color:#111">,</span> <span style="color:#75af00">keyvals</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">var</span> <span style="color:#75af00">data</span> <span style="color:#111">[]</span><span style="color:#75af00">zap</span><span style="color:#111">.</span><span style="color:#75af00">Field</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">for</span> <span style="color:#75af00">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#75af00">i</span> <span style="color:#111">&lt;</span> <span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#75af00">keyvals</span><span style="color:#111">);</span> <span style="color:#75af00">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">data</span> <span style="color:#111">=</span> <span style="color:#111">append</span><span style="color:#111">(</span><span style="color:#75af00">data</span><span style="color:#111">,</span> <span style="color:#75af00">zap</span><span style="color:#111">.</span><span style="color:#75af00">Any</span><span style="color:#111">(</span><span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprint</span><span style="color:#111">(</span><span style="color:#75af00">keyvals</span><span style="color:#111">[</span><span style="color:#75af00">i</span><span style="color:#111">]),</span> <span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Sprint</span><span style="color:#111">(</span><span style="color:#75af00">keyvals</span><span style="color:#111">[</span><span style="color:#75af00">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#111">])))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">switch</span> <span style="color:#75af00">level</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">LevelDebug</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Debug</span><span style="color:#111">(</span><span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">data</span><span style="color:#f92672">...</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">LevelInfo</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Info</span><span style="color:#111">(</span><span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">data</span><span style="color:#f92672">...</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">LevelWarn</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Warn</span><span style="color:#111">(</span><span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">data</span><span style="color:#f92672">...</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">case</span> <span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">LevelError</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">l</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">.</span><span style="color:#75af00">Error</span><span style="color:#111">(</span><span style="color:#d88200">&#34;&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">data</span><span style="color:#f92672">...</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#00a8c8">nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><blockquote>
+<p>其中通过 rotatelogs 进行日志文件的滚动</p>
+</blockquote>
+<h2 id="读取配置文件">读取配置文件</h2>
+<p>Kratos的config组件可以很方便的从各种配置源加载配置；比如从文件中读取：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75af00">path</span> <span style="color:#f92672">:=</span> <span style="color:#d88200">&#34;configs/config.yaml&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">c</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">WithSource</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">file</span><span style="color:#111">.</span><span style="color:#75af00">NewSource</span><span style="color:#111">(</span><span style="color:#75af00">path</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">）</span>
+</span></span></code></pre></div><p>因为之前接收参数是分别接收了本地配置文件和consul远程配置参数；对应的将这两种读取配置的方式做一下封装。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// getConfigKey 获取合法的配置名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">getConfigKey</span><span style="color:#111">(</span><span style="color:#75af00">configKey</span> <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">useBackslash</span> <span style="color:#00a8c8">bool</span><span style="color:#111">)</span> <span style="color:#00a8c8">string</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">useBackslash</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#75af00">strings</span><span style="color:#111">.</span><span style="color:#75af00">Replace</span><span style="color:#111">(</span><span style="color:#75af00">configKey</span><span style="color:#111">,</span> <span style="color:#d88200">`.`</span><span style="color:#111">,</span> <span style="color:#d88200">`/`</span><span style="color:#111">,</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a8c8">return</span> <span style="color:#75af00">configKey</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// NewConsulConfigSource 创建一个远程配置源 - Consul
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewConsulConfigSource</span><span style="color:#111">(</span><span style="color:#75af00">configHost</span><span style="color:#111">,</span> <span style="color:#75af00">configKey</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">Source</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">consulClient</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">api</span><span style="color:#111">.</span><span style="color:#75af00">NewClient</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#75af00">api</span><span style="color:#111">.</span><span style="color:#75af00">Config</span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">Address</span><span style="color:#111">:</span> <span style="color:#75af00">configHost</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">})</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">panic</span><span style="color:#111">(</span><span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">consulSource</span><span style="color:#111">,</span> <span style="color:#75af00">err</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">consulKratos</span><span style="color:#111">.</span><span style="color:#75af00">New</span><span style="color:#111">(</span><span style="color:#75af00">consulClient</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75af00">consulKratos</span><span style="color:#111">.</span><span style="color:#75af00">WithPath</span><span style="color:#111">(</span><span style="color:#75af00">getConfigKey</span><span style="color:#111">(</span><span style="color:#75af00">configKey</span><span style="color:#111">,</span> <span style="color:#00a8c8">true</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">if</span> <span style="color:#75af00">err</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nil</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">panic</span><span style="color:#111">(</span><span style="color:#75af00">err</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">consulSource</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// NewFileConfigSource 创建一个本地文件配置源
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">func</span> <span style="color:#75af00">NewFileConfigSource</span><span style="color:#111">(</span><span style="color:#75af00">filePath</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span> <span style="color:#75af00">config</span><span style="color:#111">.</span><span style="color:#75af00">Source</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">return</span> <span style="color:#75af00">file</span><span style="color:#111">.</span><span style="color:#75af00">NewSource</span><span style="color:#111">(</span><span style="color:#75af00">filePath</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div>
 
     
 
@@ -696,7 +637,7 @@ buf是一个用于管理和构建Protocol Buffers（protobuf）定义文件的�
 
     <h6 class="text-white text-center">如有疑问关注公众号给我留言</h6>
 
-    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/kratos/" title="Kratos 实践"><i class="fas fa-chevron-left p-1"></i>Kratos 实践</a>
+    <div class="d-flex justify-content-center"><a class="p-1 mr-3 d-inline-block text-white" href="/kratos/01.html" title="01：初始化项目"><i class="fas fa-chevron-left p-1"></i>01：初始化项目</a>
         <a class="p-1 ml-3 d-inline-block text-white text-right" href="/go-zero/" title="go-zero应用实践">go-zero应用实践<i class="fas fa-chevron-right p-1"></i></a>
     </div>
 </div>
@@ -709,25 +650,25 @@ buf是一个用于管理和构建Protocol Buffers（protobuf）定义文件的�
             <div class="d-lg-none "><div class="row py-3 mb-5">
 			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
 				<a href="/contact.html" target="_blank">
-				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				<img src="/img/qrcode_for_gh_3982836909ff_258.jpg" class="card-img-top" alt="wx">
 				</a>
-				<div class="card-body">
+				<div class="card-body" style="padding: 0.5rem">
 					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>关注公众号领取Go学习资料</p>
 				</div>
 			</div>
 			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
 				<a href="https://m.msyc.cc/wx/index.html?tmn=58654" target="_blank">
-				<img src="/img/jd.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				<img src="/img/jd.jpg" class="card-img-top" alt="wx">
 				</a>
-				<div class="card-body">
+				<div class="card-body" style="padding: 0.5rem">
 					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>洋葱小店<i class='far fa-hand-point-left'></i></p>
 				</div>
 			</div>
 			<div class="card shadow mt-1 ml-3 mx-auto " style="width: 10rem; ">
 				<a href="https://m.msyc.cc/wx/lucaBrand.html?tmn=58654&amp;shared_id=906513" target="_blank">
-				<img src="/img/tb.jpg" style="height: 10rem" class="card-img-top" alt="wx">
+				<img src="/img/tb.jpg" class="card-img-top" alt="wx">
 				</a>
-				<div class="card-body">
+				<div class="card-body" style="padding: 0.5rem">
 					<p class="card-text text-md-center" style="font-size: 14px"> <i class='far fa-hand-point-right'></i>LUCA<i class='far fa-hand-point-left'></i></p>
 				</div>
 			</div>
